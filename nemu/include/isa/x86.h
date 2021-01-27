@@ -33,7 +33,8 @@ typedef struct {
    * in PA2 able to directly access these registers.
    */
   rtlreg_t eax;
-  rtlreg_t ecx, edx, ebx, esp, ebp, esi, edi;
+  rtlreg_t ecx;
+  rtlreg_t edx, ebx, esp, ebp, esi, edi;
   };
 
   vaddr_t pc;
