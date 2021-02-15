@@ -171,6 +171,7 @@ int eval(int l, int r, bool *success) {
     case TK_INT:
       return atoi(tokens[l].str);
     case TK_HEX:
+      Log("%s %d", tokens[l].str, (int)strtol(tokens[l].str, NULL, 16));
       return strtol(tokens[l].str, NULL, 16);
     case TK_REG:
       return isa_reg_str2val(tokens[l].str, success);
