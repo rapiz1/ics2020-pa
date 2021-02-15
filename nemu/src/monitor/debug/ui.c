@@ -88,7 +88,7 @@ static int cmd_x(char *args) {
   }
   int n = atoi(arg);
 
-  arg = strtok(args, " ");
+  arg = strtok(NULL, " ");
   bool success = false;
   vaddr_t addr = expr(arg, &success);
   if (success == false) {
