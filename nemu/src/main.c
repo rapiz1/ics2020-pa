@@ -10,6 +10,7 @@ void test_expr() {
     puts("open failed");
     return;
   }
+  puts("open succeed");
   int r;
   char s[1<<16];
   while (fscanf(f, "%d %s", &r, s) != EOF) {
