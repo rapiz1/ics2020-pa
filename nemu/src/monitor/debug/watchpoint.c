@@ -70,7 +70,7 @@ int add_watchpoint(char *exp) {
   bool success = false;
   int old_val = expr(exp, &success);
   if (!success) {
-    printf("failed to calculate the expression");
+    puts("failed to calculate the expression");
     return -1;
   }
 
