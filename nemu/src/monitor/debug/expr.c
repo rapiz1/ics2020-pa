@@ -183,7 +183,7 @@ int eval(int l, int r, bool *success) {
       default:
         now_type = tokens[i].type;
         if (pcount == 0 && level[now_type] != 0) {
-          if (level[now_type] <= level[main_op]) {
+          if (main_op == 0 || (level[now_type] <= level[main_op])) {
             main_op = now_type;
             main_op_pos = i;
           }
