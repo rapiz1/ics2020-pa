@@ -6,6 +6,10 @@ int is_exit_status_bad();
 
 void test_expr() {
   FILE* f = fopen("../tools/gen-expr/input", "r");
+  if (f == NULL) {
+    puts("open failed");
+    return;
+  }
   int r;
   char s[1<<16];
   while (fscanf(f, "%d %s", &r, s) != EOF) {
