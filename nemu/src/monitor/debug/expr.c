@@ -165,7 +165,7 @@ int eval(int l, int r, bool *success) {
         break;
       case '*':
       case '/':
-        if (pcount == 0 && (main_op == '*' || main_op == '/')) {
+        if (pcount == 0 && (main_op == '*' || main_op == '/' || main_op == 0)) {
           main_op = tokens[i].type;
           main_op_pos = i;
         }
