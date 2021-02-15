@@ -167,13 +167,11 @@ int eval(int l, int r, bool *success) {
   }
   else if (l == r) {
     *success = true;
-    int tmp;
     switch (tokens[l].type) {
     case TK_INT:
       return atoi(tokens[l].str);
     case TK_HEX:
-      sscanf(tokens[l].str, "%x", &tmp);
-      return tmp;
+      return strtol(tokens[l].str, NULL, 16);
     case TK_REG:
       return isa_reg_str2val(tokens[l].str, success);
     }
