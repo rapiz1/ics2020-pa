@@ -69,8 +69,8 @@ void show_watchpoints() {
 int add_watchpoint(char *exp) {
   WP* wp = new_wp();
   strcpy(wp->exp, exp);
-  bool success;
-  wp->old_val = expr(wp->exp, &success);
+  //bool success;
+  //wp->old_val = expr(wp->exp, &success);
   return 0;
 }
 
