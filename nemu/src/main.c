@@ -21,6 +21,7 @@ void test_expr() {
     printf("PASS %d\n", i++);
   }
   fclose(f);
+  puts("PASS all expr tests");
 }
 
 int main(int argc, char *argv[]) {
