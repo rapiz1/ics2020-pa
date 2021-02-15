@@ -1,5 +1,4 @@
 #include <isa.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <memory/vaddr.h>
 
@@ -10,7 +9,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_AND, TK_OR, TK_DEREF,
-  TK_INT,
+  TK_INT, TK_HEX, TK_REG
 
   /* TODO: Add more token types */
 
@@ -35,6 +34,8 @@ static struct rule {
   {"\\*", '*'},
   {"/", '/'},
   {"[0-9]+", TK_INT},
+  {"0x[0-9,a-f]", TK_HEX},
+  {"\\$[a-z]{,3}", TK_REG},
   {"\\(", '('},
   {"\\)", ')'},
 };
@@ -166,7 +167,16 @@ int eval(int l, int r, bool *success) {
   }
   else if (l == r) {
     *success = true;
-    return atoi(tokens[l].str);
+    int tmp;
+    switch (tokens[l].type) {
+    case TK_INT:
+      return atoi(tokens[l].str);
+    case TK_HEX:
+      sscanf(tokens[l].str, "%x", &tmp);
+      return tmp;
+    case TK_REG:
+      return isa_reg_str2val(tokens[l].str, success);
+    }
   } else if (check_surrounding(l, r)) {
     return eval(l+1, r-1, success);
   } else {
@@ -223,6 +233,8 @@ int eval(int l, int r, bool *success) {
       }
     }
   }
+  panic("fall through");
+  return 0;
 }
 
 word_t expr(char *e, bool *success) {
