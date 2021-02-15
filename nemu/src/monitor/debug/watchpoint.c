@@ -26,10 +26,42 @@ WP* new_wp() {
     panic("can't alloc new wp");
   }
   free_ = free_->next;
+
+  cur->next = head;
+  head = cur;
   return cur;
 }
 
 void free_wp(WP *wp) {
+  for (WP *cur = head, *prev = NULL; cur != NULL; prev = cur, cur = cur->next) {
+    if (cur == wp && prev != NULL) {
+      prev->next = cur->next;
+      cur->next = NULL;
+      break;
+    }
+  }
+
   wp->next = free_;
   free_ = wp;
+}
+
+// Returns if should stop
+bool check_watchpoint() {
+  bool stop = false;
+  for (WP *cur = head; cur; cur = cur->next) {
+    bool success = false;
+    int new_val = expr(cur->exp, &success);
+    if (success && new_val != cur->old_val) {
+      Log("Watchpoint#%d: %s %d->%d", cur->NO, cur->exp, cur->old_val, new_val);
+      cur->old_val = new_val;
+      stop = true;
+    }
+  }
+  return stop;
+}
+
+void show_watchpoints() {
+  for (WP* cur = head; cur; cur = cur->next) {
+    printf("Watchpoint#%d: %s %d\n", cur->NO, cur->exp, cur->old_val);
+  }
 }

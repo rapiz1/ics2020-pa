@@ -39,6 +39,30 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_w(char *args) {
+  char *arg = strtok(args, " ");
+  if (arg == NULL) {
+    cmd_help(NULL);
+    return -1;
+  }
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  char *arg = strtok(args, " ");
+  if (arg == NULL) {
+    cmd_help(NULL);
+    return -1;
+  }
+  return 0;
+}
+
+static int cmd_info_w(char *args) {
+  show_watchpoints();
+  return 0;
+}
+
+
 static struct {
   char *name;
   char *description;
@@ -46,6 +70,9 @@ static struct {
 } cmd_table [] = {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
+  { "w EXPR", "Set a watchpoint", cmd_w},
+  { "d N", "Remove a watchpoint", cmd_d},
+  { "info w", "Show watchpoints", cmd_info_w},
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */

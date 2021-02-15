@@ -13,5 +13,7 @@ typedef struct watchpoint {
   int old_val;
 } WP;
 
+bool check_watchpoint();
+void show_watchpoints();
 
 #endif
