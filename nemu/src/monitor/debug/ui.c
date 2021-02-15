@@ -96,9 +96,9 @@ static int cmd_x(char *args) {
     return -1;
   }
 
-  for (int i = 0; i < n; i += sizeof(word_t), addr += sizeof(word_t)) {
-    word_t val = vaddr_read(addr, sizeof(word_t));
-    printf("0x%08x ", val);
+  for (int i = 0; i < n; i++) {
+    char val = vaddr_read(addr+i, 1);
+    printf("%02x ", val);
   }
   putchar('\n');
   return 0;
