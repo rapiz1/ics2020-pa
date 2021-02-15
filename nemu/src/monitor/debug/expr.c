@@ -193,6 +193,7 @@ int eval(int l, int r, bool *success) {
       }
     }
     Assert(main_op_pos != -1, "can't find the main operator in %d, %d", l, r);
+    Log("main op %d", main_op);
     int ret = 0;
     bool ls, rs;
     int lv = eval(l, main_op_pos - 1, &ls), rv = eval(main_op_pos + 1, r, &rs);
