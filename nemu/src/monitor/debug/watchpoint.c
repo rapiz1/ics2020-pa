@@ -66,6 +66,7 @@ void show_watchpoints() {
     printf("Watchpoint#%d: %s %d\n", cur->NO, cur->exp, cur->old_val);
   }
 }
+
 int add_watchpoint(char *exp) {
   bool success = false;
   int old_val = expr(exp, &success);
