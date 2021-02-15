@@ -36,7 +36,6 @@ static struct rule {
 };
 
 static int level[512] = {
-  [0] = 256,
   [TK_OR] = 12,
   [TK_AND] = 11,
   [TK_EQ] = 7, 
@@ -184,7 +183,7 @@ int eval(int l, int r, bool *success) {
       default:
         now_type = tokens[i].type;
         if (pcount == 0 && level[now_type] != 0) {
-          if (level[now_type] <= level[main_op]) {
+          if (level[now_type] >= level[main_op]) {
             main_op = now_type;
             main_op_pos = i;
           }
