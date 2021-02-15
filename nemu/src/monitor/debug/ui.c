@@ -39,6 +39,49 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args) {
+  char *arg = strtok(args, " ");
+  if (arg == NULL) {
+    cpu_exec(1);
+    return 0;
+  }
+  cpu_exec(atoi(args));
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  char *arg = strtok(args, " ");
+  if (arg == NULL) {
+    cmd_help(NULL);
+    return -1;
+  }
+  if (!strcmp(arg, "w")) {
+    show_watchpoints();
+  } else if (!strcmp(arg, "r")) {
+    isa_reg_display();
+  } else {
+    cmd_help(NULL);
+    return -1;
+  }
+  return 0;
+}
+
+static int cmd_p(char *args) {
+  char *arg = strtok(args, " ");
+  if (arg == NULL) {
+    cmd_help(NULL);
+    return -1;
+  }
+  bool success = false;
+  int tmp = expr(arg, &success);
+  printf("%d", tmp);
+  return success;
+}
+
+static int cmd_x(char *args) {
+  TODO();
+}
+
 static int cmd_w(char *args) {
   char *arg = strtok(args, " ");
   if (arg == NULL) {
@@ -59,21 +102,6 @@ static int cmd_d(char *args) {
   return delete_watchpoints_byNo(atoi(arg));
 }
 
-static int cmd_info(char *args) {
-  char *arg = strtok(args, " ");
-  if (arg == NULL) {
-    cmd_help(NULL);
-    return -1;
-  }
-  if (!strcmp(arg, "w")) {
-    show_watchpoints();
-  } else {
-    cmd_help(NULL);
-    return -1;
-  }
-  return 0;
-}
-
 
 static struct {
   char *name;
@@ -82,10 +110,13 @@ static struct {
 } cmd_table [] = {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
+  { "q", "Exit NEMU", cmd_q },
+  { "si", "si [N] Step", cmd_si},
+  { "info", "\tinfo w Show watchpoints\n\tinfo r Show registers", cmd_info},
+  { "p", "p EXPR Calc a expression", cmd_p},
+  { "x", "x N EXPR Examine the memory", cmd_x},
   { "w", "w EXPR Set a watchpoint", cmd_w},
   { "d", "d N Remove a watchpoint", cmd_d},
-  { "info", "info w Show watchpoints", cmd_info},
-  { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
 
