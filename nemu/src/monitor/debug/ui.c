@@ -80,9 +80,9 @@ static struct {
 } cmd_table [] = {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
-  { "w", "EXPR Set a watchpoint", cmd_w},
-  { "d", "N Remove a watchpoint", cmd_d},
-  { "info", "w Show watchpoints", cmd_info},
+  { "w", "w EXPR Set a watchpoint", cmd_w},
+  { "d", "d N Remove a watchpoint", cmd_d},
+  { "info", "info w Show watchpoints", cmd_info},
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
