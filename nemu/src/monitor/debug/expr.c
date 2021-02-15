@@ -9,7 +9,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_AND, TK_OR,
+  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_AND, TK_OR, TK_DEREF,
   TK_INT,
 
   /* TODO: Add more token types */
@@ -194,25 +194,34 @@ int eval(int l, int r, bool *success) {
         break;
       }
     }
-    Assert(main_op_pos != -1, "can't find the main operator in %d, %d", l, r);
-    int ret = 0;
-    bool ls, rs;
-    int lv = eval(l, main_op_pos - 1, &ls), rv = eval(main_op_pos + 1, r, &rs);
-    *success = ls && rs;
-    switch (main_op)
-    {
-    case '+': ret = lv + rv; break;
-    case '-': ret = lv - rv; break;
-    case '/': ret = lv / rv; break;
-    case '*': ret = lv * rv; break;
-    case TK_EQ: ret = lv == rv; break;
-    case TK_NEQ: ret = lv != rv; break;
-    case TK_AND: ret = lv && rv; break;
-    case TK_OR: ret = lv || rv; break;
-    default:
-      break;
+    if (main_op_pos != -1) {
+      // Found binary operator
+      int ret = 0;
+      bool ls, rs;
+      int lv = eval(l, main_op_pos - 1, &ls), rv = eval(main_op_pos + 1, r, &rs);
+      *success = ls && rs;
+      switch (main_op)
+      {
+      case '+': ret = lv + rv; break;
+      case '-': ret = lv - rv; break;
+      case '/': ret = lv / rv; break;
+      case '*': ret = lv * rv; break;
+      case TK_EQ: ret = lv == rv; break;
+      case TK_NEQ: ret = lv != rv; break;
+      case TK_AND: ret = lv && rv; break;
+      case TK_OR: ret = lv || rv; break;
+      default:
+        break;
+      }
+      return ret;
+    } else {
+      if (tokens[l].type == TK_DEREF) {
+        int v = eval(l+1, r, success);
+        return vaddr_read(v, sizeof(uint32_t));
+      } else {
+        panic("can't find main operator");
+      }
     }
-    return ret;
   }
 }
 
@@ -228,6 +237,11 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+  for (int i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == '*' && (i == 0 || level[tokens[i - 1].type] != 0) ) {
+      tokens[i].type = TK_DEREF;
+    }
+  }
 
   return eval(0, nr_token-1, success);
 }
