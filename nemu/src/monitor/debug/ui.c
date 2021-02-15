@@ -57,8 +57,18 @@ static int cmd_d(char *args) {
   return 0;
 }
 
-static int cmd_info_w(char *args) {
-  show_watchpoints();
+static int cmd_info(char *args) {
+  char *arg = strtok(args, " ");
+  if (arg == NULL) {
+    cmd_help(NULL);
+    return -1;
+  }
+  if (!strcmp(arg, "w")) {
+    show_watchpoints();
+  } else {
+    cmd_help(NULL);
+    return -1;
+  }
   return 0;
 }
 
@@ -72,7 +82,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "w EXPR", "Set a watchpoint", cmd_w},
   { "d N", "Remove a watchpoint", cmd_d},
-  { "info w", "Show watchpoints", cmd_info_w},
+  { "info w", "Show watchpoints", cmd_info},
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
