@@ -8,7 +8,7 @@ void test_expr() {
   FILE* f = fopen("../tools/gen-expr/input", "r");
   int r;
   char s[1<<16];
-  while (scanf("%d %s", &r, s) != EOF) {
+  while (fscanf(f, "%d %s", &r, s) != EOF) {
     bool success = false;
     int mr = expr(s, &success);
     assert(mr == r);
