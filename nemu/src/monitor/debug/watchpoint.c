@@ -45,7 +45,7 @@ void free_wp(WP *wp) {
   free_ = wp;
 }
 
-// Returns if should stop
+// Return if should stop
 bool check_watchpoint() {
   bool stop = false;
   for (WP *cur = head; cur; cur = cur->next) {
@@ -60,8 +60,26 @@ bool check_watchpoint() {
   return stop;
 }
 
+// Show all watchpoints
 void show_watchpoints() {
   for (WP* cur = head; cur; cur = cur->next) {
     printf("Watchpoint#%d: %s %d\n", cur->NO, cur->exp, cur->old_val);
   }
+}
+int add_watchpoint(char *exp) {
+  WP* wp = new_wp();
+  strcpy(wp->exp, exp);
+  return 0;
+}
+
+int delete_wathcpoints_byNo(int no) {
+  for (WP* cur = head; cur; cur = cur->next) {
+    if (cur->NO == no) {
+      free_wp(cur);
+      Log("deleted Watchpoint#%d", no);
+      return 0;
+    }
+  }
+  Log("Not found Watchpoint#%d", no);
+  return -1;
 }

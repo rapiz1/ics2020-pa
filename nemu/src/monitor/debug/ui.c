@@ -45,7 +45,8 @@ static int cmd_w(char *args) {
     cmd_help(NULL);
     return -1;
   }
-  return 0;
+
+  return add_watchpoint(arg);
 }
 
 static int cmd_d(char *args) {
@@ -54,7 +55,8 @@ static int cmd_d(char *args) {
     cmd_help(NULL);
     return -1;
   }
-  return 0;
+
+  return delete_watchpoints_byNo(atoi(arg));
 }
 
 static int cmd_info(char *args) {
