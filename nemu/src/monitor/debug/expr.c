@@ -1,5 +1,4 @@
 #include <isa.h>
-#include <stdbool.h>
 #include <stdlib.h>
 
 /* We use the POSIX regex functions to process regular expressions.
