@@ -36,6 +36,7 @@ static struct rule {
 };
 
 static int level[512] = {
+  [0] = 256,
   [TK_OR] = 12,
   [TK_AND] = 11,
   [TK_EQ] = 7, 
