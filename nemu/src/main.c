@@ -12,7 +12,7 @@ void test_expr() {
     bool success = false;
     int mr = expr(s, &success);
     assert(mr == r);
-    printf("PASS");
+    puts("PASS");
   }
   fclose(f);
 }
