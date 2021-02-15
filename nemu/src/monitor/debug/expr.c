@@ -198,7 +198,7 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 
-  if (check_brace_balance()) {
+  if (!check_brace_balance()) {
     *success = false;
     return 0;
   }
