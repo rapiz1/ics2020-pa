@@ -1,6 +1,7 @@
 #include <isa.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <memory/vaddr.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -201,6 +202,10 @@ int eval(int l, int r, bool *success) {
     case '-': ret = lv - rv; break;
     case '/': ret = lv / rv; break;
     case '*': ret = lv * rv; break;
+    case TK_EQ: ret = lv == rv; break;
+    case TK_NEQ: ret = lv != rv; break;
+    case TK_AND: ret = lv && rv; break;
+    case TK_OR: ret = lv || rv; break;
     default:
       break;
     }
