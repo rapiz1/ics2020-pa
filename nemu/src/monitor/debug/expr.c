@@ -123,6 +123,7 @@ static bool make_token(char *e) {
 }
 
 bool check_surrounding(int l, int r) {
+  if (tokens[l].type != '(') return false;
   int c = 0;
   for (int i = l; i < r; i++) {
     if (tokens[i].type == '(') c++;
