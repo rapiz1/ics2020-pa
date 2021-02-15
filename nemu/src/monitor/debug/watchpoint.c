@@ -43,6 +43,9 @@ void free_wp(WP *wp) {
 
   wp->next = free_;
   free_ = wp;
+  if (head == wp) {
+    head = NULL;
+  }
 }
 
 // Return if should stop
