@@ -23,9 +23,10 @@ void test_expr() {
 }
 
 int main(int argc, char *argv[]) {
-  test_expr();
   /* Initialize the monitor. */
   init_monitor(argc, argv);
+  
+  test_expr();
 
   /* Start engine. */
   engine_start();
