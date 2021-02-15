@@ -1,6 +1,7 @@
 #include <isa.h>
 #include "expr.h"
 #include "watchpoint.h"
+#include <memory/vaddr.h>
 
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -80,7 +81,27 @@ static int cmd_p(char *args) {
 }
 
 static int cmd_x(char *args) {
-  TODO();
+  char *arg = strtok(args, " ");
+  if (arg == NULL) {
+    cmd_help(NULL);
+    return -1;
+  }
+  int n = atoi(arg);
+
+  arg = strtok(args, " ");
+  bool success = false;
+  vaddr_t addr = expr(arg, &success);
+  if (success == false) {
+    Log("failed to calculate the expression");
+    return -1;
+  }
+
+  for (int i = 0; i < n; i += sizeof(word_t), addr += sizeof(word_t)) {
+    word_t val = vaddr_read(addr, sizeof(word_t));
+    printf("0x%08x ", val);
+  }
+  putchar('\n');
+  return 0;
 }
 
 static int cmd_w(char *args) {
