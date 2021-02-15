@@ -72,7 +72,7 @@ int add_watchpoint(char *exp) {
   return 0;
 }
 
-int delete_wathcpoints_byNo(int no) {
+int delete_watchpoints_byNo(int no) {
   for (WP* cur = head; cur; cur = cur->next) {
     if (cur->NO == no) {
       free_wp(cur);
