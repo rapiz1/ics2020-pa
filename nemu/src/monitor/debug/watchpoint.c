@@ -46,7 +46,7 @@ void free_wp(WP *wp) {
 }
 
 // Return if should stop
-bool check_watchpoint() {
+bool check_watchpoints() {
   bool stop = false;
   for (WP *cur = head; cur; cur = cur->next) {
     bool success = false;

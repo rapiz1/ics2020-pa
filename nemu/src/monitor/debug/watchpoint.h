@@ -13,7 +13,7 @@ typedef struct watchpoint {
   int old_val;
 } WP;
 
-bool check_watchpoint();
+bool check_watchpoints();
 void show_watchpoints();
 int add_watchpoint(char *exp);
 int delete_watchpoints_byNo(int no);
