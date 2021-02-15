@@ -1,4 +1,6 @@
 #include <isa.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -7,6 +9,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
+  TK_INT,
 
   /* TODO: Add more token types */
 
@@ -24,6 +27,12 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
+  {"\\-", '-'},
+  {"\\*", '*'},
+  {"/", '/'},
+  {"\\d+", TK_INT},
+  {"\\(", '('},
+  {"\\)", ')'},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -79,9 +88,26 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        switch (rules[i].token_type) {
-          default: TODO();
+        if (rules[i].token_type == TK_NOTYPE) {
+          break;
         }
+
+        Token t = {
+          .type = rules[i].token_type
+        };
+        memset(t.str, 0, sizeof(t.str));
+
+        switch (rules[i].token_type) {
+          case TK_INT:
+          if (substr_len > 32) {
+            panic("substr too long");
+          }
+          for (int j = position - substr_len, k = 0; j < position; j++, k++)
+            t.str[k] = e[j];
+          break;
+          default: break;
+        }
+        tokens[nr_token++] = t;
 
         break;
       }
@@ -96,6 +122,74 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_brace_balance() {
+  int c = 0;
+  for (int i = 0; i < nr_token; i++) {
+    if (tokens[i].type == '(') c++;
+    else if (tokens[i].type == ')') c--;
+    if (c < 0) {
+      return false;
+    }
+  }
+  return c == 0;
+}
+
+int eval(int l, int r, bool *success) {
+  if (l > r) {
+    panic("eval failed");
+  }
+  else if (l == r) {
+    *success = true;
+    return atoi(tokens[l].str);
+  } else if (tokens[l].type == '(' && tokens[r].type == ')') {
+    return eval(l+1, r-1, success);
+  } else {
+    int pcount = 0;
+    char main_op = 0;
+    int main_op_pos = -1;
+    for (int i = l; i <= r; i++) {
+      switch (tokens[i].type)
+      {
+      case '(':
+        pcount++;
+        break;
+      case ')':
+        pcount--;
+        break;
+      case '+':
+      case '-':
+        if (pcount == 0) {
+          main_op = tokens[i].type;
+          main_op_pos = i;
+        }
+        break;
+      case '*':
+      case '/':
+        if (pcount == 0 && (main_op == '*' || main_op == '/')) {
+          main_op = tokens[i].type;
+          main_op_pos = i;
+        }
+        break;
+      default:
+        break;
+      }
+    }
+    int ret = 0;
+    bool ls, rs;
+    int lv = eval(l, main_op_pos - 1, &ls), rv = eval(main_op_pos + 1, r, &rs);
+    *success = ls && rs;
+    switch (main_op)
+    {
+    case '+': ret = lv + rv; break;
+    case '-': ret = lv - rv; break;
+    case '/': ret = lv / rv; break;
+    case '*': ret = lv * rv; break;
+    default:
+      break;
+    }
+    return ret;
+  }
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -103,8 +197,12 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 
-  /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  if (check_brace_balance()) {
+    *success = false;
+    return 0;
+  }
 
-  return 0;
+  /* TODO: Insert codes to evaluate the expression. */
+
+  return eval(0, nr_token, success);
 }
