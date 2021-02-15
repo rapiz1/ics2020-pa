@@ -139,6 +139,7 @@ int eval(int l, int r, bool *success) {
     panic("eval failed");
   }
   else if (l == r) {
+    printf("%s\n", tokens[l].str);
     *success = true;
     return atoi(tokens[l].str);
   } else if (tokens[l].type == '(' && tokens[r].type == ')') {
