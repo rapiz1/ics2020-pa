@@ -175,7 +175,7 @@ int eval(int l, int r, bool *success) {
     case TK_HEX:
       return strtol(tokens[l].str, NULL, 16);
     case TK_REG:
-      return isa_reg_str2val(tokens[l].str, success);
+      return isa_reg_str2val(tokens[l].str+1, success);
     }
   } else if (check_surrounding(l, r)) {
     return eval(l+1, r-1, success);

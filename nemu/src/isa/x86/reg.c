@@ -44,6 +44,21 @@ void reg_test() {
 void isa_reg_display() {
 }
 
+#define VERDICT_AND_FETCH_REG(s, name) if(!strcmp(s, #name)) {return cpu.name;}
 word_t isa_reg_str2val(const char *s, bool *success) {
+  *success = true;
+  VERDICT_AND_FETCH_REG(s, eax)
+  else VERDICT_AND_FETCH_REG(s, ebx)
+  else VERDICT_AND_FETCH_REG(s, ecx)
+  else VERDICT_AND_FETCH_REG(s, edx)
+  else VERDICT_AND_FETCH_REG(s, esp)
+  else VERDICT_AND_FETCH_REG(s, ebp)
+  else VERDICT_AND_FETCH_REG(s, esi)
+  else VERDICT_AND_FETCH_REG(s, edi)
+  else VERDICT_AND_FETCH_REG(s, pc)
+  else {
+    Log("unidentify register name %s", s);
+    *success = false;
+  }
   return 0;
 }
