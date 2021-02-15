@@ -56,6 +56,7 @@ void isa_reg_display() {
   PRINT_REG(edi);
   putchar('\n');
   PRINT_REG(pc);
+  putchar('\n');
 }
 
 #define VERDICT_AND_FETCH_REG(s, name) if(!strcmp(s, #name)) {return cpu.name;}
