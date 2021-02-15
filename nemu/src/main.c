@@ -16,7 +16,7 @@ void test_expr() {
     puts(s);
     bool success = false;
     int mr = expr(s, &success);
-    assert(mr == r);
+    Assert(mr == r, "%s, expect %d, got %d", s, r, mr);
     puts("PASS");
   }
   fclose(f);
