@@ -41,7 +41,21 @@ void reg_test() {
   assert(pc_sample == cpu.pc);
 }
 
+#define PRINT_REG(name) do {printf("%s: %x\t", #name, cpu.name);} while(0)
 void isa_reg_display() {
+  PRINT_REG(eax);
+  PRINT_REG(ebx);
+  putchar('\n');
+  PRINT_REG(ecx);
+  PRINT_REG(edx);
+  putchar('\n');
+  PRINT_REG(esp);
+  PRINT_REG(ebp);
+  putchar('\n');
+  PRINT_REG(esi);
+  PRINT_REG(edi);
+  putchar('\n');
+  PRINT_REG(pc);
 }
 
 #define VERDICT_AND_FETCH_REG(s, name) if(!strcmp(s, #name)) {return cpu.name;}
