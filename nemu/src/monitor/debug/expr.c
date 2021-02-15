@@ -158,6 +158,7 @@ bool check_brace_balance() {
 }
 
 int eval(int l, int r, bool *success) {
+  Log("process %d, %d", l, r);
   if (l > r) {
     panic("eval failed");
   }
