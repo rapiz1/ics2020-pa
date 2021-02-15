@@ -13,11 +13,11 @@ void test_expr() {
   int r;
   char s[1<<16];
   while (fscanf(f, "%d %s", &r, s) != EOF) {
-    puts(s);
+    printf(s);
     bool success = false;
     int mr = expr(s, &success);
     Assert(mr == r, "%s, expect %d, got %d", s, r, mr);
-    puts("PASS");
+    printf("PASS\n");
   }
   fclose(f);
 }
