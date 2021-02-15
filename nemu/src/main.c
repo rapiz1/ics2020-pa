@@ -5,7 +5,7 @@ void engine_start();
 int is_exit_status_bad();
 
 void test_expr() {
-  FILE* f = fopen("../tools/gen-expr/input", "r");
+  FILE* f = fopen("tools/gen-expr/input", "r");
   if (f == NULL) {
     puts("open failed");
     return;
