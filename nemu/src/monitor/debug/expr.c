@@ -122,6 +122,15 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_surrounding(int l, int r) {
+  int c = 0;
+  for (int i = l; i < r; i++) {
+    if (tokens[i].type == '(') c++;
+    else if (tokens[i].type == ')') c--;
+  }
+  return c == 1 && tokens[r].type == ')';
+}
+
 bool check_brace_balance() {
   int c = 0;
   for (int i = 0; i < nr_token; i++) {
@@ -142,7 +151,7 @@ int eval(int l, int r, bool *success) {
   else if (l == r) {
     *success = true;
     return atoi(tokens[l].str);
-  } else if (tokens[l].type == '(' && tokens[r].type == ')') {
+  } else if (check_surrounding(l, r)) {
     return eval(l+1, r-1, success);
   } else {
     int pcount = 0;
