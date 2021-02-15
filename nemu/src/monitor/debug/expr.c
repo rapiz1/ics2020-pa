@@ -128,6 +128,7 @@ bool check_surrounding(int l, int r) {
   for (int i = l; i < r; i++) {
     if (tokens[i].type == '(') c++;
     else if (tokens[i].type == ')') c--;
+    if (c == 0) return false;
   }
   return c == 1 && tokens[r].type == ')';
 }
