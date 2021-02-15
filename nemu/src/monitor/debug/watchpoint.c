@@ -34,8 +34,12 @@ WP* new_wp() {
 
 void free_wp(WP *wp) {
   for (WP *cur = head, *prev = NULL; cur != NULL; prev = cur, cur = cur->next) {
-    if (cur == wp && prev != NULL) {
-      prev->next = cur->next;
+    if (cur == wp) {
+      if (prev != NULL) {
+        prev->next = cur->next;
+      } else {
+        head = head->next;
+      }
       cur->next = NULL;
       break;
     }
@@ -43,9 +47,6 @@ void free_wp(WP *wp) {
 
   wp->next = free_;
   free_ = wp;
-  if (head == wp) {
-    head = NULL;
-  }
 }
 
 // Return if should stop
