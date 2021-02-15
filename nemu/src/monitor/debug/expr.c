@@ -8,7 +8,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_AND, TK_OR,
   TK_INT,
 
   /* TODO: Add more token types */
@@ -33,6 +33,17 @@ static struct rule {
   {"[0-9]+", TK_INT},
   {"\\(", '('},
   {"\\)", ')'},
+};
+
+static int level[512] = {
+  [TK_OR] = 12,
+  [TK_AND] = 11,
+  [TK_EQ] = 7, 
+  [TK_NEQ] = 7,
+  ['+'] = 4,
+  ['-'] = 4,
+  ['*'] = 3,
+  ['/'] = 3,
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -156,8 +167,9 @@ int eval(int l, int r, bool *success) {
     return eval(l+1, r-1, success);
   } else {
     int pcount = 0;
-    char main_op = 0;
+    int main_op = 0;
     int main_op_pos = -1;
+    int now_type;
     for (int i = l; i <= r; i++) {
       switch (tokens[i].type)
       {
@@ -167,21 +179,14 @@ int eval(int l, int r, bool *success) {
       case ')':
         pcount--;
         break;
-      case '+':
-      case '-':
-        if (pcount == 0) {
-          main_op = tokens[i].type;
-          main_op_pos = i;
-        }
-        break;
-      case '*':
-      case '/':
-        if (pcount == 0 && (main_op == '*' || main_op == '/' || main_op == 0)) {
-          main_op = tokens[i].type;
-          main_op_pos = i;
-        }
-        break;
       default:
+        now_type = tokens[i].type;
+        if (pcount == 0 && level[now_type] != 0) {
+          if (level[now_type] <= level[main_op]) {
+            main_op = now_type;
+            main_op_pos = i;
+          }
+        }
         break;
       }
     }
