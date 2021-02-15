@@ -67,10 +67,16 @@ void show_watchpoints() {
   }
 }
 int add_watchpoint(char *exp) {
+  bool success = false;
+  int old_val = expr(exp, &success);
+  if (!success) {
+    printf("failed to calculate the expression");
+    return -1;
+  }
+
   WP* wp = new_wp();
   strcpy(wp->exp, exp);
-  //bool success;
-  //wp->old_val = expr(wp->exp, &success);
+  wp->old_val = old_val;
   return 0;
 }
 
