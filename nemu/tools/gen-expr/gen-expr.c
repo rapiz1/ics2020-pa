@@ -19,7 +19,7 @@ static char *code_format =
 int expr_buf_pos;
 
 static void gen_num() {
-  expr_buf_pos += sprintf(buf[expr_buf_pos], "%d", rand()%100+1);
+  expr_buf_pos += sprintf(buf + expr_buf_pos, "%d", rand()%100+1);
 }
 
 static void gen_rand_op() {
@@ -32,6 +32,10 @@ static void gen_rand_op() {
 }
 
 static inline void gen_rand_expr() {
+  if (expr_buf_pos > 10000) {
+    gen_num();
+    return;
+  }
   switch(rand()%3) {
     case 0: gen_num(); break;
     case 1: buf[expr_buf_pos++] = '('; gen_rand_expr(); buf[expr_buf_pos++] = ')'; break;
@@ -50,6 +54,7 @@ int main(int argc, char *argv[]) {
   for (i = 0; i < loop; i ++) {
     expr_buf_pos = 0;
     gen_rand_expr();
+    buf[expr_buf_pos++] = 0;
 
     sprintf(code_buf, code_format, buf);
 
