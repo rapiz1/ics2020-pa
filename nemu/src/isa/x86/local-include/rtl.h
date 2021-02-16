@@ -66,10 +66,10 @@ static inline def_rtl(is_add_carry, rtlreg_t* dest,
 
 #define def_rtl_setget_eflags(f) \
   static inline def_rtl(concat(set_, f), const rtlreg_t* src) { \
-    TODO(); \
+    /*TODO();*/cpu.f = *src; \
   } \
   static inline def_rtl(concat(get_, f), rtlreg_t* dest) { \
-    TODO(); \
+    /*TODO();*/*dest = cpu.f; \
   }
 
 def_rtl_setget_eflags(CF)
@@ -79,7 +79,9 @@ def_rtl_setget_eflags(SF)
 
 static inline def_rtl(update_ZF, const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  TODO();
+  //TODO();
+  rtlreg_t zf = (*result&BITMASK(width*8)) == 0;
+  rtl_set_ZF(s, &zf);
 }
 
 static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
