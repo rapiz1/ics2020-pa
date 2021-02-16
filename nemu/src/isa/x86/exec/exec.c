@@ -13,9 +13,14 @@ static inline void set_width(DecodeExecState *s, int width) {
 /* 0x80, 0x81, 0x83 */
 static inline def_EHelper(gp1) {
   switch (s->isa.ext_opcode) {
-    EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(7)
-    EMPTY(4) EMPTY(5) EMPTY(6)
+    EX(0, add)
+    EX(1, or)
+    EX(2, adc)
+    EX(3, sbb)
+    EX(4, and)
+    EX(5, sub)
+    EX(6, xor)
+    EX(7, cmp)
   }
 }
 
@@ -23,33 +28,40 @@ static inline def_EHelper(gp1) {
 static inline def_EHelper(gp2) {
   switch (s->isa.ext_opcode) {
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(7)
-    EMPTY(4) EMPTY(5) EMPTY(6)
+    EX(4, shl)
+    EX(5, shr)
+    EMPTY(6)
+    EX(7, sar)
   }
 }
 
 /* 0xf6, 0xf7 */
 static inline def_EHelper(gp3) {
   switch (s->isa.ext_opcode) {
-    EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(7)
-    EMPTY(4) EMPTY(5) EMPTY(6)
+    EMPTY(0)
+    EMPTY(1)
+    EMPTY(2)
+    EMPTY(3)
+    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
   }
 }
 
 /* 0xfe */
 static inline def_EHelper(gp4) {
   switch (s->isa.ext_opcode) {
-    EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(7)
-    EMPTY(4) EMPTY(5) EMPTY(6)
+    EMPTY(0)
+    EX(1, inc)
+    EX(2, dec)
+    EMPTY(3) EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
   }
 }
 
 /* 0xff */
 static inline def_EHelper(gp5) {
   switch (s->isa.ext_opcode) {
-    EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
+    EX(0, inc)
+    EX(1, dec)
+    EMPTY(2) EMPTY(3)
     EMPTY(7)
     EMPTY(4) EMPTY(5)
     EX(6, push)
