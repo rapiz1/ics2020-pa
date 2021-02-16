@@ -16,6 +16,7 @@ static inline word_t vaddr_read(vaddr_t addr, int len) {
 }
 
 static inline void vaddr_write(vaddr_t addr, word_t data, int len) {
+  Log("write %x to 0x08%x", data, addr);
   void vaddr_write1(vaddr_t addr, word_t data);
   void vaddr_write2(vaddr_t addr, word_t data);
   void vaddr_write4(vaddr_t addr, word_t data);
