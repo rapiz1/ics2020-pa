@@ -194,6 +194,7 @@ again:
     IDEXW(0x74, J, jcc, 1)
     IDEXW(0x75, J, jcc, 1)
 
+    IDEXW(0xeb, J, jmp, 1)
     IDEXW(0xe9, J, jmp, 2)
 
     EX(0xc3, ret)
