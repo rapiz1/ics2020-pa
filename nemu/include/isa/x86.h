@@ -40,24 +40,24 @@ typedef struct {
   union {
     rtlreg_t eflags;
     struct {
-      unsigned CF:1;
-      unsigned _reserved1:1; 
-      unsigned PF:1;
-      unsigned _reserved2:1;
-      unsigned AF:1;
-      unsigned _reserved3:1;
-      unsigned ZF:1;
-      unsigned SF:1;
-      unsigned TF:1;
-      unsigned IF:1;
-      unsigned DF:1;
-      unsigned OF:1;
-      unsigned IOPL:1;
-      unsigned NT:1;
-      unsigned _reserved4:1;
-      unsigned RF:1;
-      unsigned VM:1;
-      unsigned padding:15;
+      uint32_t CF:1;
+      uint32_t _reserved1:1; 
+      uint32_t PF:1;
+      uint32_t _reserved2:1;
+      uint32_t AF:1;
+      uint32_t _reserved3:1;
+      uint32_t ZF:1;
+      uint32_t SF:1;
+      uint32_t TF:1;
+      uint32_t IF:1;
+      uint32_t DF:1;
+      uint32_t OF:1;
+      uint32_t IOPL:1;
+      uint32_t NT:1;
+      uint32_t _reserved4:1;
+      uint32_t RF:1;
+      uint32_t VM:1;
+      uint32_t padding:15;
     };
   };
 
