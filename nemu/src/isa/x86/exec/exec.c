@@ -223,6 +223,15 @@ again:
     IDEX(0x46, r, inc)
     IDEX(0x47, r, inc)
 
+    IDEX(0x48, r, dec)
+    IDEX(0x49, r, dec)
+    IDEX(0x4a, r, dec)
+    IDEX(0x4b, r, dec)
+    IDEX(0x4c, r, dec)
+    IDEX(0x4d, r, dec)
+    IDEX(0x4e, r, dec)
+    IDEX(0x4f, r, dec)
+
     IDEXW(0x84, G2E, test, 1)
     IDEX(0x85, G2E, test)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
