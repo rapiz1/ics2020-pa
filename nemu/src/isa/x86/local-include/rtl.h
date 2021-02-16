@@ -38,6 +38,7 @@ static inline def_rtl(pop, rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
   //TODO();
+  Log("before stack pop, esp is %x", reg_l(R_ESP));
   rtl_lm(s, dest, &reg_l(R_ESP), 0, 4);
   rtl_addi(s, &reg_l(R_ESP), &reg_l(R_ESP), 4);
   Log("stack pop %x", *dest);
