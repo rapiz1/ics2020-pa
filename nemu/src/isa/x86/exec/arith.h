@@ -2,13 +2,13 @@
 
 static inline def_EHelper(add) {
   //TODO();
-  rtl_add(s, s->dest.preg, s->dest.preg, &s->src1.reg);
+  rtl_add(s, s->dest.preg, s->dest.preg, s->src1.preg);
   print_asm_template2(add);
 }
 
 static inline def_EHelper(sub) {
   //TODO();
-  rtl_sub(s, s->dest.preg, s->dest.preg, &s->src1.reg);
+  rtl_sub(s, s->dest.preg, s->dest.preg, s->src1.preg);
   print_asm_template2(sub);
 }
 
