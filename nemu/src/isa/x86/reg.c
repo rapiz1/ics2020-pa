@@ -41,7 +41,7 @@ void reg_test() {
   assert(pc_sample == cpu.pc);
 }
 
-#define PRINT_REG(name) do {Log("%s: 0x%08x\t", #name, cpu.name);} while(0)
+#define PRINT_REG(name) do {printf("%s: 0x%08x\t", #name, cpu.name);} while(0)
 void isa_reg_display() {
   PRINT_REG(eax); PRINT_REG(ebx); putchar('\n');
   PRINT_REG(ecx); PRINT_REG(edx); putchar('\n');
