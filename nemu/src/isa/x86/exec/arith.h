@@ -1,12 +1,14 @@
 #include "cc.h"
 
 static inline def_EHelper(add) {
-  TODO();
+  //TODO();
+  rtl_add(s, s->src1.preg, s->src1.preg, s->src2.preg);
   print_asm_template2(add);
 }
 
 static inline def_EHelper(sub) {
-  TODO();
+  //TODO();
+  rtl_sub(s, s->src1.preg, s->src1.preg, s->src2.preg);
   print_asm_template2(sub);
 }
 
