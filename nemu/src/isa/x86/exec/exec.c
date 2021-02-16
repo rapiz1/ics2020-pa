@@ -188,6 +188,7 @@ again:
     IDEX(0x39, G2E, cmp)
     IDEXW(0x3a, E2G, cmp, 1)
     IDEX(0x3b, E2G, cmp)
+    IDEX(0x3d, I2a, cmp)
 
     IDEXW(0x72, J, jcc, 1)
     IDEXW(0x73, J, jcc, 1)
