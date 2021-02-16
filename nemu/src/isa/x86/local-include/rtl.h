@@ -28,20 +28,20 @@ static inline def_rtl(push, const rtlreg_t* src1) {
   // esp <- esp - 4
   // M[esp] <- src1
   //TODO();
-  Log("before stack push, esp is %x", reg_l(R_ESP));
+  //Log("before stack push, esp is %x", reg_l(R_ESP));
   rtl_subi(s, &reg_l(R_ESP), &reg_l(R_ESP), 4);
   rtl_sm(s, &reg_l(R_ESP), 0, src1, 4); 
-  Log("stack push %x", *src1);
+  //Log("stack push %x", *src1);
 }
 
 static inline def_rtl(pop, rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
   //TODO();
-  Log("before stack pop, esp is %x", reg_l(R_ESP));
+  //Log("before stack pop, esp is %x", reg_l(R_ESP));
   rtl_lm(s, dest, &reg_l(R_ESP), 0, 4);
   rtl_addi(s, &reg_l(R_ESP), &reg_l(R_ESP), 4);
-  Log("stack pop %x", *dest);
+  //Log("stack pop %x", *dest);
 }
 
 static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
