@@ -31,9 +31,7 @@ static inline def_rtl(push, const rtlreg_t* src1) {
   Log("before stack push, esp is %x", reg_l(R_ESP));
   rtl_subi(s, &reg_l(R_ESP), &reg_l(R_ESP), 4);
   rtl_sm(s, &reg_l(R_ESP), 0, src1, 4); 
-  rtlreg_t tmp;
-  rtl_lm(s, &tmp, &reg_l(R_ESP), 0, 4); 
-  Log("stack push %x, read %x", *src1, tmp);
+  Log("stack push %x", *src1);
 }
 
 static inline def_rtl(pop, rtlreg_t* dest) {
