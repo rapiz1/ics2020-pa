@@ -37,7 +37,7 @@ static inline def_rtl(pop, rtlreg_t* dest) {
   // esp <- esp + 4
   //TODO();
   rtl_lm(s, dest, &reg_l(R_ESP), 0, 4);
-  rtl_addi(s, dest, &reg_l(R_ESP), 4);
+  rtl_addi(s, &reg_l(R_ESP), &reg_l(R_ESP), 4);
 }
 
 static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
