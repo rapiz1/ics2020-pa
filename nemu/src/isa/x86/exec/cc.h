@@ -28,15 +28,37 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
 
   // TODO: Query EFLAGS to determine whether the condition code is satisfied.
   // dest <- ( cc is satisfied ? 1 : 0)
+  rtlreg_t t1, t2;
   switch (subcode & 0xe) {
     case CC_O:
+      rtl_get_OF(s, dest);
+      break;
     case CC_B:
+      rtl_get_CF(s, dest);
+      break;
     case CC_E:
+      rtl_get_ZF(s, dest);
+      break;
     case CC_BE:
+      rtl_get_CF(s, &t1);
+      rtl_get_ZF(s, &t2);
+      *dest = t1 || t2;
+      break;
     case CC_S:
+      rtl_get_SF(s, dest);
+      break;
     case CC_L:
+      rtl_get_SF(s, &t1);
+      rtl_get_OF(s, &t2);
+      *dest = t1 != t2;
+      break;
     case CC_LE:
-       TODO();
+      rtl_get_SF(s, &t1);
+      rtl_get_OF(s, &t2);
+      *dest = t1 != t2;
+      rtl_get_ZF(s, &t1);
+      *dest = *dest || t1;
+      break;
     default: panic("should not reach here");
     case CC_P: panic("PF is not supported");
   }
