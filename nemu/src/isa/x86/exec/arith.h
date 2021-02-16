@@ -2,21 +2,44 @@
 
 static inline def_EHelper(add) {
   //TODO();
+  rtlreg_t src1 = *s->dest.preg, src2 = *s->src1.preg;
   rtl_add(s, s->dest.preg, s->dest.preg, s->src1.preg);
+
+  rtlreg_t of, cf, res = *s->dest.preg;
+  rtl_is_add_overflow(s, &of, &res, &src1, &src2, s->dest.width);
+  rtl_is_add_carry(s, &cf, &res, &src1);
+  rtl_set_OF(s, &of);
+  rtl_set_CF(s, &cf);
+  rtl_update_ZFSF(s, &res, s->dest.width);
   print_asm_template2(add);
 }
 
 static inline def_EHelper(sub) {
   //TODO();
+  rtlreg_t src1 = *s->dest.preg, src2 = *s->src1.preg;
   rtl_sub(s, s->dest.preg, s->dest.preg, s->src1.preg);
+
+  rtlreg_t of, cf, res = *s->dest.preg;
+  rtl_is_sub_overflow(s, &of, &res, &src1, &src2, s->dest.width);
+  rtl_is_sub_carry(s, &cf, &res, &src1);
+  rtl_set_OF(s, &of);
+  rtl_set_CF(s, &cf);
+  rtl_update_ZFSF(s, &res, s->dest.width);
   print_asm_template2(sub);
 }
 
 static inline def_EHelper(cmp) {
   //TODO();
-  rtlreg_t tmp = *s->dest.preg;
-  rtl_sub(s, &tmp, s->dest.preg, s->src1.preg);
-  rtl_update_ZFSF(s, &tmp, s->dest.width);
+  rtlreg_t res;
+  rtlreg_t src1 = *s->dest.preg, src2 = *s->src1.preg;
+  rtl_sub(s, &res, s->dest.preg, s->src1.preg);
+
+  rtlreg_t of, cf;
+  rtl_is_sub_overflow(s, &of, &res, &src1, &src2, s->dest.width);
+  rtl_is_sub_carry(s, &cf, &res, &src1);
+  rtl_set_OF(s, &of);
+  rtl_set_CF(s, &cf);
+  rtl_update_ZFSF(s, &res, s->dest.width);
   print_asm_template2(cmp);
 }
 
