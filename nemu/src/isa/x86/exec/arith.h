@@ -21,7 +21,7 @@ static inline def_EHelper(sub) {
 
   rtlreg_t of, cf, res = *s->dest.preg;
   rtl_is_sub_overflow(s, &of, &res, &src1, &src2, s->dest.width);
-  rtl_is_sub_carry(s, &cf, &res, &src1);
+  rtl_is_sub_carry(s, &cf, &src1, &src2);
   rtl_set_OF(s, &of);
   rtl_set_CF(s, &cf);
   rtl_update_ZFSF(s, &res, s->dest.width);
