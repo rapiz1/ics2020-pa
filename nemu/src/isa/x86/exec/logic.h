@@ -37,7 +37,7 @@ static inline def_EHelper(or) {
 }
 
 static inline def_EHelper(not) {
-  TODO();
+  //TODO();
   rtl_not(s, s->dest.preg, s->dest.preg);
   operand_write(s, &s->dest, s->dest.preg);
   rtl_clearCFOF(s, NULL);
