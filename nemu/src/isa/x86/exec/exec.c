@@ -139,6 +139,7 @@ again:
     IDEXW(0xfe, E, gp4, 1)
     IDEX (0xff, E, gp5)
     IDEXW(0xe8, call, call, 4)
+
     IDEX(0x50, r, push)
     IDEX(0x51, r, push)
     IDEX(0x52, r, push)
@@ -147,7 +148,9 @@ again:
     IDEX(0x55, r, push)
     IDEX(0x56, r, push)
     IDEX(0x57, r, push)
+    IDEXW(0x6a, I, push, 1)
     IDEX(0x68, I, push)
+
     IDEX(0x31, G2E, xor)
     IDEX(0x8d, lea_M2G, lea)
     IDEX(0x01, G2E, add)
