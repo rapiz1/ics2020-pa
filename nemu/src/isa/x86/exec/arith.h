@@ -13,7 +13,10 @@ static inline def_EHelper(sub) {
 }
 
 static inline def_EHelper(cmp) {
-  TODO();
+  //TODO();
+  rtlreg_t tmp = *s->dest.preg;
+  rtl_sub(s, &tmp, s->dest.preg, s->src1.preg);
+  rtl_update_ZFSF(s, &tmp, s->dest.width);
   print_asm_template2(cmp);
 }
 
