@@ -156,6 +156,7 @@ again:
     IDEXW(0x72, J, jcc, 1)
     IDEXW(0x73, J, jcc, 1)
     IDEXW(0x74, J, jcc, 1)
+    IDEXW(0x75, J, jcc, 1)
 
     EX(0xc3, ret)
     EX(0xc9, leave)
