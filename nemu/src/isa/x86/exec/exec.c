@@ -92,7 +92,7 @@ static inline def_EHelper(2byte_esc) {
 }
 
 static inline void fetch_decode_exec(DecodeExecState *s) {
-  isa_reg_display();
+  //isa_reg_display();
   uint8_t opcode;
 again:
   opcode = instr_fetch(&s->seq_pc, 1);
