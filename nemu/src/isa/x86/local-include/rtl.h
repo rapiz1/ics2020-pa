@@ -86,7 +86,10 @@ static inline def_rtl(update_ZF, const rtlreg_t* result, int width) {
 
 static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  TODO();
+  //TODO();
+  rtlreg_t sf = *result;
+  sf >>= width*8-2;
+  rtl_set_SF(s, &sf);
 }
 
 static inline def_rtl(update_ZFSF, const rtlreg_t* result, int width) {
