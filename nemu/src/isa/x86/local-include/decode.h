@@ -305,11 +305,3 @@ static inline def_DHelper(call) {
   s->jmp_pc = s->src1.imm + s->seq_pc;
   s->is_jmp = true;
 }
-
-static inline def_DHelper(push_rd) {
-  decode_op_r(s, &s->src1, false);
-}
-
-static inline def_DHelper(push_imm32) {
-  decode_op_I(s, &s->src1, false);
-}
