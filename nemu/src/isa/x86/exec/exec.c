@@ -92,9 +92,6 @@ static inline def_EHelper(2byte_esc) {
 }
 
 static inline void fetch_decode_exec(DecodeExecState *s) {
-  vaddr_t addr = 0x00108fd8;
-  word_t w = vaddr_read(addr, 4);
-  Log("%x at %08x", w, addr);
   uint8_t opcode;
 again:
   opcode = instr_fetch(&s->seq_pc, 1);
