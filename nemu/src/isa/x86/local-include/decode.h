@@ -54,7 +54,9 @@ static inline def_DopHelper(SI) {
    *
    operand_imm(s, op, load_val, ???, op->width);
    */
-  TODO();
+  //TODO();
+  uint32_t t = instr_fetch(&s->seq_pc, op->width);
+  operand_imm(s, op, load_val, (int32_t)t, op->width);
 }
 
 /* I386 manual does not contain this abbreviation.
@@ -295,4 +297,11 @@ static inline void operand_write(DecodeExecState *s, Operand *op, rtlreg_t* src)
   if (op->type == OP_TYPE_REG) { rtl_sr(s, op->reg, src, op->width); }
   else if (op->type == OP_TYPE_MEM) { rtl_sm(s, s->isa.mbase, s->isa.moff, src, op->width); }
   else { assert(0); }
+}
+
+static inline def_DHelper(call) {
+  s->src1.width = 4;
+  decode_op_I(s, &s->src1, false);
+  s->jmp_pc = s->src1.imm;
+  s->is_jmp = true;
 }
