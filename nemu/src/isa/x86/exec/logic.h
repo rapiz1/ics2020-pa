@@ -42,7 +42,7 @@ static inline def_EHelper(not) {
 }
 
 static inline def_EHelper(sar) {
-  TODO();
+  //TODO();
   rtl_sar(s, s->dest.preg, s->dest.preg, s->src1.preg);
   operand_write(s, &s->dest, s->dest.preg);
   rtl_clearCFOF(s, NULL);
