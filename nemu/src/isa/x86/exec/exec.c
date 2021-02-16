@@ -168,7 +168,12 @@ again:
 
     IDEX(0x31, G2E, xor)
     IDEX(0x8d, lea_M2G, lea)
+
+    IDEXW(0x00, G2E, add, 1)
     IDEX(0x01, G2E, add)
+    IDEXW(0x02, E2G, add, 1)
+    IDEX(0x03, E2G, add)
+
     IDEX(0x3b, E2G, cmp)
 
     IDEXW(0x72, J, jcc, 1)
