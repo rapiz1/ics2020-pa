@@ -111,6 +111,12 @@ static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   rtl_set_SF(s, &sf);
 }
 
+static inline def_rtl(clearCFOF, const rtlreg_t* _not_used) {
+  rtlreg_t zero = 0; // FIXME: There's a regsiter for zero. But I forgot its name.
+  rtl_set_CF(s, &zero);
+  rtl_set_OF(s, &zero);
+}
+
 static inline def_rtl(update_ZFSF, const rtlreg_t* result, int width) {
   rtl_update_ZF(s, result, width);
   rtl_update_SF(s, result, width);
