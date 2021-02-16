@@ -34,7 +34,9 @@ static inline def_EHelper(gp2) {
 static inline def_EHelper(gp3) {
   switch (s->isa.ext_opcode) {
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    EMPTY(4) EMPTY(7)
+    EX(5, sub)
+    EX(6, xor)
   }
 }
 
@@ -42,7 +44,9 @@ static inline def_EHelper(gp3) {
 static inline def_EHelper(gp4) {
   switch (s->isa.ext_opcode) {
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    EMPTY(4) EMPTY(7)
+    EX(5, sub)
+    EX(6, xor)
   }
 }
 
@@ -50,7 +54,9 @@ static inline def_EHelper(gp4) {
 static inline def_EHelper(gp5) {
   switch (s->isa.ext_opcode) {
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    EMPTY(4) EMPTY(7)
+    EX(5, sub)
+    EX(6, xor)
   }
 }
 
@@ -58,7 +64,9 @@ static inline def_EHelper(gp5) {
 static inline def_EHelper(gp7) {
   switch (s->isa.ext_opcode) {
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    EMPTY(4) EMPTY(7)
+    EX(5, sub)
+    EX(6, xor)
   }
 }
 
@@ -130,6 +138,7 @@ again:
     IDEX(0x57, push_rd, push)
     IDEXW(0x68, push_imm32, push, 4)
     IDEXW(0x31, G2E, xor, 4)
+    EX(0xc3, ret)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
   default: exec_inv(s);
   }
