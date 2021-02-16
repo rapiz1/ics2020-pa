@@ -174,6 +174,11 @@ again:
     IDEXW(0x02, E2G, add, 1)
     IDEX(0x03, E2G, add)
 
+    IDEXW(0x08, G2E, or, 1)
+    IDEX(0x09, G2E, or)
+    IDEXW(0x0a, E2G, or, 1)
+    IDEX(0x0b, E2G, or)
+
     IDEX(0x3b, E2G, cmp)
 
     IDEXW(0x72, J, jcc, 1)
@@ -186,6 +191,7 @@ again:
     EX(0xc3, ret)
     EX(0xc9, leave)
     EX(0x90, nop)
+
     IDEX(0x40, r, inc)
     IDEX(0x41, r, inc)
     IDEX(0x42, r, inc)
