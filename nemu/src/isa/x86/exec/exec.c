@@ -179,6 +179,11 @@ again:
     IDEXW(0x0a, E2G, or, 1)
     IDEX(0x0b, E2G, or)
 
+    IDEXW(0x20, G2E, and, 1)
+    IDEX(0x21, G2E, and)
+    IDEXW(0x22, E2G, and, 1)
+    IDEX(0x23, E2G, and)
+
     IDEX(0x3b, E2G, cmp)
 
     IDEXW(0x72, J, jcc, 1)
