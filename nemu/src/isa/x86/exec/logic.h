@@ -52,7 +52,11 @@ static inline def_EHelper(sar) {
 }
 
 static inline def_EHelper(shl) {
-  TODO();
+  //TODO();
+  rtl_shl(s, s->dest.preg, s->dest.preg, s->src1.preg);
+  operand_write(s, &s->dest, s->dest.preg);
+  rtl_clearCFOF(s, NULL);
+  rtl_update_ZFSF(s, s->dest.preg, s->dest.width);
   // unnecessary to update CF and OF in NEMU
   print_asm_template2(shl);
 }
