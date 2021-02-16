@@ -37,6 +37,7 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
       rtl_get_CF(s, dest);
       break;
     case CC_E:
+    Log("cce");
       rtl_get_ZF(s, dest);
       break;
     case CC_BE:
