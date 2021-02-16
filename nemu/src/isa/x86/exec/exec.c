@@ -152,6 +152,15 @@ again:
     IDEXW(0x6a, push_SI, push, 1)
     IDEX(0x68, I, push)
 
+    IDEX(0x58, r, pop)
+    IDEX(0x59, r, pop)
+    IDEX(0x5a, r, pop)
+    IDEX(0x5b, r, pop)
+    IDEX(0x5c, r, pop)
+    IDEX(0x5d, r, pop)
+    IDEX(0x5e, r, pop)
+    IDEX(0x5f, r, pop)
+
     IDEX(0x31, G2E, xor)
     IDEX(0x8d, lea_M2G, lea)
     IDEX(0x01, G2E, add)
