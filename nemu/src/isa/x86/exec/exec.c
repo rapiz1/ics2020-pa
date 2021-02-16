@@ -155,6 +155,7 @@ again:
     IDEXW(0x74, J, jcc, 1)
     EX(0xc3, ret)
     EX(0xc9, leave)
+    EX(0x90, nop)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
   default: exec_inv(s);
   }
