@@ -6,6 +6,7 @@ static inline def_EHelper(mov) {
 static inline def_EHelper(push) {
   //TODO();
   rtl_push(s, s->src1.preg);
+  Log("stack push %x", *s->src1.preg);
   print_asm_template1(push);
 }
 
