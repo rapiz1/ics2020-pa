@@ -7,7 +7,7 @@ static inline def_EHelper(add) {
   operand_write(s, &s->dest, s->dest.preg);
 
   rtlreg_t of, cf, res = *s->dest.preg;
-  Log("add %x %x -> %x", src1, src2, res);
+  //Log("add %x %x -> %x", src1, src2, res);
   rtl_is_add_overflow(s, &of, &res, &src1, &src2, s->dest.width);
   rtl_is_add_carry(s, &cf, &res, &src1);
   rtl_set_OF(s, &of);
@@ -36,7 +36,7 @@ static inline def_EHelper(cmp) {
   rtlreg_t res;
   rtlreg_t src1 = *s->dest.preg, src2 = *s->src1.preg;
   rtl_sub(s, &res, s->dest.preg, s->src1.preg);
-  Log("comparing %x %x", *s->dest.preg, *s->src1.preg);
+  //Log("comparing %x %x", *s->dest.preg, *s->src1.preg);
 
   rtlreg_t of, cf;
   rtl_is_sub_overflow(s, &of, &res, &src1, &src2, s->dest.width);
