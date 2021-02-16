@@ -56,7 +56,7 @@ static inline def_DopHelper(SI) {
    */
   //TODO();
   int32_t t = instr_fetch(&s->seq_pc, op->width);
-  t = t>>(32-op->width)<<(32-op->width);
+  t = t<<(32-op->width)>>(32-op->width);
   operand_imm(s, op, load_val, t, op->width);
 }
 
