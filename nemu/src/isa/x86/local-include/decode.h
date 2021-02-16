@@ -308,6 +308,4 @@ static inline def_DHelper(call) {
 
 static inline def_DHelper(push_rd) {
   decode_op_r(s, &s->src1, false);
-  id_dest->width = 4;
-  id_dest->type = OP_TYPE_MEM;
 }
