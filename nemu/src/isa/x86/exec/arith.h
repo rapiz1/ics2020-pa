@@ -6,7 +6,7 @@ static inline def_EHelper(add) {
   rtl_add(s, s->dest.preg, s->dest.preg, s->src1.preg);
 
   rtlreg_t of, cf, res = *s->dest.preg;
-  Log("adding %x %x -> %x", src1, src2, res);
+  Log("add %x %x -> %x", src1, src2, res);
   rtl_is_add_overflow(s, &of, &res, &src1, &src2, s->dest.width);
   rtl_is_add_carry(s, &cf, &res, &src1);
   rtl_set_OF(s, &of);
