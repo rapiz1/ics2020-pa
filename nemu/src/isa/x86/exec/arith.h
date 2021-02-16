@@ -2,13 +2,13 @@
 
 static inline def_EHelper(add) {
   //TODO();
-  rtl_add(s, s->src1.preg, s->src1.preg, s->src2.preg);
+  rtl_add(s, s->dest.preg, s->dest.preg, &s->src1.reg);
   print_asm_template2(add);
 }
 
 static inline def_EHelper(sub) {
   //TODO();
-  rtl_sub(s, s->src1.preg, s->src1.preg, s->src2.preg);
+  rtl_sub(s, s->dest.preg, s->dest.preg, &s->src1.reg);
   print_asm_template2(sub);
 }
 
@@ -18,12 +18,14 @@ static inline def_EHelper(cmp) {
 }
 
 static inline def_EHelper(inc) {
-  TODO();
+  //TODO();
+  rtl_addi(s, s->dest.preg, s->dest.preg, 1);
   print_asm_template1(inc);
 }
 
 static inline def_EHelper(dec) {
-  TODO();
+  //TODO();
+  rtl_subi(s, s->dest.preg, s->dest.preg, 1);
   print_asm_template1(dec);
 }
 
