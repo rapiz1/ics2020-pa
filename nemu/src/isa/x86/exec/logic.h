@@ -6,7 +6,8 @@ static inline def_EHelper(test) {
 }
 
 static inline def_EHelper(and) {
-  TODO();
+  //TODO();
+  rtl_and(s, s->dest.preg, s->dest.preg, &s->src1.reg);
   print_asm_template2(and);
 }
 
@@ -17,7 +18,8 @@ static inline def_EHelper(xor) {
 }
 
 static inline def_EHelper(or) {
-  TODO();
+  //TODO();
+  rtl_or(s, s->dest.preg, s->dest.preg, &s->src1.reg);
   print_asm_template2(or);
 }
 

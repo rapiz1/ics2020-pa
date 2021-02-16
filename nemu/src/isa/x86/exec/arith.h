@@ -30,7 +30,8 @@ static inline def_EHelper(dec) {
 }
 
 static inline def_EHelper(neg) {
-  TODO();
+  //TODO();
+  rtl_neg(s, s->dest.preg, s->dest.preg);
   print_asm_template1(neg);
 }
 
