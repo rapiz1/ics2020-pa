@@ -116,7 +116,15 @@ again:
     IDEXW(0xfe, E, gp4, 1)
     IDEX (0xff, E, gp5)
     IDEXW(0xe8, call, call, 4)
+    IDEX(0x50, push_rd, push)
+    IDEX(0x51, push_rd, push)
+    IDEX(0x52, push_rd, push)
+    IDEX(0x53, push_rd, push)
+    IDEX(0x54, push_rd, push)
     IDEX(0x55, push_rd, push)
+    IDEX(0x56, push_rd, push)
+    IDEX(0x57, push_rd, push)
+    IDEXW(0x68, push_imm32, push, 4)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
   default: exec_inv(s);
   }

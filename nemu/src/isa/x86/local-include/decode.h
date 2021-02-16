@@ -309,3 +309,7 @@ static inline def_DHelper(call) {
 static inline def_DHelper(push_rd) {
   decode_op_r(s, &s->src1, false);
 }
+
+static inline def_DHelper(push_imm32) {
+  decode_op_I(s, &s->src1, false);
+}
