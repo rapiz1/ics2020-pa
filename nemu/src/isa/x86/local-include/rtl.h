@@ -28,6 +28,7 @@ static inline def_rtl(push, const rtlreg_t* src1) {
   // esp <- esp - 4
   // M[esp] <- src1
   //TODO();
+  Log("before stack push, esp is %x", reg_l(R_ESP));
   rtl_subi(s, &reg_l(R_ESP), &reg_l(R_ESP), 4);
   rtl_sm(s, &reg_l(R_ESP), 0, src1, 4); 
   Log("stack push %x", *src1);
