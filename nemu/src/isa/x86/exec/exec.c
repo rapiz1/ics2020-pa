@@ -40,8 +40,8 @@ static inline def_EHelper(gp3) {
   switch (s->isa.ext_opcode) {
     EX(0, test)
     EMPTY(1)
-    EMPTY(2)
-    EMPTY(3)
+    EX(2, not)
+    EX(3, neg)
     EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
   }
 }
