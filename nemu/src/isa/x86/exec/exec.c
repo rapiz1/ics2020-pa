@@ -144,7 +144,7 @@ again:
     IDEX(0x56, r, push)
     IDEX(0x57, r, push)
     IDEX(0x68, I, push)
-    IDEX(0x31, G2E, xor)
+    IDEX(0x31, E2G, xor)
     IDEX(0x8d, lea_M2G, lea)
     IDEX(0x01, G2E, add)
     IDEX(0x3b, E2G, cmp)
