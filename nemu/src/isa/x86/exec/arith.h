@@ -4,6 +4,7 @@ static inline def_EHelper(add) {
   //TODO();
   rtlreg_t src1 = *s->dest.preg, src2 = *s->src1.preg;
   rtl_add(s, s->dest.preg, s->dest.preg, s->src1.preg);
+  operand_write(s, &s->dest, s->dest.preg);
 
   rtlreg_t of, cf, res = *s->dest.preg;
   Log("add %x %x -> %x", src1, src2, res);
@@ -19,6 +20,7 @@ static inline def_EHelper(sub) {
   //TODO();
   rtlreg_t src1 = *s->dest.preg, src2 = *s->src1.preg;
   rtl_sub(s, s->dest.preg, s->dest.preg, s->src1.preg);
+  operand_write(s, &s->dest, s->dest.preg);
 
   rtlreg_t of, cf, res = *s->dest.preg;
   rtl_is_sub_overflow(s, &of, &res, &src1, &src2, s->dest.width);
@@ -48,18 +50,21 @@ static inline def_EHelper(cmp) {
 static inline def_EHelper(inc) {
   //TODO();
   rtl_addi(s, s->dest.preg, s->dest.preg, 1);
+  operand_write(s, &s->dest, s->dest.preg);
   print_asm_template1(inc);
 }
 
 static inline def_EHelper(dec) {
   //TODO();
   rtl_subi(s, s->dest.preg, s->dest.preg, 1);
+  operand_write(s, &s->dest, s->dest.preg);
   print_asm_template1(dec);
 }
 
 static inline def_EHelper(neg) {
   //TODO();
   rtl_neg(s, s->dest.preg, s->dest.preg);
+  operand_write(s, &s->dest, s->dest.preg);
   print_asm_template1(neg);
 }
 
