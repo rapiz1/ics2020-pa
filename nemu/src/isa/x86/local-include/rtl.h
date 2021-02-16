@@ -89,6 +89,7 @@ static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   //TODO();
   rtlreg_t sf = *result;
   sf >>= width*8-2;
+  sf &= 1;
   rtl_set_SF(s, &sf);
 }
 
