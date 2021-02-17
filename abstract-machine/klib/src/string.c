@@ -27,9 +27,8 @@ char* strncpy(char* dst, const char* src, size_t n) {
 char* strcat(char* dst, const char* src) {
   int n = strlen(dst);
   int m = strlen(src);
-  for (int i = n; i < n+m; i++)
+  for (int i = n; i <= n+m; i++)
     dst[i] = src[i-n];
-  dst[n+m] = '\0';
   return dst;
 }
 
