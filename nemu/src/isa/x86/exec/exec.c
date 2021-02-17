@@ -194,7 +194,7 @@ again:
     IDEXW(0x30, G2E, xor, 1)
     IDEX(0x31, G2E, xor)
     IDEXW(0x32, E2G, xor, 1)
-    IDEX(0x33, G2E, xor)
+    IDEX(0x33, E2G, xor)
 
     IDEX(0x8d, lea_M2G, lea)
 
