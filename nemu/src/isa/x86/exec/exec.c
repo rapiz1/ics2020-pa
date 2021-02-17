@@ -191,7 +191,11 @@ again:
     IDEX(0x5e, r, pop)
     IDEX(0x5f, r, pop)
 
+    IDEXW(0x30, G2E, xor, 1)
     IDEX(0x31, G2E, xor)
+    IDEXW(0x32, E2G, xor, 1)
+    IDEX(0x33, G2E, xor)
+
     IDEX(0x8d, lea_M2G, lea)
 
     IDEXW(0x00, G2E, add, 1)
