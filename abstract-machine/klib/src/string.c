@@ -10,7 +10,7 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
-  for (int i = 0; *src; i++)
+  for (int i = 0; src[i]; i++)
     dst[i] = src[i];
   return dst;
 }
