@@ -61,6 +61,19 @@ static inline def_EHelper(movsx) {
   print_asm_template2(movsx);
 }
 
+static inline def_EHelper(movs) {
+  if (s->width == 1) {
+    //TODO();
+    print_asm_template1(movsb);
+  } else if (s->width == 2) {
+    TODO();
+    print_asm_template1(movsw);
+  } else {
+    TODO();
+    print_asm_template1(movsd);
+  }
+}
+
 static inline def_EHelper(movzx) {
   id_dest->width = s->isa.is_operand_size_16 ? 2 : 4;
   rtl_zext(s, ddest, dsrc1, id_src1->width);

@@ -254,6 +254,9 @@ again:
     IDEXW(0x7e, J, jcc, 1)
     IDEXW(0x7f, J, jcc, 1)
 
+    EXW(0xa4, movs, 1)
+    EX(0xa5, movs)
+
     IDEXW(0xeb, J, jmp, 1)
     IDEX(0xe9, Jv, jmp)
 
