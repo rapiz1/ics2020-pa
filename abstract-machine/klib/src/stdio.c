@@ -27,17 +27,18 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       } else if (type == 'd') {
         char buf[sizeof(int)*8];
         int buf_len = sizeof(int)*8;
-        int x = va_arg(ap, int); 
+        int x = va_arg(ap, int), digit_len = 0; 
         for (int i = 0; i < buf_len; i++) {
           buf[i] = x%10 + '0';
+          digit_len++;
           x /= 10;
           if (x == 0) {
             buf[i+1] = '\0';
             break;
           }
         }
-        for (char *s = buf; *s;)
-          *out++ = *s++;
+        for (int i = digit_len - 1; i >= 0; i--)
+          *out++ = buf[i];
       }
       break;
     default:
@@ -45,6 +46,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       break;
     }
   }
+  *out = '\0';
   return out - old_out;
 }
 
