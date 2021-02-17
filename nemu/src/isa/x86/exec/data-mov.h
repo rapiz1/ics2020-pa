@@ -83,9 +83,9 @@ static inline def_EHelper(movsx) {
   rtl_sext(s, ddest, dsrc1, id_src1->width);
   operand_write(s, id_dest, ddest);
   if (id_dest->width == 2) {
-    print_asm_template2(movsbw);
+    print_asm_template2(movsb);
   } else {
-    print_asm_template2(movsbl);
+    print_asm_template2(movsb);
   }
   assert(id_src1->width == 1);
 }
@@ -94,9 +94,9 @@ static inline def_EHelper(movzx) {
   rtl_zext(s, ddest, dsrc1, id_src1->width);
   operand_write(s, id_dest, dsrc1);
   if (id_dest->width == 2) {
-    print_asm_template2(movzbw);
+    print_asm_template2(movzb);
   } else {
-    print_asm_template2(movzbl);
+    print_asm_template2(movzb);
   }
   assert(id_src1->width == 1);
 }
