@@ -178,6 +178,8 @@ again:
     IDEX(0x01, G2E, add)
     IDEXW(0x02, E2G, add, 1)
     IDEX(0x03, E2G, add)
+    IDEXW(0x04, I2a, add, 1)
+    IDEX(0x05, I2a, add)
 
     IDEXW(0x08, G2E, or, 1)
     IDEX(0x09, G2E, or)
