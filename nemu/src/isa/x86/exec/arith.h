@@ -19,7 +19,7 @@ static inline def_EHelper(add) {
 static inline def_EHelper(sub) {
   //TODO();
   rtlreg_t src1 = *s->dest.preg, src2 = *s->src1.preg;
-  Log("sub %x %x", src1, src2);
+  //Log("sub %x %x", src1, src2);
   rtl_sub(s, s->dest.preg, s->dest.preg, s->src1.preg);
   operand_write(s, &s->dest, s->dest.preg);
 
@@ -112,7 +112,7 @@ static inline def_EHelper(adc) {
 
 static inline def_EHelper(sbb) {
   rtl_get_CF(s, s0);
-  Log("sbb %x %x with %x", *ddest, *dsrc1, *s0);
+  //Log("sbb %x %x with %x", *ddest, *dsrc1, *s0);
   rtl_add(s, s0, dsrc1, s0);
   rtl_sub(s, s1, ddest, s0);
   rtl_update_ZFSF(s, s1, id_dest->width);
