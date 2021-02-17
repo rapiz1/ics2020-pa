@@ -38,9 +38,7 @@ static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- zeroext(src1[(width * 8 - 1) .. 0])
   TODO();
-  uint32_t offset = 32 - width*8;
-  uint32_t t = *src1;
-  *dest = t<<offset>>offset;
+  *dest = SEXT_DYN(*src1, width*8);
 }
 
 static inline def_rtl(msb, rtlreg_t* dest, const rtlreg_t* src1, int width) {
