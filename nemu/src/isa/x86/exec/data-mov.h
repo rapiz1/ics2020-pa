@@ -39,7 +39,7 @@ static inline def_EHelper(cltd) {
   }
   else {
     //TODO();
-    reg_w(R_EDX) = SEXT(reg_w(R_EAX), 32)>>32;
+    reg_l(R_EDX) = SEXT(reg_w(R_EAX), 32)>>32;
   }
   print_asm(s->isa.is_operand_size_16 ? "cwtl" : "cltd");
 }
