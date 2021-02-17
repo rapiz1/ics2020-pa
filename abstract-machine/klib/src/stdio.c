@@ -10,11 +10,49 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  return 0;
+  int n = strlen(fmt);
+  char *old_out = out;
+
+  for (int i = 0; i < n; i++) {
+    char c = fmt[i], type;
+    switch (c) {
+    case '%':
+      if (i+1 >= n)
+        assert(0);
+      type = fmt[++i];
+      if (type == 's') {
+        char *s = va_arg(ap, char*);
+        while (*s)
+          *out++ = *s++;
+      } else if (type == 'd') {
+        char buf[sizeof(int)];
+        int x = va_arg(ap, int); 
+        for (int i = 0; i < 32; i++) {
+          buf[i] = x%10 + '0';
+          x /= 10;
+          if (x == 0) {
+            buf[i+1] = '\0';
+            break;
+          }
+        }
+        for (char *s = buf; *s;)
+          *out++ = *s++;
+      }
+      break;
+    default:
+      *out++ = c;
+      break;
+    }
+  }
+  return out - old_out;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  return 0;
+  va_list ap;
+  va_start(ap, fmt);
+  int ret = vsprintf(out, fmt, ap);
+  va_end(ap);
+  return ret;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
