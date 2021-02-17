@@ -216,7 +216,7 @@ again:
     IDEX(0x13, E2G, adc)
 
     //IDEXW(0x18, G2E, sbb, 1)
-    //IDEX(0x19, G2E, sbb)
+    IDEX(0x19, G2E, sbb)
     //IDEXW(0x1a, E2G, sbb, 1)
     IDEX(0x1b, E2G, sbb)
 
