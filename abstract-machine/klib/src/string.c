@@ -24,7 +24,6 @@ char* strcat(char* dst, const char* src) {
 }
 
 int strcmp(const char* s1, const char* s2) {
-  return 0;
   for (;*s1 && *s2; s1++, s2++) {
     if (*s1 != *s2)
       return *s1 - *s2;
@@ -53,7 +52,6 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n) {
-  return 0;
   const char *c1 = s1, *c2 = s2;
   for (int i = 0; i < n; i++) {
     if (c1[i] != c2[i]) return c1[i] - c2[i];
