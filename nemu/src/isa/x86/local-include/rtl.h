@@ -62,7 +62,7 @@ static inline def_rtl(is_sub_carry, rtlreg_t* dest,
     const rtlreg_t* src1, const rtlreg_t* src2) {
   // dest <- is_carry(src1 - src2)
   //TODO();
-  *dest = src1 < src2;
+  *dest = *src1 < *src2;
 }
 
 static inline def_rtl(is_add_overflow, rtlreg_t* dest,
