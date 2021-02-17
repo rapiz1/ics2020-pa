@@ -279,6 +279,12 @@ static inline def_DHelper(J) {
   s->jmp_pc = id_dest->simm + s->seq_pc;
 }
 
+static inline def_DHelper(Jv) {
+  decode_op_I(s, id_dest, false);
+  // the target address can be computed in the decode stage
+  s->jmp_pc = id_dest->imm + s->seq_pc;
+}
+
 static inline def_DHelper(push_SI) {
   decode_op_SI(s, id_dest, true);
 }

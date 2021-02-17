@@ -216,7 +216,7 @@ again:
     IDEX(0x13, E2G, adc)
 
     //IDEXW(0x18, G2E, sbb, 1)
-    //IDEX(0x19, G2E, sbb)
+    IDEX(0x19, G2E, sbb)
     //IDEXW(0x1a, E2G, sbb, 1)
     IDEX(0x1b, E2G, sbb)
 
@@ -255,7 +255,7 @@ again:
     IDEXW(0x7f, J, jcc, 1)
 
     IDEXW(0xeb, J, jmp, 1)
-    IDEX(0xe9, J, jmp)
+    IDEX(0xe9, Jv, jmp)
 
     EX(0xc3, ret)
     EX(0xc9, leave)
