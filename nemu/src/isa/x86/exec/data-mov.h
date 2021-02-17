@@ -81,6 +81,8 @@ static inline def_EHelper(movs) {
     rtl_sm(s, &reg_l(R_EDI), 0, &data, 4);
     print_asm_template1(movsd);
   }
+  rtl_addi(s, &reg_l(R_ESI), &reg_l(R_ESI), 1);
+  rtl_addi(s, &reg_l(R_EDI), &reg_l(R_EDI), 1);
 }
 
 static inline def_EHelper(movzx) {
