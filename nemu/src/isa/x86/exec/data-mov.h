@@ -55,13 +55,13 @@ static inline def_EHelper(cwtl) {
 }
 
 static inline def_EHelper(movs) {
-  if (s->width == 1) {
+  if (id_dest->width == 1) {
     //TODO();
     rtlreg_t data;
     rtl_lm(s, &data, &reg_l(R_ESI), 0, 1);
     rtl_sm(s, &reg_l(R_EDI), 0, &data, 1);
     print_asm("movsb");
-  } else if (s->width == 2) {
+  } else if (id_dest->width == 2) {
     //TODO();
     rtlreg_t data;
     rtl_lm(s, &data, &reg_l(R_ESI), 0, 2);
