@@ -55,6 +55,21 @@ void isa_reg_display() {
   putchar('\n');
 }
 
+#define PRINT_REGP(name) do {printf("%s: 0x%08x\t", #name, cpu->name);} while(0)
+void isa_reg_display_cpu(CPU_state* cpu) {
+  puts("REF:");
+  PRINT_REGP(eax); PRINT_REGP(ebx); putchar('\n');
+  PRINT_REGP(ecx); PRINT_REGP(edx); putchar('\n');
+  PRINT_REGP(esp); PRINT_REGP(ebp); putchar('\n');
+  PRINT_REGP(esi); PRINT_REGP(edi); putchar('\n');
+  PRINT_REGP(pc);
+  if (cpu->CF) printf("CF ");
+  if (cpu->ZF) printf("ZF ");
+  if (cpu->OF) printf("OF ");
+  if (cpu->SF) printf("SF ");
+  putchar('\n');
+}
+
 #define VERDICT_AND_FETCH_REG(s, name) if(!strcmp(s, #name)) {return cpu.name;}
 word_t isa_reg_str2val(const char *s, bool *success) {
   *success = true;
