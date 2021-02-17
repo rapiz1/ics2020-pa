@@ -64,12 +64,21 @@ static inline def_EHelper(movsx) {
 static inline def_EHelper(movs) {
   if (s->width == 1) {
     //TODO();
+    rtlreg_t data;
+    rtl_lm(s, &data, &reg_l(R_ESI), 0, 1);
+    rtl_sm(s, &reg_l(R_EDI), 0, &data, 1);
     print_asm_template1(movsb);
   } else if (s->width == 2) {
-    TODO();
+    //TODO();
+    rtlreg_t data;
+    rtl_lm(s, &data, &reg_l(R_ESI), 0, 2);
+    rtl_sm(s, &reg_l(R_EDI), 0, &data, 2);
     print_asm_template1(movsw);
   } else {
-    TODO();
+    //TODO();
+    rtlreg_t data;
+    rtl_lm(s, &data, &reg_l(R_ESI), 0, 4);
+    rtl_sm(s, &reg_l(R_EDI), 0, &data, 4);
     print_asm_template1(movsd);
   }
 }
