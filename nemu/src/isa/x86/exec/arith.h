@@ -111,6 +111,7 @@ static inline def_EHelper(adc) {
 
 static inline def_EHelper(sbb) {
   rtl_get_CF(s, s0);
+  Log("sbb %x %x with %x", *ddest, *dsrc1, *s0);
   rtl_add(s, s0, dsrc1, s0);
   rtl_sub(s, s1, ddest, s0);
   rtl_update_ZFSF(s, s1, id_dest->width);
