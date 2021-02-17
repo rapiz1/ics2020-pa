@@ -54,12 +54,12 @@ typedef struct {
       uint32_t IF:1;
       uint32_t DF:1;
       uint32_t OF:1;
-      uint32_t IOPL:1;
+      uint32_t IOPL:2;
       uint32_t NT:1;
       uint32_t _reserved4:1;
       uint32_t RF:1;
       uint32_t VM:1;
-      uint32_t padding:15;
+      uint32_t padding:14;
     };
   };
 
