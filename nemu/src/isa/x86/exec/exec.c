@@ -42,7 +42,10 @@ static inline def_EHelper(gp3) {
     EMPTY(1)
     EX(2, not)
     EX(3, neg)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    EX(4, mul)
+    EX(5, imul1)
+    EX(6, div)
+    EX(7, idiv)
   }
 }
 
