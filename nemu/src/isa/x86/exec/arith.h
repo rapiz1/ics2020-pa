@@ -19,6 +19,7 @@ static inline def_EHelper(add) {
 static inline def_EHelper(sub) {
   //TODO();
   rtlreg_t src1 = *s->dest.preg, src2 = *s->src1.preg;
+  Log("sub %x %x", src1, src2);
   rtl_sub(s, s->dest.preg, s->dest.preg, s->src1.preg);
   operand_write(s, &s->dest, s->dest.preg);
 
