@@ -82,13 +82,23 @@ static inline def_EHelper(movsx) {
   id_dest->width = s->isa.is_operand_size_16 ? 2 : 4;
   rtl_sext(s, ddest, dsrc1, id_src1->width);
   operand_write(s, id_dest, ddest);
-  print_asm_template2(movsx);
+  if (id_dest->width == 2) {
+    print_asm_template2(movsbw);
+  } else {
+    print_asm_template2(movsbl);
+  }
+  assert(id_src1->width == 1);
 }
 static inline def_EHelper(movzx) {
   id_dest->width = s->isa.is_operand_size_16 ? 2 : 4;
   rtl_zext(s, ddest, dsrc1, id_src1->width);
   operand_write(s, id_dest, dsrc1);
-  print_asm_template2(movzx);
+  if (id_dest->width == 2) {
+    print_asm_template2(movzbw);
+  } else {
+    print_asm_template2(movzbl);
+  }
+  assert(id_src1->width == 1);
 }
 
 static inline def_EHelper(lea) {
