@@ -110,7 +110,7 @@ static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
   //TODO();
   rtlreg_t sf = *result;
-  sf >>= width*8-2;
+  sf >>= width*8-1;
   sf &= 1;
   rtl_set_SF(s, &sf);
 }
