@@ -37,6 +37,8 @@ typedef struct {
     };
   };
 
+  vaddr_t pc;
+
   union {
     rtlreg_t eflags;
     struct {
@@ -61,7 +63,8 @@ typedef struct {
     };
   };
 
-  vaddr_t pc;
+  uint32_t cs, ss, ds, es, fs, gs;
+
 } x86_CPU_state;
 
 // decode
