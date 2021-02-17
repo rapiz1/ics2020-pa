@@ -126,6 +126,11 @@ static inline def_DHelper(mov_E2G) {
   operand_rm(s, id_src1, true, id_dest, false);
 }
 
+static inline def_DHelper(mov_Eb2G) {
+  id_src1->width = 1;
+  operand_rm(s, id_src1, true, id_dest, false);
+}
+
 static inline def_DHelper(lea_M2G) {
   operand_rm(s, id_src1, false, id_dest, false);
 }
