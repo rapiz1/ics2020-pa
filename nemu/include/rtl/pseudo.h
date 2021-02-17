@@ -29,12 +29,18 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  //TODO();
+  uint32_t offset = 32 - width*8;
+  int32_t t = *src1;
+  *dest = t<<offset>>offset;
 }
 
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- zeroext(src1[(width * 8 - 1) .. 0])
   TODO();
+  uint32_t offset = 32 - width*8;
+  uint32_t t = *src1;
+  *dest = t<<offset>>offset;
 }
 
 static inline def_rtl(msb, rtlreg_t* dest, const rtlreg_t* src1, int width) {
