@@ -251,7 +251,7 @@ again:
     IDEXW(0x7f, J, jcc, 1)
 
     IDEXW(0xeb, J, jmp, 1)
-    IDEXW(0xe9, J, jmp, 2)
+    IDEX(0xe9, J, jmp)
 
     EX(0xc3, ret)
     EX(0xc9, leave)
