@@ -83,6 +83,11 @@ static inline def_EHelper(neg) {
   //TODO();
   rtl_neg(s, s->dest.preg, s->dest.preg);
   operand_write(s, &s->dest, s->dest.preg);
+
+  rtlreg_t cf = *s->dest.preg == 0, of = *s->dest.preg == (1u<<31);
+  rtl_set_CF(s, &cf);
+  rtl_set_OF(s, &of);
+  rtl_update_ZFSF(s, s->dest.preg, s->dest.width);
   print_asm_template1(neg);
 }
 
