@@ -74,8 +74,8 @@ static inline def_EHelper(movs) {
     rtl_sm(s, &reg_l(R_EDI), 0, &data, 4);
     print_asm("movsd");
   }
-  rtl_addi(s, &reg_l(R_ESI), &reg_l(R_ESI), s->width);
-  rtl_addi(s, &reg_l(R_EDI), &reg_l(R_EDI), s->width);
+  rtl_addi(s, &reg_l(R_ESI), &reg_l(R_ESI), id_dest->width);
+  rtl_addi(s, &reg_l(R_EDI), &reg_l(R_EDI), id_dest->width);
 }
 
 static inline def_EHelper(movsx) {
