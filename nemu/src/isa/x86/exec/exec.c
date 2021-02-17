@@ -81,6 +81,7 @@ static inline def_EHelper(gp7) {
 }
 
 static inline def_EHelper(2byte_esc) {
+  isa_reg_display();
   uint8_t opcode = instr_fetch(&s->seq_pc, 1);
   s->opcode = opcode;
   switch (opcode) {
