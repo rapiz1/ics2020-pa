@@ -27,7 +27,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       } else if (type == 'd') {
         char buf[sizeof(int)*8];
         int buf_len = sizeof(int)*8;
-        int x = va_arg(ap, int), digit_len = 0, neg = 0; 
+        long long x = va_arg(ap, int), digit_len = 0, neg = 0; 
         if (x < 0) {
           neg = 1;
           x = -x;
