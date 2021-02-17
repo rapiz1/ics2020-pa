@@ -55,7 +55,7 @@ static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     return;
   }
   rtlreg_t t3 = *res>>31;
-  *dest = t3 == t1;
+  *dest = t3 == t2;
 }
 
 static inline def_rtl(is_sub_carry, rtlreg_t* dest,
