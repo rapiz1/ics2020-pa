@@ -47,7 +47,12 @@ void isa_reg_display() {
   PRINT_REG(ecx); PRINT_REG(edx); putchar('\n');
   PRINT_REG(esp); PRINT_REG(ebp); putchar('\n');
   PRINT_REG(esi); PRINT_REG(edi); putchar('\n');
-  PRINT_REG(pc); putchar('\n');
+  PRINT_REG(pc);
+  if (cpu.CF) printf("CF ");
+  if (cpu.ZF) printf("ZF ");
+  if (cpu.OF) printf("OF ");
+  if (cpu.SF) printf("SF ");
+  putchar('\n');
 }
 
 #define VERDICT_AND_FETCH_REG(s, name) if(!strcmp(s, #name)) {return cpu.name;}
