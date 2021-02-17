@@ -60,19 +60,19 @@ static inline def_EHelper(movs) {
     rtlreg_t data;
     rtl_lm(s, &data, &reg_l(R_ESI), 0, 1);
     rtl_sm(s, &reg_l(R_EDI), 0, &data, 1);
-    print_asm_template1(movsb);
+    print_asm("movsb");
   } else if (s->width == 2) {
     //TODO();
     rtlreg_t data;
     rtl_lm(s, &data, &reg_l(R_ESI), 0, 2);
     rtl_sm(s, &reg_l(R_EDI), 0, &data, 2);
-    print_asm_template1(movsw);
+    print_asm("movsw");
   } else {
     //TODO();
     rtlreg_t data;
     rtl_lm(s, &data, &reg_l(R_ESI), 0, 4);
     rtl_sm(s, &reg_l(R_EDI), 0, &data, 4);
-    print_asm_template1(movsd);
+    print_asm("movsd");
   }
   rtl_addi(s, &reg_l(R_ESI), &reg_l(R_ESI), 1);
   rtl_addi(s, &reg_l(R_EDI), &reg_l(R_EDI), 1);
