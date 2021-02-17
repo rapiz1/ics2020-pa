@@ -49,15 +49,33 @@ static inline def_EHelper(cmp) {
 
 static inline def_EHelper(inc) {
   //TODO();
+  rtlreg_t src1 = *s->dest.preg, src2 = 1;
   rtl_addi(s, s->dest.preg, s->dest.preg, 1);
   operand_write(s, &s->dest, s->dest.preg);
+
+  rtlreg_t of, cf, res = *s->dest.preg;
+  //Log("add %x %x -> %x", src1, src2, res);
+  rtl_is_add_overflow(s, &of, &res, &src1, &src2, s->dest.width);
+  rtl_is_add_carry(s, &cf, &res, &src1);
+  rtl_set_OF(s, &of);
+  rtl_set_CF(s, &cf);
+  rtl_update_ZFSF(s, &res, s->dest.width);
+  
   print_asm_template1(inc);
 }
 
 static inline def_EHelper(dec) {
   //TODO();
+  rtlreg_t src1 = *s->dest.preg, src2 = 1;
   rtl_subi(s, s->dest.preg, s->dest.preg, 1);
   operand_write(s, &s->dest, s->dest.preg);
+
+  rtlreg_t of, cf, res = *s->dest.preg;
+  rtl_is_sub_overflow(s, &of, &res, &src1, &src2, s->dest.width);
+  rtl_is_sub_carry(s, &cf, &src1, &src2);
+  rtl_set_OF(s, &of);
+  rtl_set_CF(s, &cf);
+  rtl_update_ZFSF(s, &res, s->dest.width);
   print_asm_template1(dec);
 }
 
