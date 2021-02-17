@@ -13,8 +13,8 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   if (cpu.CF != ref_r->CF) return false;
   if (cpu.ZF != ref_r->ZF) return false;
   if (cpu.OF != ref_r->OF) return false;
-  if (cpu.SF != ref_r->SF) return false;
   */
+  if (cpu.SF != ref_r->SF) return false;
   return cpu.pc == ref_r->pc;
 }
 
