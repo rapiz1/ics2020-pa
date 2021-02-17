@@ -65,15 +65,26 @@ void* memset(void* v,int c,size_t n) {
 }
 
 void* memmove(void* dst,const void* src,size_t n) {
-  assert(0);
-  return NULL;
+  char *d = dst;
+  const char *s = src;
+  if (d < s)
+    while (n--)
+      *d++ = *s++;
+  else
+    {
+      const char *lasts = s + (n-1);
+      char *lastd = d + (n-1);
+      while (n--)
+        *lastd-- = *lasts--;
+    }
+  return dst;
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
   for (int i = 0; i < n; i++) {
     ((unsigned char*)out)[i] = ((unsigned char*)in)[i];
   }
-  return NULL;
+  return out;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n) {
