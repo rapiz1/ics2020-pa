@@ -49,13 +49,13 @@ static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
   // dest <- is_overflow(src1 - src2)
   //TODO();
   rtlreg_t t1 = *src1>>31;
-  rtlreg_t t2 = (-*src2)>>31;
-  if (t1 != t2) {
+  rtlreg_t t2 = *src2>>31;
+  if (t1 == t2) {
     *dest = 0;
     return;
   }
   rtlreg_t t3 = *res>>31;
-  *dest = t3 != t1;
+  *dest = t3 == t1;
 }
 
 static inline def_rtl(is_sub_carry, rtlreg_t* dest,
