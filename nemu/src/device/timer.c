@@ -15,7 +15,6 @@ static void rtc_io_handler(uint32_t offset, int len, bool is_write) {
     gettimeofday(&now, NULL);
     rtc_port_base[0] = now.tv_usec;
     rtc_port_base[1] = now.tv_sec;
-    printf("timer %d\n", *rtc_port_base);
   }
 }
 
