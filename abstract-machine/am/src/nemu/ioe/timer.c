@@ -7,8 +7,8 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uint32_t *dest = (uint32_t*)&uptime->us;
-  dest[0] = inl(0x48); 
-  dest[1] = inl(0x4c);
+  dest[1] = inl(0x48); 
+  dest[0] = inl(0x4c);
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
