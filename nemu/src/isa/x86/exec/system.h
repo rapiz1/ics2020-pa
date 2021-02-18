@@ -45,16 +45,16 @@ static inline def_EHelper(iret) {
 }
 
 static inline def_EHelper(in) {
-  TODO();
+  //TODO();
   switch (id_dest->width) {
   case 1:
-    pio_read_b(*id_dest->preg);
+    pio_read_b(*id_src1->preg);
     break;
   case 2:
-    pio_read_w(*id_dest->preg);
+    pio_read_w(*id_src1->preg);
     break;
   case 4: 
-    pio_read_l(*id_dest->preg);
+    pio_read_l(*id_src1->preg);
     break;
   default:
     TODO();
