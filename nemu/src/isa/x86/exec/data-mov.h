@@ -96,9 +96,9 @@ static inline def_EHelper(movzx) {
   if (id_dest->width == 2) {
     print_asm_template2(movzb);
   } else {
+    assert(id_src1->width == 1);
     print_asm_template2(movzb);
   }
-  assert(id_src1->width == 1);
 }
 
 static inline def_EHelper(lea) {
