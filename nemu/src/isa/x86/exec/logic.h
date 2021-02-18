@@ -88,12 +88,12 @@ static inline def_EHelper(bsr) {
   //TODO();
   Log("bsr %x", *id_src1->preg);
   rtlreg_t zf = 0;
-  if (id_src1->val == 0) {
+  if (*id_src1->preg == 0) {
     zf = 1;
   } else {
     rtlreg_t temp = id_src1->width-1;
     zf = 0;
-    while (temp != 0 && BIT(id_src1->val, temp) == 0) {
+    while (temp != 0 && BIT(*id_src1->preg, temp) == 0) {
       temp--;
       *id_dest->preg = temp;
     }
