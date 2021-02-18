@@ -83,3 +83,21 @@ static inline def_EHelper(setcc) {
 
   print_asm("set%s %s", get_cc_name(cc), id_dest->str);
 }
+
+static inline def_EHelper(bsr) {
+  TODO();
+  rtlreg_t zf = 0;
+  if (id_src1->val == 0) {
+    zf = 1;
+  } else {
+    rtlreg_t temp = id_src1->width-1;
+    zf = 0;
+    while (temp != 0 && BIT(id_src1->val, temp) == 0) {
+      temp--;
+      *id_dest->preg = temp;
+    }
+    operand_write(s, id_dest, id_dest->preg);
+  }
+  rtl_set_ZF(s, &zf);
+  print_asm_template2(bsr);
+}
