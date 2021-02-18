@@ -13,6 +13,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   //uint64_t usecs = inl(0x48);
   //uptime->us = (secs - __am_start_secs)*1000000 + usecs;
   uptime->us = secs*1000000;
+  printf("%d", (uint32_t)secs);
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
