@@ -22,7 +22,7 @@ int _print_str(char **out, char *s) {
   return c;
 }
 
-int _print_digit(char **out, int x) {
+int _print_digit(char **out, long long x) {
   static char buf[sizeof(int)*8];
   int buf_len = sizeof(int)*8;
   int digit_len = 0, neg = 0; 
@@ -76,7 +76,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     }
   }
   _print_ch(&out, '\0');
-  return out - old_out;
+  return out - old_out - 1;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
