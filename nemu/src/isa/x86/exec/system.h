@@ -46,6 +46,20 @@ static inline def_EHelper(iret) {
 
 static inline def_EHelper(in) {
   TODO();
+  switch (id_dest->width) {
+  case 1:
+    pio_read_b(*id_dest->preg);
+    break;
+  case 2:
+    pio_read_w(*id_dest->preg);
+    break;
+  case 4: 
+    pio_read_l(*id_dest->preg);
+    break;
+  default:
+    TODO();
+    break;
+  };
   print_asm_template2(in);
 }
 
