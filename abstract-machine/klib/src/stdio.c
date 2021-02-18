@@ -5,6 +5,48 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+int _print_ch(char **out, char ch) {
+  if (out == NULL)
+    putch(ch);
+  else {
+    **out = ch;
+    (*out)++;
+  }
+  return 1;
+}
+
+int _print_str(char **out, char *s) {
+  int c = 0;
+  while (*s)
+    c += _print_ch(out, *s++);
+  return c;
+}
+
+int _print_digit(char **out, int x) {
+  static char buf[sizeof(int)*8];
+  int buf_len = sizeof(int)*8;
+  int digit_len = 0, neg = 0; 
+
+  if (x < 0) {
+    neg = 1;
+    x = -x;
+  }
+  for (int i = 0; i < buf_len; i++) {
+    buf[i] = x%10 + '0';
+    digit_len++;
+    x /= 10;
+    if (x == 0) {
+      buf[i+1] = '\0';
+      break;
+    }
+  }
+  if (neg)
+    _print_ch(out, '-');
+  for (int i = digit_len - 1; i >= 0; i--)
+    _print_ch(out, buf[i]);
+  return digit_len;
+}
+
 int printf(const char *fmt, ...) {
   return 0;
 }
@@ -22,29 +64,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       type = fmt[++i];
       if (type == 's') {
         char *s = va_arg(ap, char*);
-        while (*s)
-          *out++ = *s++;
+        _print_str(&out, s);
       } else if (type == 'd') {
-        char buf[sizeof(int)*8];
-        int buf_len = sizeof(int)*8;
-        long long x = va_arg(ap, int), digit_len = 0, neg = 0; 
-        if (x < 0) {
-          neg = 1;
-          x = -x;
-        }
-        for (int i = 0; i < buf_len; i++) {
-          buf[i] = x%10 + '0';
-          digit_len++;
-          x /= 10;
-          if (x == 0) {
-            buf[i+1] = '\0';
-            break;
-          }
-        }
-        if (neg)
-          *out++ = '-';
-        for (int i = digit_len - 1; i >= 0; i--)
-          *out++ = buf[i];
+        int x = va_arg(ap, int);
+        _print_digit(&out, x);
       }
       break;
     default:
