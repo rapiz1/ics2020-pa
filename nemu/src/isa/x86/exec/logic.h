@@ -96,8 +96,8 @@ static inline def_EHelper(bsr) {
     while (temp != 0 && BIT(*id_src1->preg, temp) == 0) {
       Log("BIT(%x, %d) = %d", *id_src1->preg, temp, BIT(*id_src1->preg, temp));
       temp--;
-      *id_dest->preg = temp;
     }
+    *id_dest->preg = temp;
     operand_write(s, id_dest, id_dest->preg);
   }
   rtl_set_ZF(s, &zf);
