@@ -197,6 +197,8 @@ again:
     IDEX(0x31, G2E, xor)
     IDEXW(0x32, E2G, xor, 1)
     IDEX(0x33, E2G, xor)
+    IDEXW(0x34, I2a, xor, 1)
+    IDEX(0x35, I2a, xor)
 
     IDEX(0x8d, lea_M2G, lea)
 
@@ -211,6 +213,8 @@ again:
     IDEX(0x09, G2E, or)
     IDEXW(0x0a, E2G, or, 1)
     IDEX(0x0b, E2G, or)
+    IDEXW(0x0c, I2a, or, 1)
+    IDEX(0x0d, I2a, or)
 
     IDEXW(0x10, G2E, adc, 1)
     IDEX(0x11, G2E, adc)
