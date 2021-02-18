@@ -6,8 +6,10 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int _print_ch(char **out, char ch) {
-  if (out == NULL || *out == NULL)
-    putch(ch);
+  if (out == NULL || *out == NULL) {
+    if (ch != '\0')
+      putch(ch);
+  }
   else {
     **out = ch;
     (*out)++;
