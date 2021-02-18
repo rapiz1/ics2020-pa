@@ -126,4 +126,32 @@ static inline def_rtl(update_ZFSF, const rtlreg_t* result, int width) {
   rtl_update_SF(s, result, width);
 }
 
+static inline def_rtl(rotl, rtlreg_t *dest, const rtlreg_t *count) {
+  const unsigned int mask = (8*sizeof(rtlreg_t) - 1);
+  rtlreg_t c = *count, n = *dest;
+
+  if (c == 0) {
+    rtlreg_t cf = 1;
+    rtl_set_OF(s, &cf);
+  }
+
+  c &= mask;
+
+  *dest = (n<<c) | (n>>( (-c)&mask ));
+}
+
+static inline def_rtl(rotr, rtlreg_t *dest, const rtlreg_t *count) {
+  const unsigned int mask = (8*sizeof(rtlreg_t) - 1);
+  rtlreg_t c = *count, n = *dest;
+  
+  if (c == 0) {
+    rtlreg_t cf = 1;
+    rtl_set_OF(s, &cf);
+  }
+
+  c &= mask;
+
+  *dest = (n>>c) | (n<<( (-c)&mask ));
+}
+
 #endif

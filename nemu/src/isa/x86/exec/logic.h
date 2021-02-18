@@ -76,6 +76,20 @@ static inline def_EHelper(shr) {
 }
 
 
+static inline def_EHelper(rol) {
+  rtl_rotl(s, id_dest->preg, id_src1->preg);
+  operand_write(s, id_dest, id_dest->preg);
+
+  print_asm_template2(rol);
+}
+
+static inline def_EHelper(ror) {
+  rtl_rotr(s, id_dest->preg, id_src1->preg);
+  operand_write(s, id_dest, id_dest->preg);
+
+  print_asm_template2(ror);
+}
+
 static inline def_EHelper(setcc) {
   uint32_t cc = s->opcode & 0xf;
   rtl_setcc(s, ddest, cc);
