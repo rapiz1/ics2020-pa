@@ -91,7 +91,7 @@ static inline def_EHelper(bsr) {
   if (*id_src1->preg == 0) {
     zf = 1;
   } else {
-    rtlreg_t temp = id_src1->width-1;
+    rtlreg_t temp = id_src1->width*8-1;
     zf = 0;
     while (temp != 0 && BIT(*id_src1->preg, temp) == 0) {
       temp--;
