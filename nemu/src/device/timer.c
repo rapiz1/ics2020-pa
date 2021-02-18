@@ -13,7 +13,7 @@ static void rtc_io_handler(uint32_t offset, int len, bool is_write) {
   if (!is_write) {
     struct timeval now;
     gettimeofday(&now, NULL);
-    if (rtc_port_base[0] - now.tv_usec > 1000000) {
+    if (rtc_port_base[1] != now.tv_sec) {
       puts("a second pass");
     }
     rtc_port_base[0] = now.tv_usec;
