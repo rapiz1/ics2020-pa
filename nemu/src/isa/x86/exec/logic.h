@@ -86,7 +86,7 @@ static inline def_EHelper(setcc) {
 
 static inline def_EHelper(bsr) {
   //TODO();
-  Log("bsr %x width %d, dest %x", *id_src1->preg, id_src1->width, *id_dest->preg);
+  Log("bsr %x width %d, dest %x, val %x", *id_src1->preg, id_src1->width, *id_dest->preg, id_dest->val);
   rtlreg_t zf = 0;
   if (id_src1->val == 0) {
     zf = 1;
