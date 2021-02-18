@@ -46,10 +46,12 @@ static inline def_EHelper(cltd) {
 
 static inline def_EHelper(cwtl) {
   if (s->isa.is_operand_size_16) {
-    TODO();
+    //TODO();
+    reg_w(R_AX) = SEXT(reg_b(R_AL), 8);
   }
   else {
-    TODO();
+    //TODO();
+    reg_l(R_EAX) = SEXT(reg_w(R_AX), 16);
   }
   print_asm(s->isa.is_operand_size_16 ? "cbtw" : "cwtl");
 }
