@@ -288,6 +288,9 @@ again:
 
     EX(0x98, cwtl)
     EX(0x99, cltd)
+
+    IDEXW(0xee, out_a2dx, out, 1)
+    IDEX(0xef, out_a2dx, out)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
   default: exec_inv(s);
   }
