@@ -2,20 +2,15 @@
 #include <nemu.h>
 #include <stdio.h>
 
-static uint64_t start_time;
-
-static uint64_t __am_read_timer() {
-  uint64_t us = inl(0x48);
-  uint64_t sec = inl(0x4c);
-  return sec*1000000 + us;
-}
+static uint64_t __am_start_secs;
 
 void __am_timer_init() {
-  start_time = __am_read_timer();
+  __am_start_secs = inl(0x4c);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uptime->us = __am_read_timer() - start_time;
+  uint32_t secs = inl(0x4c), usecs = inl(0x48);
+  uptime->us = (secs - __am_start_secs)*1000000 + usecs;
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
