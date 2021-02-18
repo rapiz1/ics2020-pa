@@ -182,6 +182,7 @@ again:
     IDEX(0x57, r, push)
     IDEXW(0x6a, push_SI, push, 1)
     IDEX(0x68, I, push)
+    IDEX(0x69, I_E2G, imul3)
 
     IDEX(0x58, r, pop)
     IDEX(0x59, r, pop)
