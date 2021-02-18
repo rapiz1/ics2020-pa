@@ -85,7 +85,7 @@ static inline def_EHelper(setcc) {
 }
 
 static inline def_EHelper(bsr) {
-  TODO();
+  //TODO();
   rtlreg_t zf = 0;
   if (id_src1->val == 0) {
     zf = 1;
