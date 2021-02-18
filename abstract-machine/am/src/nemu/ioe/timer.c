@@ -6,9 +6,9 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uptime->us = inl(0x48);
-  if (uptime->us%1000 == 0)
-    printf("%d\n", uptime->us);
+  uint32_t v = inl(0x48);
+  uptime->us = v;
+  printf("%d\n",v);
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
