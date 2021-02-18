@@ -6,7 +6,7 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int _print_ch(char **out, char ch) {
-  if (out == NULL)
+  if (out == NULL || *out == NULL)
     putch(ch);
   else {
     **out = ch;
@@ -48,7 +48,13 @@ int _print_digit(char **out, long long x) {
 }
 
 int printf(const char *fmt, ...) {
-  return 0;
+  int ret;
+  va_list va;
+
+  va_start(va, fmt);
+  ret = vsprintf(NULL, fmt, va);
+  va_end(va);
+  return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
