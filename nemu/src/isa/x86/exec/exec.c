@@ -291,6 +291,8 @@ again:
 
     IDEXW(0xee, out_a2dx, out, 1)
     IDEX(0xef, out_a2dx, out)
+    IDEXW(0xec, in_dx2a, in, 1)
+    IDEX(0xed, in_dx2a, in)
   case 0x66: s->isa.is_operand_size_16 = true; goto again;
   default: exec_inv(s);
   }
