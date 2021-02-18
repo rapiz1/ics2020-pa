@@ -15,7 +15,7 @@ int _print_ch(char **out, char ch) {
   return 1;
 }
 
-int _print_str(char **out, char *s) {
+int _print_str(char **out, const char *s) {
   int c = 0;
   while (*s)
     c += _print_ch(out, *s++);
@@ -45,6 +45,12 @@ int _print_digit(char **out, long long x) {
   for (int i = digit_len - 1; i >= 0; i--)
     _print_ch(out, buf[i]);
   return digit_len + neg;
+}
+
+int puts(const char* s) {
+  _print_str(NULL, s);
+  _print_ch(NULL, '\n');
+  return 0;
 }
 
 int printf(const char *fmt, ...) {
