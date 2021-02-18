@@ -7,7 +7,7 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uptime->us = inl(0x48);
-  if (uptime->us/1000)
+  if (uptime->us%1000 == 0)
     printf("%d\n", uptime->us);
 }
 
