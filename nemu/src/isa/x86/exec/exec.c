@@ -226,6 +226,8 @@ again:
     IDEX(0x21, G2E, and)
     IDEXW(0x22, E2G, and, 1)
     IDEX(0x23, E2G, and)
+    IDEXW(0x24, I2a, and, 1)
+    IDEX(0x25, I2a, and)
 
     IDEXW(0x28, G2E, sub, 1)
     IDEX(0x29, G2E, sub)
