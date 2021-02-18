@@ -44,7 +44,7 @@ int _print_digit(char **out, int x) {
     _print_ch(out, '-');
   for (int i = digit_len - 1; i >= 0; i--)
     _print_ch(out, buf[i]);
-  return digit_len;
+  return digit_len + neg;
 }
 
 int printf(const char *fmt, ...) {
@@ -71,11 +71,11 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       }
       break;
     default:
-      *out++ = c;
+      _print_ch(&out, c);
       break;
     }
   }
-  *out = '\0';
+  _print_ch(&out, '\0');
   return out - old_out;
 }
 
