@@ -65,7 +65,13 @@ typedef struct {
 
   uint32_t cs, ss, ds, es, fs, gs;
 
-  rtlreg_t gdtr, ldtr, idtr, tr;
+  rtlreg_t gdtr, ldtr;
+  struct idtr {
+    uint16_t limit;
+    uint32_t base;
+  } idtr;
+
+  rtlreg_t tr;
 
   rtlreg_t cr0, cr1, cr2, cr3;
 

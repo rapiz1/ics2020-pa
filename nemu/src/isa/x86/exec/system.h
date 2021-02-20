@@ -8,8 +8,11 @@ void pio_write_w(ioaddr_t, uint32_t);
 void pio_write_b(ioaddr_t, uint32_t);
 
 static inline def_EHelper(lidt) {
-  TODO();
-  cpu.idtr = *s->dest.preg;
+  rtlreg_t limit, base;
+  rtl_lm(s, &limit, id_dest->preg, 0, 2);
+  rtl_lm(s, &base, id_dest->preg, 2, 4);
+  cpu.idtr.limit = limit;
+  cpu.idtr.base = base;
   print_asm_template1(lidt);
 }
 
