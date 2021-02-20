@@ -8,7 +8,7 @@ void pio_write_w(ioaddr_t, uint32_t);
 void pio_write_b(ioaddr_t, uint32_t);
 
 static inline def_EHelper(lidt) {
-  //TODO();
+  TODO();
   cpu.idtr = *s->dest.preg;
   print_asm_template1(lidt);
 }
