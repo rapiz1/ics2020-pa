@@ -320,6 +320,8 @@ again:
     EX(0x98, cwtl)
     EX(0x99, cltd)
 
+    EX(0xcf, iret)
+
     IDEXW(0xe2, J, loop, 1)
 
     IDEXW(0xee, out_a2dx, out, 1)
