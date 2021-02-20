@@ -15,7 +15,7 @@ void __am_vecnull();
 
 
 inline static void display_context(Context *c) {
-  printf("irq context:\n");
+  printf("irq context at %d:\n", c);
   printf("\tcr3: %d\n", (int)(c->cr3));
   printf("\tedi: %d\t esi:%d\n", c->edi, c->esi);
   printf("\tebp: %d\t esp:%d\n", c->ebp, c->esp);
