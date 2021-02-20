@@ -8,7 +8,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 
   //TODO();
 
-  Log("int %x", NO);
+  Log("int 0x%x", NO);
   struct IDTDescr {
     uint16_t offset_1; // offset bits 0..15
     uint16_t selector; // a code segment selector in GDT or LDT
