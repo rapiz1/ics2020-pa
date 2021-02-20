@@ -83,6 +83,7 @@ static inline def_EHelper(gp7) {
     case 3:
     set_width(s, 0);
     decode_E(s);
+    Log("decode done");
     exec_lidt(s);
     break;
     EMPTY(4) EMPTY(5) EMPTY(6)
