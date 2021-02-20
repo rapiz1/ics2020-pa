@@ -18,6 +18,10 @@ inline static void display_context(Context *c) {
   printf("irq context:\n");
   printf("\tcr3: %d\n", (int)(c->cr3));
   printf("\tedi: %d\t esi:%d\n", c->edi, c->esi);
+  printf("\tebp: %d\t esp:%d\n", c->ebp, c->esp);
+  printf("\tebx: %d\t edx:%d\n", c->ebx, c->edx);
+  printf("\tecx: %d\t eax:%d\n", c->ecx, c->eax);
+  printf("\tirq: %d\n", c->irq);
 }
 
 Context* __am_irq_handle(Context *c) {
