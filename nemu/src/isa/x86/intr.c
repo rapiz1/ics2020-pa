@@ -6,7 +6,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
    * That is, use ``NO'' to index the IDT.
    */
 
-  TODO();
+  //TODO();
 
   struct IDTDescr {
     uint16_t offset_1; // offset bits 0..15
