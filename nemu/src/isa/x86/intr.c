@@ -30,6 +30,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 
   s->is_jmp = true;
   s->jmp_pc = jmp_pc;
+  Log("int jmp pc %x", jmp_pc);
 }
 
 void query_intr(DecodeExecState *s) {
