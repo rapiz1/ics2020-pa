@@ -85,6 +85,7 @@ static inline def_EHelper(gp7) {
     Log("decode start");
     decode_E(s);
     Log("decode done");
+    TODO();
     exec_lidt(s);
     break;
     EMPTY(4) EMPTY(5) EMPTY(6)
