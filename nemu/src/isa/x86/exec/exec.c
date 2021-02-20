@@ -317,6 +317,8 @@ again:
     EX(0x98, cwtl)
     EX(0x99, cltd)
 
+    IDEXW(0xe2, J, loop, 1)
+
     IDEXW(0xee, out_a2dx, out, 1)
     IDEX(0xef, out_a2dx, out)
     IDEXW(0xec, in_dx2a, in, 1)

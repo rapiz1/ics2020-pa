@@ -48,3 +48,18 @@ static inline def_EHelper(call_rm) {
   rtl_jr(s, ddest);
   print_asm("call *%s", id_dest->str);
 }
+
+static inline def_EHelper(loop) {
+  rtlreg_t c;
+  if (s->isa.is_operand_size_16) {
+    TODO();
+    //rtl_subi(s, &reg_w(R_CX), &reg_w(R_CX), 1);
+    //c = reg_w(R_CX);
+  }
+  else {
+    rtl_subi(s, &reg_l(R_ECX), &reg_l(R_ECX), 1);
+    c = reg_l(R_ECX);
+  }
+  if (c != 0)
+    s->is_jmp = true;
+}
