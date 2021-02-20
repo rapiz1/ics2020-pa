@@ -62,3 +62,5 @@ static inline void update_pc(DecodeExecState *s) {
   print_asm(str(instr) "%c %s,%s,%s", suffix_char(id_dest->width), id_src1->str, id_src2->str, id_dest->str)
 
 #endif
+
+void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr);
