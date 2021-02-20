@@ -9,8 +9,9 @@ void pio_write_b(ioaddr_t, uint32_t);
 
 static inline def_EHelper(lidt) {
   rtlreg_t limit = 0, base = 0;
-  rtl_lm(s, &limit, id_dest->preg, 0, 2);
-  rtl_lm(s, &base, id_dest->preg, 2, 4);
+  vaddr_t addr = *s->isa.mbase + s->isa.moff;
+  rtl_lm(s, &limit, &addr, 0, 2);
+  rtl_lm(s, &base, &addr, 2, 4);
   cpu.idtr.limit = limit;
   cpu.idtr.base = base;
   Log("idtr base:limit=%x:%x at mem %x", base, limit, *id_dest->preg);
