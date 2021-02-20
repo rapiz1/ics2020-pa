@@ -9,8 +9,8 @@ void pio_write_b(ioaddr_t, uint32_t);
 
 static inline def_EHelper(lidt) {
   //TODO();
-  Log("lidt %x", *s->dest.preg);
   cpu.idtr = *s->dest.preg;
+  assert(false);
   print_asm_template1(lidt);
 }
 
