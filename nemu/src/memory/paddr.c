@@ -70,7 +70,7 @@ word_t concat(vaddr_ifetch, bytes) (vaddr_t addr) { \
   return 0; \
 } \
 word_t concat(vaddr_read, bytes) (vaddr_t addr) { \
-  Log("vread %x", addr); \
+  /*Log("vread %x", addr);*/ \
   int ret = isa_vaddr_check(addr, MEM_TYPE_READ, bytes); \
   if (ret == MEM_RET_OK) return paddr_read(addr, bytes); \
   return 0; \
