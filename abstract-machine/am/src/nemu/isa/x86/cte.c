@@ -14,7 +14,13 @@ void __am_vectrap();
 void __am_vecnull();
 
 
+inline static void display_context(Context *c) {
+  printf("irq context:\n");
+  printf("\tcr3: %d\n", (int)(c->cr3));
+}
+
 Context* __am_irq_handle(Context *c) {
+  display_context(c);
   if (user_handler) {
     Event ev = {0};
     switch (c->irq) {
