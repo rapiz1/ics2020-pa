@@ -27,7 +27,7 @@ inline static void display_context(Context *c) {
 }
 
 Context* __am_irq_handle(Context *c) {
-  display_context(c);
+  //display_context(c);
   if (user_handler) {
     Event ev = {0};
     switch (c->irq) {
