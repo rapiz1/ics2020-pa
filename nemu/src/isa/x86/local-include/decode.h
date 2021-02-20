@@ -195,6 +195,10 @@ static inline def_DHelper(E) {
   operand_rm(s, id_dest, true, NULL, false);
 }
 
+static inline def_DHelper(Ms) {
+  operand_rm(s, id_dest, false, NULL, false);
+}
+
 static inline def_DHelper(setcc_E) {
   operand_rm(s, id_dest, false, NULL, false);
 }
