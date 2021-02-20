@@ -79,7 +79,12 @@ static inline def_EHelper(gp5) {
 static inline def_EHelper(gp7) {
   switch (s->isa.ext_opcode) {
     EMPTY(0) EMPTY(1) EMPTY(2)
-    IDEX(3, E, lidt)
+    //IDEX(3, E, lidt)
+    case 3:
+    set_width(s, 0);
+    decode_E(s);
+    exec_lidt(s);
+    break;
     EMPTY(4) EMPTY(5) EMPTY(6)
     EMPTY(7)
   }
