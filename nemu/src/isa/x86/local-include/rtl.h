@@ -35,7 +35,20 @@ static inline def_rtl(push, const rtlreg_t* src1) {
 }
 
 static inline def_rtl(pusha) {
-  TODO();
+  //TODO();
+  if (s->isa.is_operand_size_16) {
+    TODO();
+  } else {
+    rtlreg_t esp = reg_l(R_ESP);
+    rtl_push(s, &reg_l(R_EAX));
+    rtl_push(s, &reg_l(R_ECX));
+    rtl_push(s, &reg_l(R_EDX));
+    rtl_push(s, &reg_l(R_EBX));
+    rtl_push(s, &esp);
+    rtl_push(s, &reg_l(R_EBP));
+    rtl_push(s, &reg_l(R_ESI));
+    rtl_push(s, &reg_l(R_EDI));
+  }
 }
 
 static inline def_rtl(pop, rtlreg_t* dest) {
