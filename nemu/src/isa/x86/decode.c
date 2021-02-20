@@ -102,7 +102,7 @@ void read_ModR_M(DecodeExecState *s, Operand *rm, bool load_rm_val, Operand *reg
   m.val = instr_fetch(&s->seq_pc, 1);
   s->isa.ext_opcode = m.opcode;
   if (s->seq_pc == 0x1005f5)
-  print_asm_template1(lidt);
+    TODO();
   if (reg != NULL) operand_reg(s, reg, load_reg_val, m.reg, reg->width);
   if (m.mod == 3) operand_reg(s, rm, load_rm_val, m.R_M, rm->width);
   else {
