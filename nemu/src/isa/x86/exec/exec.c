@@ -82,6 +82,7 @@ static inline def_EHelper(gp7) {
     //IDEX(3, E, lidt)
     case 3:
     set_width(s, 0);
+    Log("decode start");
     decode_E(s);
     Log("decode done");
     exec_lidt(s);
