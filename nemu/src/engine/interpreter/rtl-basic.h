@@ -87,7 +87,7 @@ static inline def_rtl(idiv64_r, rtlreg_t* dest,
 static inline def_rtl(lm, rtlreg_t *dest, const rtlreg_t* addr, word_t offset, int len) {
   //Log("lm %x", *addr+offset);
   *dest = vaddr_read(*addr + offset, len);
-  //Log("read %x from 0x%08x", *dest, *addr + offset);
+  Log("read %x from 0x%08x", *dest, *addr + offset);
 }
 
 static inline def_rtl(sm, const rtlreg_t* addr, word_t offset, const rtlreg_t* src1, int len) {
