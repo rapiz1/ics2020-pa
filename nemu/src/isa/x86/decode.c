@@ -105,7 +105,7 @@ void read_ModR_M(DecodeExecState *s, Operand *rm, bool load_rm_val, Operand *reg
   if (m.mod == 3) operand_reg(s, rm, load_rm_val, m.R_M, rm->width);
   else {
     load_addr(s, &m, rm);
-    if (s->seq_pc == 0x1005f8)
+    if (s->seq_pc >= 0x1005f5)
       Log("%s addr %x %d", rm->str, *s->isa.mbase + s->isa.moff, load_rm_val);
     if (load_rm_val) {
       rtl_lm(s, &rm->val, s->isa.mbase, s->isa.moff, rm->width);
