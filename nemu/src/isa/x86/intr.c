@@ -16,7 +16,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     uint16_t offset_2; // offset bits 16..31
   };
 
-  vaddr_t addr = (vaddr_t)cpu.idtr.base + NO*2;
+  vaddr_t addr = (vaddr_t)(cpu.idtr.base + NO*sizeof(struct IDTDescr));
   struct IDTDescr gt;
   word_t *pgt = (word_t *)&gt;
   pgt[0] = vaddr_read(addr, 4); 
@@ -30,7 +30,6 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 
   s->is_jmp = true;
   s->jmp_pc = jmp_pc;
-  Log("int jmp pc %x", jmp_pc);
 }
 
 void query_intr(DecodeExecState *s) {
