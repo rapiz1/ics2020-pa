@@ -22,6 +22,8 @@ inline static void display_context(Context *c) {
   printf("\tebx: %d\t edx:%d\n", c->ebx, c->edx);
   printf("\tecx: %d\t eax:%d\n", c->ecx, c->eax);
   printf("\tirq: %d\n", c->irq);
+  printf("\teip: %d\t cs: %d\n", c->irq, c->cs);
+  printf("\teflags: %d\n", c->eflags);
 }
 
 Context* __am_irq_handle(Context *c) {
