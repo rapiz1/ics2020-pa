@@ -310,6 +310,7 @@ again:
     IDEX(0x4f, r, dec)
 
     EX(0x60, pusha)
+    EX(0x61, popa)
 
     IDEXW(0xa8, I2a, test, 1)
     IDEX(0xa9, I2a, test)

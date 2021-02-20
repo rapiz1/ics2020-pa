@@ -64,6 +64,24 @@ static inline def_rtl(pop, rtlreg_t* dest) {
   //Log("stack pop %x", *dest);
 }
 
+static inline def_rtl(popa) {
+  //TODO();
+  if (s->isa.is_operand_size_16) {
+    TODO();
+  } else {
+    rtlreg_t esp;
+    rtl_pop(s, &reg_l(R_EDI));
+    rtl_pop(s, &reg_l(R_ESI));
+    rtl_pop(s, &reg_l(R_EBP));
+    rtl_pop(s, &esp);
+    rtl_pop(s, &reg_l(R_EBX));
+    rtl_pop(s, &reg_l(R_EDX));
+    rtl_pop(s, &reg_l(R_ECX));
+    rtl_pop(s, &reg_l(R_EAX));
+    reg_l(R_ESP) = esp;
+  }
+}
+
 static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 - src2)
