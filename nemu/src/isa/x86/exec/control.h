@@ -50,6 +50,7 @@ static inline def_EHelper(call_rm) {
 }
 
 static inline def_EHelper(loop) {
+  TODO();
   rtlreg_t c;
   if (s->isa.is_operand_size_16) {
     TODO();
