@@ -45,7 +45,7 @@ static inline def_EHelper(int) {
 static inline def_EHelper(iret) {
   //TODO();
   if (s->isa.is_operand_size_16) TODO();
-  rtl_pop(s, &reg_l(R_ESP));
+  rtl_pop(s, &cpu.pc);
   rtl_pop(s, &cpu.cs);
   rtl_pop(s, &cpu.eflags);
   print_asm("iret");
