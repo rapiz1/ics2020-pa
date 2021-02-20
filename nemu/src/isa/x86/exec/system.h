@@ -14,7 +14,7 @@ static inline def_EHelper(lidt) {
   rtl_lm(s, &base, &addr, 2, 4);
   cpu.idtr.limit = limit;
   cpu.idtr.base = base;
-  Log("idtr base:limit=%x:%x at mem %x", base, limit, *id_dest->preg);
+  Log("idtr base:limit=%x:%x at mem %x", base, limit, addr);
   print_asm_template1(lidt);
 }
 
