@@ -286,6 +286,7 @@ again:
     IDEX(0xe9, Jv, jmp)
 
     EX(0xc3, ret)
+    IDEXW(0xcd, I, int, 1)
     EX(0xc9, leave)
 
     EX(0x90, nop)
