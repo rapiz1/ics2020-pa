@@ -21,6 +21,7 @@ int main() {
 
 #ifdef HAS_CTE
   init_irq();
+  Log("irq initialized");
 #endif
 
   init_fs();
