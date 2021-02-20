@@ -27,7 +27,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   GateDesc32 gt;
   word_t *pgt = (word_t *)&gt;
   pgt[0] = vaddr_read(addr, 4); 
-  pgt[1] = vaddr_read(addr, 4); 
+  pgt[1] = vaddr_read(addr+4, 4); 
 
   vaddr_t jmp_pc = gt.off_15_0 | (((uint32_t)gt.off_31_16) << 16);
   Log("gt offset: %x, %x", gt.off_15_0, gt.off_31_16);
