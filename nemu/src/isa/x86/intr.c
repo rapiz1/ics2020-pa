@@ -22,7 +22,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   pgt[0] = vaddr_read(addr, 4); 
   pgt[1] = vaddr_read(addr, 4); 
 
-  vaddr_t jmp_pc = gt.offset_1 + (gt.offset_2 << 16);
+  vaddr_t jmp_pc = gt.offset_1 + (((uint32_t)gt.offset_2) << 16);
 
   rtl_push(s, &cpu.eflags);
   rtl_push(s, &cpu.cs);
