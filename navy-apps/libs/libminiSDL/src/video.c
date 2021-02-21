@@ -98,8 +98,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   uint32_t *c = malloc(sizeof(SDL_Color)*w*h);
   for (int i = 0; i < h; i++) {
     for (int j = 0; j < w; j++) {
-      uint32_t val = _GetColorFromSurface(s, x+j, y+i).val;
-      //val >>= 8;
+      SDL_Color co = _GetColorFromSurface(s, x+j, y+i);
+      uint32_t val = co.val;
+      printf("%d, %d: (%d, %d, %d, a %d)\n", i, j, co.r, co.g, co.b, co.a);
+      val >>= 8;
       c[i*w + j] = val;
     }
   }
