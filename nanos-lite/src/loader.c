@@ -16,6 +16,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr eh;
   ramdisk_read(&eh, 0, sizeof(eh));
 
+  assert(eh.e_machine == EXPECT_TYPE);
+
   for (int i = 0; i < eh.e_phnum; i++) {
     printf("Loading ph#%d\n", i);
     Elf_Phdr ph;
