@@ -14,7 +14,7 @@ static void sys_yield(Context *c) {
 
 static void sys_open(Context *c) {
   char *pathname = (char*)c->GPR2;
-  c->GPR2 = fs_open(pathname, 0, 0);
+  c->GPRx = fs_open(pathname, 0, 0);
 }
 
 static void sys_read(Context *c) {
