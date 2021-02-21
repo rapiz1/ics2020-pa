@@ -70,7 +70,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
   if (fd <= FD_STDERR)
-    panic("fs_lseek on invalid fd");
+    panic("fs_lseek on invalid fd %d", fd);
 
   int pos = open_offset[fd];
   if (whence == SEEK_SET)
