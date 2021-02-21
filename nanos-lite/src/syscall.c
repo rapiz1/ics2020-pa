@@ -14,6 +14,7 @@ static void sys_write(Context *c) {
   int fd = c->GPR2;
   char *buf = (char*)c->GPR3;
   size_t count = c->GPR4;
+  Log("write %d, %d", fd, count);
   if (fd == 1 || fd == 2) {
     for (int i = 0; i < count; i++)
       putch(buf[i]);
