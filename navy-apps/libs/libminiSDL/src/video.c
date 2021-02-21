@@ -100,7 +100,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       uint32_t val = c.val;
       val >>= 8;
       NDL_DrawRect(&val, x + j, y + i, 1, 1);
-      //printf("draw at %d, %d, with c %d\n", x + j, y + i, val);
+      printf("draw at %d, %d, with c %d\n", x + j, y + i, val);
     }
 }
 
