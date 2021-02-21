@@ -52,12 +52,12 @@ static SDL_Color _ParseColorFromSurface(SDL_Surface *s, uint32_t c) {
 }
 
 static SDL_Color _GetColorFromSurface(SDL_Surface *s, int x, int y) {
-  SDL_PixelFormat *fmt;
+  SDL_PixelFormat *fmt = s->format;
 
-  fmt = s->format;
+  uint8_t bpp = fmt->BytesPerPixel;
   uint32_t offset = y*s->w + x;
 
-  uint32_t pixel = ((uint32_t*)s->pixels)[offset];
+  uint32_t pixel = *(uint32_t *)(s->pixels + bpp*offset);
 
   return _ParseColorFromSurface(s, pixel);
 }
