@@ -37,6 +37,12 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
 
+int tty_write(char *buf, int offset, int len) {
+  for (int i = 0; i < len; i++)
+    putch(buf[i]);
+  return len;
+}
+
 int fs_open(const char *pathname, int flags, int mode) {
   Log("opening %s", pathname);
   int n = LENGTH(file_table);
