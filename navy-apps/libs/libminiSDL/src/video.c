@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static SDL_Color _ParseColorFromSurface(SDL_Surface *s, uint32_t c) {
   SDL_Color color;
@@ -94,6 +95,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       uint32_t val = c.val;
       val >>= 8;
       NDL_DrawRect(&val, x + j, y + i, 1, 1);
+      printf("draw at %d, %d, with c %d\n", x + j, y + i, val);
     }
 }
 
