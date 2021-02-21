@@ -4,15 +4,97 @@
 #include <string.h>
 #include <stdlib.h>
 
+static SDL_Color _ParseColorFromSurface(SDL_Surface *s, uint32_t c) {
+  SDL_Color color;
+  SDL_PixelFormat *fmt = s->format;
+  /* Check the bitdepth of the surface */
+  if(fmt->BitsPerPixel!=8){
+    uint32_t pixel = c;
+    uint32_t temp;
+    uint8_t red, green, blue, alpha;
+
+    /* Get Red component */
+    temp = pixel & fmt->Rmask;  /* Isolate red component */
+    temp = temp >> fmt->Rshift; /* Shift it down to 8-bit */
+    temp = temp << fmt->Rloss;  /* Expand to a full 8-bit number */
+    red = (uint8_t)temp;
+
+    /* Get Green component */
+    temp = pixel & fmt->Gmask;  /* Isolate green component */
+    temp = temp >> fmt->Gshift; /* Shift it down to 8-bit */
+    temp = temp << fmt->Gloss;  /* Expand to a full 8-bit number */
+    green = (uint8_t)temp;
+
+    /* Get Blue component */
+    temp = pixel & fmt->Bmask;  /* Isolate blue component */
+    temp = temp >> fmt->Bshift; /* Shift it down to 8-bit */
+    temp = temp << fmt->Bloss;  /* Expand to a full 8-bit number */
+    blue = (uint8_t)temp;
+
+    /* Get Alpha component */
+    temp = pixel & fmt->Amask;  /* Isolate alpha component */
+    temp = temp >> fmt->Ashift; /* Shift it down to 8-bit */
+    temp = temp << fmt->Aloss;  /* Expand to a full 8-bit number */
+    alpha = (uint8_t)temp;
+
+    color = (SDL_Color){
+      .b = blue,
+      .r = red,
+      .g = green,
+      .a = alpha,
+    };
+  } else {
+    /* Get the topleft pixel */
+    uint8_t index = c;
+    color = fmt->palette->colors[index];
+  }
+}
+
+static SDL_Color _GetColorFromSurface(SDL_Surface *s, int x, int y) {
+  SDL_PixelFormat *fmt;
+
+  fmt = s->format;
+  uint32_t offset = y*s->w + x;
+
+  uint32_t pixel = ((uint32_t*)s->pixels)[offset];
+
+  return _ParseColorFromSurface(s, pixel);
+}
+
+
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+
+
+  uint8_t bpp = dst->format->BytesPerPixel;
+  for (int i = 0; i < srcrect->h; i++)
+    for (int j = 0; j < srcrect->w; j++) {
+      void *sp = src->pixels + bpp*((i+srcrect->y)*src->w + (j+srcrect->x));
+      void *dp = dst->pixels + bpp*((i+dstrect->y)*dst->w + (j+dstrect->x));
+      memcpy(dp, sp, bpp);
+    }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+  SDL_Color c = _ParseColorFromSurface(dst, color);
+  size_t n = dstrect->w*dstrect->h;
+  uint32_t *pixels = malloc(sizeof(uint32_t)*n);
+  for (int i = 0; i < n; i++) {
+    pixels[i] = c.val >> 8;
+  }
+  NDL_DrawRect(pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
+  free(pixels);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  for (int i = 0; i < h; i++)
+    for (int j = 0; j < w; j++) {
+      SDL_Color c = _GetColorFromSurface(s, x, y);
+      uint32_t val = c.val;
+      val >>= 8;
+      NDL_DrawRect(&val, x + j, y + i, 1, 1);
+    }
 }
 
 // APIs below are already implemented.
