@@ -8,6 +8,7 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
+static int canvas_w = 0, canvas_h = 0;
 
 uint32_t NDL_GetTicks() {
   struct timeval tv;
@@ -23,6 +24,19 @@ int NDL_PollEvent(char *buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
+  int fd = open("/dev/dispinfo", 0, 0);
+  scanf(" WIDTH : %d\n HEIGHT : %d\n", &screen_w, &screen_h);
+  printf("got %d, %d screen", screen_w, screen_h);
+  close(fd);
+
+  if (*w == 0 && *h == 0) {
+    *w = screen_w;
+    *h = screen_h;
+  }
+
+  canvas_w = *w;
+  canvas_h = *h;
+
   if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
@@ -43,6 +57,13 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  int fd = open("/dev/fb", 0, 0);
+  for (int i = 0; i < h; i++) {
+    int offset = i*screen_w + x;
+    lseek(fd, offset, SEEK_SET);
+    write(fd, pixels + i*w, w);
+  }
+  close(fd);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
