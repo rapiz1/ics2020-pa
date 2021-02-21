@@ -95,16 +95,15 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     w = s->w;
     h = s->h;
   }
-  uint32_t *c = malloc(sizeof(SDL_Color)*w);
+  uint32_t *c = malloc(sizeof(SDL_Color)*w*h);
   for (int i = 0; i < h; i++) {
     for (int j = 0; j < w; j++) {
       uint32_t val = _GetColorFromSurface(s, x+j, y+i).val;
       val >>= 8;
-      c[j] = val;
+      c[i*w + j] = val;
     }
-    NDL_DrawRect(c, x, y + i, w, 1);
-    printf("draw at %d(%d), with c %d\n", y + i, w, c[0]);
   }
+  NDL_DrawRect(c, x, y, w, h);
   free(c);
 }
 
