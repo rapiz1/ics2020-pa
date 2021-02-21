@@ -1,6 +1,7 @@
 #include <proc.h>
 #include <elf.h>
 #include <common.h>
+#include <fs.h>
 
 #ifdef __LP64__
 # define Elf_Ehdr Elf64_Ehdr
@@ -14,17 +15,24 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
 
   Elf_Ehdr eh;
-  ramdisk_read(&eh, 0, sizeof(eh));
+  int fd = fs_open(filename, 0, 0);
+  fs_read(fd, &eh, sizeof(eh));
 
   assert(eh.e_machine == EXPECT_TYPE);
 
   for (int i = 0; i < eh.e_phnum; i++) {
     printf("Loading ph#%d\n", i);
     Elf_Phdr ph;
-    ramdisk_read(&ph, eh.e_phoff + i*eh.e_phentsize, eh.e_phentsize);
+    fs_lseek(fd, eh.e_phoff + i*eh.e_phentsize, SEEK_SET);
+    fs_read(fd ,&ph, eh.e_phentsize);
+
     memset((void*)ph.p_vaddr, 0, ph.p_memsz);
-    ramdisk_read((void*)ph.p_vaddr, ph.p_offset, ph.p_filesz);
+
+    fs_lseek(fd, ph.p_offset, SEEK_SET);
+    fs_read(fd, (void*)ph.p_vaddr, ph.p_filesz);
   }
+
+  fs_close(fd);
 
   return eh.e_entry;
 }
