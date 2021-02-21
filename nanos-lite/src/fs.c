@@ -41,14 +41,16 @@ void init_fs() {
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
-  Log("opening %s", pathname);
+  //Log("opening %s", pathname);
   int n = LENGTH(file_table);
   for (int i = 0; i < n; i++) {
     if (!strcmp(file_table[i].name, pathname)) {
-      open_offset[i] = 0;
-      file_table[i].read = ramdisk_read;
-      file_table[i].write = ramdisk_write;
-      Log("return fd %d", i);
+      if (file_table[i].read == NULL) {
+        open_offset[i] = 0;
+        file_table[i].read = ramdisk_read;
+        file_table[i].write = ramdisk_write;
+      }
+      //Log("return fd %d", i);
       return i;
     }
   }
