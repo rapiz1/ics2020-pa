@@ -3,7 +3,7 @@
 
 static void sys_yield(Context *c) {
   yield();
-  c->GPR1 = 0;
+  c->GPRx = 0;
 }
 
 void do_syscall(Context *c) {
