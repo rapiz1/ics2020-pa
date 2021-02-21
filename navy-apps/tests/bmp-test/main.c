@@ -5,6 +5,7 @@
 #include <BMP.h>
 
 int main() {
+  printf("prog start");
   NDL_Init(0);
   printf("NDL init");
   int w, h;
