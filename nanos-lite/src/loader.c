@@ -24,7 +24,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     ramdisk_read((void*)ph.p_vaddr, ph.p_offset, ph.p_filesz);
   }
 
-  return 0;
+  return eh.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
