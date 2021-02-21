@@ -4,6 +4,7 @@
 #include <sys/time.h>
 #include <assert.h>
 #include <time.h>
+#include <stdio.h>
 #include "syscall.h"
 
 // helper macros
@@ -67,7 +68,7 @@ void *_sbrk(intptr_t increment) {
   extern void* end;
   void *old_end = end;
   end += increment;
-  int ret = _syscall_(SYS_brk, end, 0, 0);
+  int ret = _syscall_(SYS_brk, (int)end, 0, 0);
   if (ret < 0) return (void*)-1;
   else return old_end;
 }
