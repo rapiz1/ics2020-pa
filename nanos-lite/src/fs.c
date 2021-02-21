@@ -41,7 +41,7 @@ void init_fs() {
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
-  Log("opening %s", pathname);
+  //Log("opening %s", pathname);
   int n = LENGTH(file_table);
   for (int i = 0; i < n; i++) {
     if (!strcmp(file_table[i].name, pathname)) {
@@ -90,7 +90,9 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
 
 int fs_close(int fd) {
   open_offset[fd] = 0;
-  file_table[fd].read = invalid_read;
-  file_table[fd].write = invalid_write;
+  if (file_table[fd].read == ramdisk_read) {
+    file_table[fd].read = invalid_read;
+    file_table[fd].write = invalid_write;
+  }
   return 0;
 }
