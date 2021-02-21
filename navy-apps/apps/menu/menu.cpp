@@ -69,10 +69,13 @@ static void clear_display(void) {
 
 int main(int argc, char *argv[], char *envp[]) {
   SDL_Init(0);
+  printf("sdl init\n");
   screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);
 
   font = new BDF_Font(font_fname);
+  printf("font loaded\n");
   logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");
+  printf("logo loaded\n");
   assert(logo_sf);
   set_i_max();
 
