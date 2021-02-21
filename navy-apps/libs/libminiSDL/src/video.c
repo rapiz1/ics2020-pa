@@ -10,7 +10,6 @@ static SDL_Color _ParseColorFromSurface(SDL_Surface *s, uint32_t c) {
   SDL_PixelFormat *fmt = s->format;
   /* Check the bitdepth of the surface */
   if(fmt->BitsPerPixel!=8){
-    printf("truecolor\n");
     uint32_t pixel = c;
     uint32_t temp;
     uint8_t red, green, blue, alpha;
@@ -46,11 +45,11 @@ static SDL_Color _ParseColorFromSurface(SDL_Surface *s, uint32_t c) {
       .a = alpha,
     };
   } else {
-    printf("8bit\n");
     /* Get the topleft pixel */
     uint8_t index = c;
     color = fmt->palette->colors[index];
   }
+  return color;
 }
 
 static SDL_Color _GetColorFromSurface(SDL_Surface *s, int x, int y) {
