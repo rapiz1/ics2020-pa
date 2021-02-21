@@ -45,6 +45,7 @@ int fs_open(const char *pathname, int flags, int mode) {
       open_offset[i] = 0;
       //file_table[i].read = fs_read;
       //file_table[i].write = fs_write;
+      Log("return fd %d", i);
       return i;
     }
   }
