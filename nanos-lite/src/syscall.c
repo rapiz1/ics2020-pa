@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+#include <errno.h>
 
 static void sys_exit(Context *c) {
   halt(0);
@@ -17,9 +18,9 @@ static void sys_write(Context *c) {
   if (fd == 1 || fd == 2) {
     for (int i = 0; i < count; i++)
       putch(buf[i]);
-    c->GPRx = 0;
+    c->GPRx = count;
   } else {
-    c->GPRx = 1;
+    c->GPRx = -EBADF;
   }
 }
 
