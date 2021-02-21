@@ -52,6 +52,10 @@ static SDL_Color _ParseColorFromSurface(SDL_Surface *s, uint32_t c) {
   return color;
 }
 
+inline static uint32_t _GetVGAColor(SDL_Color color) {
+  return (color.r << 16) | (color.g << 8) | (color.b);
+}
+
 static SDL_Color _GetColorFromSurface(SDL_Surface *s, int x, int y) {
   SDL_PixelFormat *fmt = s->format;
 
@@ -83,14 +87,13 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   size_t n = dstrect->w*dstrect->h;
   uint32_t *pixels = malloc(sizeof(uint32_t)*n);
   for (int i = 0; i < n; i++) {
-    pixels[i] = c.val >> 8;
+    pixels[i] = _GetVGAColor(c);
   }
   NDL_DrawRect(pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
   free(pixels);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  //puts("SDL update rect called");
   if (x == 0 && y == 0 && w == 0 && h == 0) {
     w = s->w;
     h = s->h;
@@ -99,10 +102,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   for (int i = 0; i < h; i++) {
     for (int j = 0; j < w; j++) {
       SDL_Color co = _GetColorFromSurface(s, x+j, y+i);
-      uint32_t val = (co.r << 16) | (co.g << 8) | (co.b);
-      //printf("%d, %d: (%d, %d, %d, a %d)\n", i, j, co.r, co.g, co.b, co.a);
-      //val >>= 8;
-      c[i*w + j] = val;
+      c[i*w + j] = _GetVGAColor(co);
     }
   }
   NDL_DrawRect(c, x, y, w, h);
