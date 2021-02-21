@@ -95,14 +95,17 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     w = s->w;
     h = s->h;
   }
-  for (int i = 0; i < h; i++)
+  uint32_t *c = malloc(sizeof(SDL_Color)*w);
+  for (int i = 0; i < h; i++) {
     for (int j = 0; j < w; j++) {
-      SDL_Color c = _GetColorFromSurface(s, j, i);
-      uint32_t val = c.val;
+      uint32_t val = _GetColorFromSurface(s, x+j, y+i).val;
       val >>= 8;
-      NDL_DrawRect(&val, x + j, y + i, 1, 1);
-      printf("draw at %d, %d, with c %d\n", x + j, y + i, val);
+      c[j] = val;
     }
+    NDL_DrawRect(c, x, y + i, w, 1);
+    printf("draw at %d(%d), with c %d\n", y + i, w, c[0]);
+  }
+  free(c);
 }
 
 // APIs below are already implemented.
