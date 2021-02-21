@@ -38,6 +38,7 @@ void init_fs() {
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
+  Log("opening %s", pathname);
   int n = LENGTH(file_table);
   for (int i = 0; i < n; i++) {
     if (!strcmp(file_table[i].name, pathname)) {
@@ -47,6 +48,7 @@ int fs_open(const char *pathname, int flags, int mode) {
       return i;
     }
   }
+  Log("can't find %s", pathname);
   assert(0);
 }
 
