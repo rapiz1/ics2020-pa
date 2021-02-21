@@ -64,13 +64,14 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, (int)buf, count);
 }
 
+extern int _end;
+static void *prog_break = &_end;
 void *_sbrk(intptr_t increment) {
-  extern void* end;
-  void *old_end = end;
-  end += increment;
-  int ret = _syscall_(SYS_brk, (int)end, 0, 0);
+  void *old_break = prog_break;
+  prog_break += increment;
+  int ret = _syscall_(SYS_brk, (int)prog_break, 0, 0);
   if (ret < 0) return (void*)-1;
-  else return old_end;
+  else return old_break;
 }
 
 int _read(int fd, void *buf, size_t count) {
