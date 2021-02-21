@@ -89,14 +89,18 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  puts("SDL update rect called");
+  //puts("SDL update rect called");
+  if (x == 0 && y == 0 && w == 0 && h == 0) {
+    w = s->w;
+    h = s->h;
+  }
   for (int i = 0; i < h; i++)
     for (int j = 0; j < w; j++) {
       SDL_Color c = _GetColorFromSurface(s, j, i);
       uint32_t val = c.val;
       val >>= 8;
       NDL_DrawRect(&val, x + j, y + i, 1, 1);
-      printf("draw at %d, %d, with c %d\n", x + j, y + i, val);
+      //printf("draw at %d, %d, with c %d\n", x + j, y + i, val);
     }
 }
 
