@@ -99,7 +99,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   for (int i = 0; i < h; i++) {
     for (int j = 0; j < w; j++) {
       uint32_t val = _GetColorFromSurface(s, x+j, y+i).val;
-      val >>= 8;
+      //val >>= 8;
       c[i*w + j] = val;
     }
   }
