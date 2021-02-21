@@ -23,10 +23,16 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
   return 0;
 }
 
+size_t tty_write(const void *buf, size_t offset, size_t len) {
+  for (int i = 0; i < len; i++)
+    putch(((char*)buf)[i]);
+  return len;
+}
+
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
-  [FD_STDOUT] = {"stdout", 0, 0, invalid_read, invalid_write},
+  [FD_STDOUT] = {"stdout", 0, 0, invalid_read, tty_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},
 #include "files.h"
 };
@@ -35,12 +41,6 @@ static int open_offset[LENGTH(file_table)];
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-}
-
-int tty_write(char *buf, int offset, int len) {
-  for (int i = 0; i < len; i++)
-    putch(buf[i]);
-  return len;
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
