@@ -3,12 +3,15 @@
 
 int main() {
   printf("file-test start\n");
+
   FILE *fp = fopen("/share/files/num", "r+");
   assert(fp);
+  printf("fopen pass\n");
 
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
   assert(size == 5000);
+  printf("fseek(SEEK_END) pass\n");
 
   fseek(fp, 500 * 5, SEEK_SET);
   int i, n;

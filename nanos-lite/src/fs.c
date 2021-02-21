@@ -76,7 +76,7 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
   else if (whence == SEEK_CUR)
     pos = pos + offset;
   else if (whence == SEEK_END)
-    TODO();
+    pos = file_table[fd].size;
   else panic("invalid whence on fs_lseek");
 
   return open_offset[fd] = pos;
