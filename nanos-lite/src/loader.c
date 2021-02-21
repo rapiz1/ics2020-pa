@@ -18,7 +18,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   for (int i = 0; i < eh.e_phnum; i++) {
     Elf_Phdr ph;
-    ramdisk_read(&ph, eh.e_phoff, eh.e_phentsize*i);
+    ramdisk_read(&ph, eh.e_phoff + i*eh.e_phentsize, eh.e_phentsize);
     memset((void*)ph.p_vaddr, 0, ph.p_memsz);
     memcpy((void*)ph.p_vaddr, (void*)ph.p_offset, ph.p_filesz);
   }
