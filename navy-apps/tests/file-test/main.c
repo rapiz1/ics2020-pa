@@ -9,6 +9,7 @@ int main() {
   printf("fopen pass\n");
 
   fseek(fp, 0, SEEK_END);
+  printf("fseek(SEEK_END) done\n");
   long size = ftell(fp);
   assert(size == 5000);
   printf("fseek(SEEK_END) pass\n");
