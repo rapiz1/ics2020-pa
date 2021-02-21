@@ -89,6 +89,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  puts("SDL update rect called");
   for (int i = 0; i < h; i++)
     for (int j = 0; j < w; j++) {
       SDL_Color c = _GetColorFromSurface(s, j, i);
