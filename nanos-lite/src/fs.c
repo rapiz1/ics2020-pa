@@ -86,8 +86,6 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
 }
 
 int fs_close(int fd) {
-  if (fd <= FD_STDERR)
-    panic("fs_close on invalid fd");
   open_offset[fd] = 0;
   //file_table[fd].read = invalid_read;
   //file_table[fd].write = invalid_write;
