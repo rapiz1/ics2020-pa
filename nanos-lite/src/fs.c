@@ -43,8 +43,8 @@ int fs_open(const char *pathname, int flags, int mode) {
   for (int i = 0; i < n; i++) {
     if (!strcmp(file_table[i].name, pathname)) {
       open_offset[i] = 0;
-      //file_table[i].read = fs_read;
-      //file_table[i].write = fs_write;
+      file_table[i].read = ramdisk_read;
+      file_table[i].write = ramdisk_write;
       Log("return fd %d", i);
       return i;
     }
@@ -54,17 +54,15 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
-  if (fd <= FD_STDERR)
-    panic("fs_read on builtin fd");
-  int ret = ramdisk_read(buf, file_table[fd].disk_offset + open_offset[fd], len);
+  Finfo *f = file_table + fd;
+  int ret = f->read(buf, file_table[fd].disk_offset + open_offset[fd], len);
   open_offset[fd] += ret;
   return ret;
 }
 
 size_t fs_write(int fd, const void *buf, size_t len) {
-  if (fd <= FD_STDERR)
-    panic("fs_write on builtin fd");
-  int ret = ramdisk_write(buf, file_table[fd].disk_offset + open_offset[fd], len);
+  Finfo *f = file_table + fd;
+  int ret = f->write(buf, file_table[fd].disk_offset + open_offset[fd], len);
   open_offset[fd] += ret;
   return ret;
 }
@@ -87,7 +85,7 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
 
 int fs_close(int fd) {
   open_offset[fd] = 0;
-  //file_table[fd].read = invalid_read;
-  //file_table[fd].write = invalid_write;
+  file_table[fd].read = invalid_read;
+  file_table[fd].write = invalid_write;
   return 0;
 }
