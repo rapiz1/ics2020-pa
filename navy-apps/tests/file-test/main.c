@@ -2,6 +2,7 @@
 #include <assert.h>
 
 int main() {
+  assert(0);
   FILE *fp = fopen("/share/files/num", "r+");
   assert(fp);
 
@@ -35,8 +36,6 @@ int main() {
   fclose(fp);
 
   printf("PASS!!!\n");
-
-  write(1, "PASS?", sizeof("PASS?"));
 
   return 0;
 }
