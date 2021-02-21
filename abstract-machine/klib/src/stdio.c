@@ -17,14 +17,19 @@ int _print_ch(char **out, char ch) {
   return 1;
 }
 
-int _print_str(char **out, const char *s) {
+int _print_n_str(char **out, const char *s, size_t n) {
+  if (n == 0) return 0;
   int c = 0;
-  while (*s)
+  while (*s) {
     c += _print_ch(out, *s++);
+    n--;
+    if (n == 0) break;
+  }
   return c;
 }
 
-int _print_digit(char **out, long long x) {
+int _print_n_digit(char **out, long long x, size_t n) {
+  if (n == 0) return 0;
   static char buf[sizeof(int)*8];
   int buf_len = sizeof(int)*8;
   int digit_len = 0, neg = 0; 
@@ -42,71 +47,83 @@ int _print_digit(char **out, long long x) {
       break;
     }
   }
-  if (neg)
+  if (neg) {
     _print_ch(out, '-');
-  for (int i = digit_len - 1; i >= 0; i--)
+    n--;
+    if (n == 0) goto out;
+  }
+  for (int i = digit_len - 1; i >= 0; i--) {
     _print_ch(out, buf[i]);
+    n--;
+    if (n == 0) goto out;
+  }
+  out:
   return digit_len + neg;
 }
 
 int puts(const char* s) {
-  _print_str(NULL, s);
+  _print_n_str(NULL, s, -1);
   _print_ch(NULL, '\n');
   return 0;
 }
 
 int printf(const char *fmt, ...) {
-  int ret;
   va_list va;
-
   va_start(va, fmt);
-  ret = vsprintf(NULL, fmt, va);
+  int ret = vsprintf(NULL, fmt, va);
   va_end(va);
   return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  int n = strlen(fmt);
-  char *old_out = out;
-
-  for (int i = 0; i < n; i++) {
-    char c = fmt[i], type;
-    switch (c) {
-    case '%':
-      if (i+1 >= n)
-        assert(0);
-      type = fmt[++i];
-      if (type == 's') {
-        char *s = va_arg(ap, char*);
-        _print_str(&out, s);
-      } else if (type == 'd') {
-        int x = va_arg(ap, int);
-        _print_digit(&out, x);
-      }
-      break;
-    default:
-      _print_ch(&out, c);
-      break;
-    }
-  }
-  _print_ch(&out, '\0');
-  return out - old_out - 1;
+  return vsnprintf(out, -1, fmt, ap);
 }
 
 int sprintf(char *out, const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
-  int ret = vsprintf(out, fmt, ap);
+  int ret = vsnprintf(out, -1, fmt, ap);
   va_end(ap);
   return ret;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  return 0;
+  va_list ap;
+  va_start(ap, fmt);
+  int ret = vsnprintf(out, n, fmt, ap);
+  va_end(ap);
+  return ret;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  return 0;
+  int fmt_n = strlen(fmt);
+  char *old_out = out;
+
+  for (int i = 0; i < fmt_n; i++) {
+    char c = fmt[i], type;
+    switch (c) {
+    case '%':
+      if (i+1 >= fmt_n)
+        assert(0);
+      type = fmt[++i];
+      if (type == 's') {
+        char *s = va_arg(ap, char*);
+        n -= _print_n_str(&out, s, n);
+      } else if (type == 'd') {
+        int x = va_arg(ap, int);
+        n -= _print_n_digit(&out, x, n);
+      }
+      break;
+    default:
+      _print_ch(&out, c);
+      n--;
+      break;
+    }
+    if (!n) goto out;
+  }
+  _print_ch(&out, '\0');
+  out:
+  return out - old_out - 1;
 }
 
 #endif
