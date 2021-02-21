@@ -36,5 +36,7 @@ int main() {
 
   printf("PASS!!!\n");
 
+  write(1, "PASS?", sizeof("PASS?"));
+
   return 0;
 }
