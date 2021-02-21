@@ -8,7 +8,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 
   //TODO();
 
-  Log("int 0x%x", NO);
+  //Log("int 0x%x", NO);
 
   // Gate descriptors for interrupts and traps
   typedef struct {
@@ -30,7 +30,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   pgt[1] = vaddr_read(addr+4, 4); 
 
   vaddr_t jmp_pc = gt.off_15_0 | (((uint32_t)gt.off_31_16) << 16);
-  Log("gt offset: %x, %x", gt.off_15_0, gt.off_31_16);
+  //Log("gt offset: %x, %x", gt.off_15_0, gt.off_31_16);
 
   rtl_push(s, &cpu.eflags);
   rtl_push(s, &cpu.cs);
@@ -38,7 +38,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 
   s->is_jmp = true;
   s->jmp_pc = jmp_pc;
-  Log("int jmp pc %x",jmp_pc);
+  //Log("int jmp pc %x",jmp_pc);
 }
 
 void query_intr(DecodeExecState *s) {
