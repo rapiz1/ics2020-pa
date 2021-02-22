@@ -68,6 +68,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 size_t fs_read(int fd, void *buf, size_t len) {
   Log("read on %d", fd);
   Finfo *f = file_table + fd;
+  assert(f->read);
   int ret = f->read(buf, file_table[fd].disk_offset + open_offset[fd], len);
   open_offset[fd] += ret;
   return ret;
@@ -75,6 +76,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 
 size_t fs_write(int fd, const void *buf, size_t len) {
   Finfo *f = file_table + fd;
+  assert(f->write);
   int ret = f->write(buf, file_table[fd].disk_offset + open_offset[fd], len);
   open_offset[fd] += ret;
   return ret;
@@ -99,8 +101,8 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
 int fs_close(int fd) {
   open_offset[fd] = 0;
   if (file_table[fd].read == ramdisk_read) {
-    file_table[fd].read = invalid_read;
-    file_table[fd].write = invalid_write;
+    file_table[fd].read = NULL;
+    file_table[fd].write = NULL;
   }
   return 0;
 }
