@@ -69,9 +69,23 @@ static SDL_Color _GetColorFromSurface(SDL_Surface *s, int x, int y) {
 
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
+  puts("SDL_BlitSurface called");
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
 
+  SDL_Rect srctmp, dsttmp;
+  if (srcrect == NULL) {
+    srctmp.w = src->w;
+    srctmp.h = src->h;
+    srctmp.x = srctmp.y = 0;
+    srcrect = &srctmp;
+  }
+  if (dstrect == NULL) {
+    dsttmp.w = dst->w;
+    dsttmp.h = dst->h;
+    dsttmp.x = dsttmp.y = 0;
+    dstrect = &dsttmp;
+  }
 
   uint8_t bpp = dst->format->BytesPerPixel;
   for (int i = 0; i < srcrect->h; i++)
@@ -83,6 +97,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+  puts("SDL_FillRect called");
   SDL_Color c = _ParseColorFromSurface(dst, color);
   SDL_Rect tmp;
   if (dstrect == NULL) {
@@ -101,6 +116,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  puts("SDL_UpdateRect called");
   if (x == 0 && y == 0 && w == 0 && h == 0) {
     w = s->w;
     h = s->h;
