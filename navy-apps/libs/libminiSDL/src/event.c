@@ -23,6 +23,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   do {
     len = NDL_PollEvent(buf, 64);
   } while (len == 0);
+  puts(buf);
   if (buf[0] == 'k') {
     int keycode;
     sscanf(buf+2, "%d", &keycode);
