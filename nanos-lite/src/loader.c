@@ -45,3 +45,7 @@ void naive_uload(PCB *pcb, const char *filename) {
   ((void(*)())entry) ();
 }
 
+uintptr_t naive_uload_only(PCB *pcb, const char *filename) {
+  return loader(pcb, filename);
+}
+

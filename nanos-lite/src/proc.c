@@ -18,6 +18,16 @@ void hello_fun(void *arg) {
   }
 }
 
+void context_uload(PCB *pcb, const char *pathname) {
+  extern uintptr_t naive_uload_only(PCB *pcb, const char *filename);
+
+  uintptr_t entry = naive_uload_only(pcb, pathname);
+
+  Context *cp = ucontext(NULL, RANGE(pcb, pcb+1), (void(*)())entry);
+  pcb->cp = cp;
+  cp->GPRx = (uint32_t)heap.end;
+}
+
 void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
   Context *cp = kcontext(RANGE(pcb, pcb + 1), entry, arg);
   pcb->cp = cp;
@@ -25,7 +35,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
 
 void init_proc() {
   context_kload(&pcb[0], hello_fun, (void*)1);
-  context_kload(&pcb[1], hello_fun, (void*)99);
+  context_uload(&pcb[1], "/bin/menu");
   switch_boot_pcb();
 
   Log("Initializing processes...");

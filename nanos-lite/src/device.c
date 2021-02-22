@@ -15,12 +15,14 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
+  yield();
   for (int i = 0; i < len; i++)
     putch(((char*)buf)[i]);
   return len;
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
+  yield();
   //Log("events_read called");
   int has_kbd  = io_read(AM_INPUT_CONFIG).present;
   if (!has_kbd)
@@ -41,6 +43,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  yield();
   AM_GPU_CONFIG_T cfg = io_read(AM_GPU_CONFIG);
   int w = cfg.width;
 
