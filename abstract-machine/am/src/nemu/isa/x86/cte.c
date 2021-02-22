@@ -70,7 +70,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   void *st = kstack.end - sizeof(uint32_t);
   *(uint32_t*)st = (uint32_t)arg;
-  Context *cp = (Context*)st - 1;
+  Context *cp = st - sizeof(Context);
   cp->eip = (uint32_t)entry;
   cp->esp = (uint32_t)&cp->irq;
   cp->cs = 8;
