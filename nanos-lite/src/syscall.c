@@ -56,16 +56,17 @@ static void sys_execve(Context *c) {
   char *pathname = (char*)c->GPR2;
   //char **args = (char**)c->GPR3;
   char **env = (char**)c->GPR4;
-  for (int i = 0; env[i] != NULL; i++) {
-    if (!strcmp(env[i], "PATH")) {
-      char buf[1024];
-      strcat(buf, env[i] + 5);
-      strcat(buf, "/");
-      strcat(buf, pathname);
-      printf("try to load %s\n", buf);
-      naive_uload(NULL, buf);
+  if (env != NULL)
+    for (int i = 0; env[i] != NULL; i++) {
+      if (!strcmp(env[i], "PATH")) {
+        char buf[1024];
+        strcat(buf, env[i] + 5);
+        strcat(buf, "/");
+        strcat(buf, pathname);
+        printf("try to load %s\n", buf);
+        naive_uload(NULL, buf);
+      }
     }
-  }
   naive_uload(NULL, pathname);
 }
 
