@@ -60,8 +60,8 @@ int main() {
     SDL_Event e;
     SDL_WaitEvent(&e);
 
-    printf("got event");
     if (e.type == SDL_KEYDOWN) {
+    printf("got keydown event, keycode %d\n", e.key.keysym.sym);
       switch(e.key.keysym.sym) {
         case SDLK_0: rep = rep * 10 + 0; break;
         case SDLK_1: rep = rep * 10 + 1; break;
