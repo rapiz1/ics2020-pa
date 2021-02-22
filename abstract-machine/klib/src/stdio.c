@@ -109,7 +109,7 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
       if (type == 's') {
         char *s = va_arg(ap, char*);
         n -= _print_n_str(&out, s, n);
-      } else if (type == 'd') {
+      } else if (type == 'd' || type == 'p') {
         int x = va_arg(ap, int);
         n -= _print_n_digit(&out, x, n);
       }
