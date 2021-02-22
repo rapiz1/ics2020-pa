@@ -20,9 +20,9 @@ int SDL_PollEvent(SDL_Event *event) {
   if (!len) return 0;
   puts(buf);
   if (buf[0] == 'k') {
-    int keycode;
+    int keycode = 0;
     for (int i = 0; i < LENGTH(keyname); i++) {
-      if (!strcmp(buf+2, keyname[i])) {
+      if (!strcmp(buf+3, keyname[i])) {
         keycode = i;
         break;
       }
