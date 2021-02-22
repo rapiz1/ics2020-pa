@@ -25,11 +25,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     Elf_Phdr ph;
     fs_lseek(fd, eh.e_phoff + i*eh.e_phentsize, SEEK_SET);
     fs_read(fd ,&ph, eh.e_phentsize);
+    if (ph.p_type == PT_NULL) continue;
+    else if (ph.p_type == PT_LOAD) {
+      memset((void*)ph.p_vaddr, 0, ph.p_memsz);
 
-    memset((void*)ph.p_vaddr, 0, ph.p_memsz);
-
-    fs_lseek(fd, ph.p_offset, SEEK_SET);
-    fs_read(fd, (void*)ph.p_vaddr, ph.p_filesz);
+      fs_lseek(fd, ph.p_offset, SEEK_SET);
+      fs_read(fd, (void*)ph.p_vaddr, ph.p_filesz);
+    }
   }
 
   fs_close(fd);
