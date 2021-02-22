@@ -21,7 +21,7 @@ void hello_fun(void *arg) {
 void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
   Context *cp = kcontext(RANGE(pcb, pcb + 1), entry, arg);
   pcb->cp = cp;
-  Log("pcb cp = %d", cp);
+  Log("pcb cp = %d", pcb->cp);
 }
 
 void init_proc() {
