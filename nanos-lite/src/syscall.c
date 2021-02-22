@@ -3,9 +3,12 @@
 #include <errno.h>
 #include <fs.h>
 #include <sys/time.h>
+#include <proc.h>
+
+extern void naive_uload(PCB *pcb, const char *filename);
 
 static void sys_exit(Context *c) {
-  halt(0);
+  naive_uload(NULL, "/bin/nterm");
 }
 
 static void sys_yield(Context *c) {
@@ -48,6 +51,12 @@ static void sys_brk(Context *c) {
   c->GPRx = 0;
 }
 
+static void sys_execve(Context *c) {
+  c->GPRx = 0;
+  char *pathname = (char*)c->GPR2;
+  naive_uload(NULL, pathname);
+}
+
 static void sys_gettimeofday(Context *c) {
   struct timeval *tv = (struct timeval *)c->GPR2;
   //struct timezone *tz = (struct timezone *)c->GPR3;
@@ -70,6 +79,7 @@ void do_syscall(Context *c) {
     case SYS_close: sys_close(c); break;
     case SYS_lseek: sys_lseek(c); break;
     case SYS_brk: sys_brk(c); break;
+    case SYS_execve: sys_execve(c); break;
     case SYS_gettimeofday: sys_gettimeofday(c); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
