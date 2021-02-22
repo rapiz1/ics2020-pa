@@ -58,7 +58,7 @@ static void sys_execve(Context *c) {
   char **env = (char**)c->GPR4;
   if (env != NULL)
     for (int i = 0; env[i] != NULL; i++) {
-      if (!strcmp(env[i], "PATH")) {
+      if (!strncmp(env[i], "PATH", 4)) {
         char buf[1024];
         strcat(buf, env[i] + 5);
         strcat(buf, "/");
