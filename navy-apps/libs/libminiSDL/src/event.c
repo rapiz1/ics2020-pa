@@ -17,6 +17,25 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
+  if (event == NULL) return 1;
+  static char buf[64];
+  int len = 0;
+  do {
+    len = NDL_PollEvent(buf, 64);
+  } while (len == 0);
+  if (buf[0] == 'k') {
+    int keycode;
+    sscanf(buf+2, "%d", &keycode);
+    event->key.keysym.sym == keycode;
+    if (buf[1] == 'd')
+      event->type = SDL_KEYDOWN;
+    else if (buf[1] == 'u')
+      event->type = SDL_KEYUP;
+    else {
+      fprintf(stderr, "unknown event");
+      assert(false);
+    }
+  }
   return 1;
 }
 
