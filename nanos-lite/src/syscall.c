@@ -59,7 +59,7 @@ static void sys_execve(Context *c) {
   if (env != NULL)
     for (int i = 0; env[i] != NULL; i++) {
       if (!strncmp(env[i], "PATH", 4)) {
-        char buf[1024];
+        char buf[1024] = {};
         strcat(buf, env[i] + 5);
         strcat(buf, "/");
         strcat(buf, pathname);
