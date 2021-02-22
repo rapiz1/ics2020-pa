@@ -28,10 +28,11 @@ void render() {
   slide = SDL_LoadBMP(fname);
   assert(slide);
   SDL_UpdateRect(slide, 0, 0, 0, 0);
-  printf("rendered");
+  printf("rendered\n");
 }
 
 void prev(int rep) {
+  printf("prev\n");
   if (rep == 0) rep = 1;
   cur -= rep;
   if (cur < 0) cur = 0;
@@ -39,6 +40,7 @@ void prev(int rep) {
 }
 
 void next(int rep) {
+  printf("next\n");
   if (rep == 0) rep = 1;
   cur += rep;
   if (cur >= N) cur = N - 1;
