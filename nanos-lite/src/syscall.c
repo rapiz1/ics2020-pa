@@ -59,7 +59,8 @@ static void sys_execve(Context *c) {
   for (int i = 0; env[i] != NULL; i++) {
     if (!strcmp(env[i], "PATH")) {
       char buf[1024];
-      strcpy(buf, env[i]);
+      strcat(buf, env[i] + 5);
+      strcat(buf, "/");
       strcat(buf, pathname);
       naive_uload(NULL, buf);
     }
