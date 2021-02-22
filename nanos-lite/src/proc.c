@@ -24,7 +24,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
 }
 
 void init_proc() {
-  context_kload(&pcb[0], hello_fun, (void*)1);
+  context_kload(&pcb[0], hello_fun, (void*)2);
   context_kload(&pcb[1], hello_fun, (void*)99);
   switch_boot_pcb();
 
@@ -43,11 +43,13 @@ Context *schedule(Context *prev) {
   current->cp = prev;
 
   // always select pcb[0] as the new process
-  //current = &pcb[0];
+  current = &pcb[0];
+  /*
   if (current == &pcb_boot)
     current = &pcb[0];
   else
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    */
 
 
   // then return the new context
