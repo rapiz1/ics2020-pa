@@ -1,6 +1,7 @@
 #include <NDL.h>
 #include <SDL.h>
 #include <assert.h>
+#include <string.h>
 
 #define keyname(k) #k,
 
@@ -21,13 +22,13 @@ int SDL_PollEvent(SDL_Event *event) {
   puts(buf);
   if (buf[0] == 'k') {
     int keycode = -1;
-    for (int i = 0; i < LENGTH(keyname); i++) {
+    for (int i = 0; i < sizeof(keyname)/sizeof(keyname[0]); i++) {
       if (!strcmp(buf+3, keyname[i])) {
         keycode = i;
         printf("found keycode %d\n", i);
         break;
       }
-      printf("%s == %s", buf+3, keyname[i]);
+      //printf("%s == %s", buf+3, keyname[i]);
     }
     assert(keycode != -1);
 
