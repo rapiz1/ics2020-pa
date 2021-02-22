@@ -21,7 +21,13 @@ int SDL_PollEvent(SDL_Event *event) {
   puts(buf);
   if (buf[0] == 'k') {
     int keycode;
-    sscanf(buf+2, "%d", &keycode);
+    for (int i = 0; i < LENGTH(keyname); i++) {
+      if (!strcmp(buf+2, keyname[i])) {
+        keycode = i;
+        break;
+      }
+    }
+
     event->key.keysym.sym == keycode;
     if (buf[1] == 'd')
       event->type = SDL_KEYDOWN;
