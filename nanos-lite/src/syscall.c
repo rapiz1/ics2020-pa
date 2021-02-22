@@ -54,6 +54,16 @@ static void sys_brk(Context *c) {
 static void sys_execve(Context *c) {
   c->GPRx = 0;
   char *pathname = (char*)c->GPR2;
+  //char **args = (char**)c->GPR3;
+  char **env = (char**)c->GPR4;
+  for (int i = 0; env[i] != NULL; i++) {
+    if (!strcmp(env[i], "PATH")) {
+      char buf[1024];
+      strcpy(buf, env[i]);
+      strcat(buf, pathname);
+      naive_uload(NULL, buf);
+    }
+  }
   naive_uload(NULL, pathname);
 }
 
