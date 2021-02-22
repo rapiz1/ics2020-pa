@@ -98,6 +98,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   puts("SDL_FillRect called");
+  assert(dst->format->BytesPerPixel == 4);
   SDL_Color c = _ParseColorFromSurface(dst, color);
   SDL_Rect tmp;
   if (dstrect == NULL) {
@@ -110,6 +111,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   uint32_t *pixels = malloc(sizeof(uint32_t)*n);
   for (int i = 0; i < n; i++) {
     pixels[i] = _GetVGAColor(c);
+    ((uint32_t*)dst->pixels)[i] = SDL_MapRGBA(dst->format, c.r, c.g, c.b, c.a);
   }
   NDL_DrawRect(pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
   free(pixels);
