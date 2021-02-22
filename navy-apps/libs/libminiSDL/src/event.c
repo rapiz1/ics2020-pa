@@ -24,6 +24,7 @@ int SDL_PollEvent(SDL_Event *event) {
     for (int i = 0; i < LENGTH(keyname); i++) {
       if (!strcmp(buf+3, keyname[i])) {
         keycode = i;
+        printf("found keycode %d\n", i);
         break;
       }
     }
