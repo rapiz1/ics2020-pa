@@ -72,6 +72,7 @@ Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   *(uint32_t*)st = (uint32_t)arg;
   printf("arg at %d\n", st);
   Context *cp = st - sizeof(Context);
+  printf("context at %d\n", cp);
   cp->eip = (uint32_t)entry;
   cp->esp = (uint32_t)&cp->irq;
   cp->cs = 8;
