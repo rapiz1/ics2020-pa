@@ -32,7 +32,7 @@ int SDL_PollEvent(SDL_Event *event) {
     }
     assert(keycode != -1);
 
-    event->key.keysym.sym == keycode;
+    event->key.keysym.sym = keycode;
     if (buf[1] == 'd')
       event->type = SDL_KEYDOWN;
     else if (buf[1] == 'u')
