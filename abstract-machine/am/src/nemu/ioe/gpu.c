@@ -14,18 +14,15 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_init() {
-  int i;
   AM_GPU_CONFIG_T cfg;
   __am_gpu_config(&cfg);
   int w = cfg.width; 
   int h = cfg.height;
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  for (i = 0; i < w * h; i ++) fb[i] = 0;
-  /*
+  //for (i = 0; i < w * h; i ++) fb[i] = 0;
   for (int i = 0; i < h; i++) for (int j = 0; j < w; j++) {
     fb[i*w + j] = i^j;
   }
-  */
   outl(SYNC_ADDR, 1);
 }
 
