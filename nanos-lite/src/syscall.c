@@ -62,6 +62,7 @@ static void sys_execve(Context *c) {
       strcat(buf, env[i] + 5);
       strcat(buf, "/");
       strcat(buf, pathname);
+      printf("try to load %s\n", buf);
       naive_uload(NULL, buf);
     }
   }
