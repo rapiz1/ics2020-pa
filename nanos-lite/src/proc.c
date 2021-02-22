@@ -44,7 +44,7 @@ Context *schedule(Context *prev) {
 
   // always select pcb[0] as the new process
   current = &pcb[0];
-  Log("returned context at %p", current->cp);
+  Log("returned context at %d", current->cp);
 
   // then return the new context
   return current->cp;
