@@ -7,7 +7,7 @@ static BDF_Font *font = NULL;
 static SDL_Surface *screen = NULL;
 Terminal *term = NULL;
 
-void builtin_sh_run();
+void builtin_sh_run(int argc, char **argv);
 void extern_app_run(const char *app_path);
 
 int main(int argc, char *argv[]) {
