@@ -5,10 +5,6 @@
 #include <sys/time.h>
 #include <proc.h>
 
-static void sys_exit(Context *c) {
-  halt(0);
-}
-
 static void sys_yield(Context *c) {
   yield();
   c->GPRx = 0;
@@ -105,6 +101,17 @@ static void sys_execve(Context *c) {
   yield();
   not_found:
   c->GPRx = -ENOENT;
+}
+
+static void sys_exit(Context *c) {
+  c->GPRx = 0;
+  const char *filename = "/bin/nterm";
+  const char *argv[] = {"/bin/nterm", NULL};
+  const char *env[] = {NULL};
+  c->GPR2 = (uint32_t)filename;
+  c->GPR3 = (uint32_t)argv;
+  c->GPR4 = (uint32_t)env;
+  sys_execve(c);
 }
 
 static void sys_gettimeofday(Context *c) {
