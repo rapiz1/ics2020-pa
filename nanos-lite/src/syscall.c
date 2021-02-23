@@ -6,7 +6,7 @@
 #include <proc.h>
 
 static void sys_exit(Context *c) {
-  halt(1);
+  halt(0);
 }
 
 static void sys_yield(Context *c) {
