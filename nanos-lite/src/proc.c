@@ -25,7 +25,47 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   Context *cp = ucontext(NULL, RANGE(pcb, pcb+1), (void(*)())entry);
   pcb->cp = cp;
-  cp->GPRx = (uint32_t)heap.end;
+
+  void *st = heap.end, *strp = heap.end;
+
+  int envc = 0;
+  for(int i = 0; envp && envp[i]; i++) {
+    envc++;
+    int n = strlen(envp[i]) + 1;
+    st -= n;
+    strcpy(st, envp[i]);
+  }
+
+  int argc = 0;
+  for(int i = 0; argv && argv[i]; i++) {
+    argc++;
+    int n = strlen(argv[i]) + 1;
+    st -= n;
+    strcpy(st, argv[i]);
+  }
+
+  st -= sizeof(char*)*(envc+1);
+  char **user_envp = st;
+  for (int i = 0; i < envc; i++) {
+    int n = strlen(envp[i]);
+    strp -= n;
+    user_envp[i] = strp;
+  }
+  user_envp[envc] = NULL;
+
+  st -= sizeof(char*)*(argc+1);
+  char **user_argv = st;
+  for (int i = 0; i < argc; i++) {
+    int n = strlen(argv[i]);
+    strp -= n;
+    user_argv[i] = strp;
+  }
+  user_argv[argc] = NULL;
+
+  st -= sizeof(uint32_t);
+  *(uint32_t*)st = argc;
+
+  cp->GPRx = (uint32_t)st;
 }
 
 void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
