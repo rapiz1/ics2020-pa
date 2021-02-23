@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
   printf("argc: %d\n", argc);
   for (int i = 0; i < argc; i++)
     printf("argv[%d]: %s\n", i, argv[i]);
+  printf("test: %s\n", argv[argc+1]);
   for (int i = 0; environ[i]; i++)
     printf("%s\n", i, environ[i]);
 
