@@ -5,10 +5,8 @@
 #include <sys/time.h>
 #include <proc.h>
 
-extern void naive_uload(PCB *pcb, const char *filename);
-
 static void sys_exit(Context *c) {
-  naive_uload(NULL, "/bin/nterm");
+  halt(1);
 }
 
 static void sys_yield(Context *c) {
