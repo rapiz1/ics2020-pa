@@ -19,7 +19,6 @@ static void sh_banner(int argc, char** argv) {
   sh_printf("argc: %d\n", argc);
   for (int i = 0; i < argc; i++)
     sh_printf("argv[%d]: %s\n", i, argv[i]);
-  printf("environ at %p, and v %d", environ, environ[0]);
   for (int i = 0; environ[i] != NULL; i++)
     sh_printf("%s\n", environ[i]);
 
