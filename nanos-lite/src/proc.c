@@ -47,7 +47,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   st -= sizeof(char*)*(envc+1);
   char **user_envp = st;
   for (int i = 0; i < envc; i++) {
-    int n = strlen(envp[i]);
+    int n = strlen(envp[i]) + 1;
     strp -= n;
     user_envp[i] = strp;
   }
@@ -56,7 +56,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   st -= sizeof(char*)*(argc+1);
   char **user_argv = st;
   for (int i = 0; i < argc; i++) {
-    int n = strlen(argv[i]);
+    int n = strlen(argv[i]) + 1;
     strp -= n;
     user_argv[i] = strp;
   }
