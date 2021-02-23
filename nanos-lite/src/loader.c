@@ -11,7 +11,7 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-static uintptr_t loader(PCB *pcb, const char *filename) {
+uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
 
   Elf_Ehdr eh;
@@ -43,9 +43,5 @@ void naive_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %d", entry);
   ((void(*)())entry) ();
-}
-
-uintptr_t naive_uload_only(PCB *pcb, const char *filename) {
-  return loader(pcb, filename);
 }
 
