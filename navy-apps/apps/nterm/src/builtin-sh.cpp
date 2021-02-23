@@ -16,11 +16,13 @@ static void sh_printf(const char *format, ...) {
 
 static void sh_banner(int argc, char** argv) {
   sh_printf("Built-in Shell in NTerm (NJU Terminal)\n\n");
+  /*
   sh_printf("argc: %d\n", argc);
   for (int i = 0; i < argc; i++)
     sh_printf("argv[%d]: %s\n", i, argv[i]);
   for (int i = 0; environ[i] != NULL; i++)
     sh_printf("%s\n", environ[i]);
+    */
 
 }
 
