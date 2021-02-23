@@ -29,15 +29,16 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  const char delim[] = " \n";
   char buf[1024];
   strncpy(buf, cmd, sizeof(buf));
   char *argv[sizeof(buf)] = {};
   int argc = 0;
-  char *token = strtok(buf, " ");
+  char *token = strtok(buf, delim);
   while (token) {
     printf("%s\n", token);
     argv[argc++] = token;
-    token = strtok(NULL, " ");
+    token = strtok(NULL, delim);
     assert(argc < 1024);
   }
   execve(buf, argv, environ);
