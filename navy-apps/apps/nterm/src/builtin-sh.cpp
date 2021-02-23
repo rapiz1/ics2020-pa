@@ -33,10 +33,11 @@ static void sh_handle_cmd(const char *cmd) {
   char *argv[1024] = {};
   sscanf(cmd, "%s", buf);
   int argc = 0;
-  argv[argc++] = strtok(buf, " ");
-  while (argv[argc] = strtok(NULL, " ")) {
-    printf("%s\n", argv[argc]);
-    argc++;
+  char *token = strtok(buf, " ");
+  while (token) {
+    printf("%s\n", token);
+    argv[argc++] = token;
+    token = strtok(NULL, " ");
     assert(argc < 1024);
   }
   execve(buf, argv, environ);
