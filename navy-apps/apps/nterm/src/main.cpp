@@ -17,8 +17,7 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < argc; i++)
     printf("argv[%d]: %s\n", i, argv[i]);
   printf("test: %s\n", argv[argc+1]);
-  for (int i = 0; environ[i]; i++)
-    printf("%s\n", i, environ[i]);
+  printf("environ at %p, argv[argc+1] at %p\n", environ, &argv[argc+1]);
 
   setenv("PATH", "/bin", 0);
   SDL_Init(0);
