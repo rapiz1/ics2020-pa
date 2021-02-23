@@ -75,7 +75,9 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
 
 void init_proc() {
   context_kload(&pcb[0], hello_fun, (void*)1);
-  context_uload(&pcb[1], "/bin/menu", NULL, NULL);
+  char *argv[] = {"HI", "THIS", "IS", "NANOS-LITE", NULL};
+  char *empty[] = {NULL};
+  context_uload(&pcb[1], "/bin/nterm", argv, empty);
   switch_boot_pcb();
 
   Log("Initializing processes...");
