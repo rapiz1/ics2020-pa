@@ -57,6 +57,7 @@ static void sys_execve(Context *c) {
 
 #define STRLEN(x) (sizeof(x)-1)
   int fd = fs_open(filename, 0, 0);
+  Log("fd %d", fd);
   if (fd >= 0) {
     fs_close(fd);
   } else {
