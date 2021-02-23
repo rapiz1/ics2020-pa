@@ -22,12 +22,8 @@ void hello_fun(void *arg) {
 }
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
-  extern uintptr_t loader(PCB *pcb, const char *filename);
-
-  uintptr_t entry = loader(pcb, filename);
-
-  Context *cp = ucontext(NULL, RANGE(pcb, pcb+1), (void(*)())entry);
-  pcb->cp = cp;
+  // We must copy str before calling loader.
+  // Otherwise the string may be overwritten.
 
   //void *st = heap.end, *strp = heap.end;
   void *st = new_page(8) + PGSIZE*8, *strp = st;
@@ -70,6 +66,13 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   st -= sizeof(uint32_t);
   *(uint32_t*)st = argc;
+
+  extern uintptr_t loader(PCB *pcb, const char *filename);
+
+  uintptr_t entry = loader(pcb, filename);
+
+  Context *cp = ucontext(NULL, RANGE(pcb, pcb+1), (void(*)())entry);
+  pcb->cp = cp;
 
   cp->GPRx = (uint32_t)st;
 }
