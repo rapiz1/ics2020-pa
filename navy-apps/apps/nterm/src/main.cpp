@@ -11,10 +11,6 @@ void builtin_sh_run();
 void extern_app_run(const char *app_path);
 
 int main(int argc, char *argv[]) {
-  printf("argc: %d\n", argc);
-  for (int i = 0; i < argc; i++)
-    printf("argv[%d]: %s\n", i, argv[i]);
-
   setenv("PATH", "/bin", 0);
   SDL_Init(0);
   font = new BDF_Font(font_fname);
@@ -26,7 +22,7 @@ int main(int argc, char *argv[]) {
 
   term = new Terminal(W, H);
 
-  if (argc < 2) { builtin_sh_run(); }
+  if (argc < 2) { builtin_sh_run(argc, argv); }
   else { extern_app_run(argv[1]); }
 
   // should not reach here

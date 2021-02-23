@@ -14,8 +14,12 @@ static void sh_printf(const char *format, ...) {
   term->write(buf, len);
 }
 
-static void sh_banner() {
+static void sh_banner(int argc, char** argv) {
   sh_printf("Built-in Shell in NTerm (NJU Terminal)\n\n");
+  sh_printf("argc: %d\n", argc);
+  for (int i = 0; i < argc; i++)
+    sh_printf("argv[%d]: %s\n", i, argv[i]);
+
 }
 
 static void sh_prompt() {
@@ -28,8 +32,8 @@ static void sh_handle_cmd(const char *cmd) {
   execve(buf, NULL, environ);
 }
 
-void builtin_sh_run() {
-  sh_banner();
+void builtin_sh_run(int argc, char** argv) {
+  sh_banner(argc, argv);
   sh_prompt();
 
   while (1) {
