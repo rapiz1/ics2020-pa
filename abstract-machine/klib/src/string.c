@@ -56,7 +56,7 @@ int strncmp(const char* s1, const char* s2, size_t n) {
         return c1 - c2;
       i++;
   } while (c1 == c2 && i < n);
-  return 0;
+  return c1 - c2;
 }
 
 void* memset(void* v,int c,size_t n) {
