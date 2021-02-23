@@ -62,8 +62,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
   user_argv[argc] = NULL;
 
-  Log("argv %s, user_argv %s", argv[0], user_argv[0]);
-
   st -= sizeof(uint32_t);
   *(uint32_t*)st = argc;
 
