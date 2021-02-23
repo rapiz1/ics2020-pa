@@ -65,7 +65,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   st -= sizeof(uint32_t);
   *(uint32_t*)st = argc;
 
-  cp->GPRx = (uint32_t)(st - 4);
+  cp->GPRx = (uint32_t)st;
 }
 
 void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
