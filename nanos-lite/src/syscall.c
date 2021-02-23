@@ -51,17 +51,59 @@ static void sys_brk(Context *c) {
 
 static void sys_execve(Context *c) {
   c->GPRx = 0;
-  char *pathname = (char*)c->GPR2;
+  char *filename = (char*)c->GPR2;
   char **argv = (char**)c->GPR3;
   char **env = (char**)c->GPR4;
+
+#define STRLEN(x) (sizeof(x)-1)
+  int fd = fs_open(filename, 0, 0);
+  if (fd >= 0) {
+    fs_close(fd);
+  } else {
+    char *path = NULL;
+    for (int i = 0; env && env[i]; i++) {
+      if (strncmp(env[i], "PATH", STRLEN("PATH"))) continue;
+      path = env[i];
+      break;
+    }
+    if (!path) goto not_found;
+
+    static char concat_filename[1024];
+
+    while (*path) {
+      int n = 0;
+      while (*path && *path == ':') path++;
+      while (*path && *path != ':')
+        concat_filename[n++] = *path++;
+      if (!n) break;
+
+      if (concat_filename[n-1] != '/')
+        concat_filename[n++] = '/';
+      concat_filename[n++] = '\0';
+
+      strcat(concat_filename, filename);
+
+      fd = fs_open(concat_filename, 0, 0);
+      if (fd >= 0) {
+        fs_close(fd);
+        break;
+      }
+    }
+
+    if (fd < 0)
+      goto not_found;
+  }
+
   extern void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
-  context_uload(current, pathname, argv, env);
+  context_uload(current, filename, argv, env);
 
   // Note that we don't actually switch to boot_pcb.
   // The scheduler will ensure that.
   extern void switch_boot_pcb();
   switch_boot_pcb();
   yield();
+  not_found:
+  c->GPRx = -ENOENT;
 }
 
 static void sys_gettimeofday(Context *c) {
