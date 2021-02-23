@@ -12,7 +12,7 @@ void call_main(uintptr_t *args) {
   for (int i = 0; i < argc; i++)
     printf("argv[%d]=%s\n", i, argv[i]);
   for (int i = 0; environ[i]; i++)
-    printf("env %s\n", environ[i]);
+    printf("?env %s\n", environ[i]);
   printf("\n======START=======\n");
   exit(main(argc, argv, environ));
   assert(0);
