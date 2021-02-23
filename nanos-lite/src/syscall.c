@@ -58,6 +58,9 @@ static void sys_execve(Context *c) {
   char **env = (char**)c->GPR4;
   extern void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
   context_uload(current, pathname, argv, env);
+  extern void switch_boot_pcb();
+  switch_boot_pcb();
+  yield();
 }
 
 static void sys_gettimeofday(Context *c) {
