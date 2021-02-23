@@ -76,7 +76,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
       static char path[1024];
       strcpy(path, envp[i]+STRLEN("PATH="));
       strcat(path, filename);
-      printf("try to find %s", path);
+      printf("try to find %s\n", path);
       entry = loader(pcb, path);
       break;
     }
