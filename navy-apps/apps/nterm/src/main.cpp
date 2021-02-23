@@ -10,10 +10,14 @@ Terminal *term = NULL;
 void builtin_sh_run(int argc, char **argv);
 void extern_app_run(const char *app_path);
 
+extern char **environ;
+
 int main(int argc, char *argv[]) {
   printf("argc: %d\n", argc);
   for (int i = 0; i < argc; i++)
     printf("argv[%d]: %s\n", i, argv[i]);
+  for (int i = 0; environ[i]; i++)
+    printf("%s\n", i, environ[i]);
 
   setenv("PATH", "/bin", 0);
   SDL_Init(0);
