@@ -35,6 +35,7 @@ static void sh_handle_cmd(const char *cmd) {
   int argc = 0;
   argv[argc++] = strtok(buf, " ");
   while (argv[argc] = strtok(NULL, " ")) {
+    printf("%s\n", argv[argc]);
     argc++;
     assert(argc < 1024);
   }
