@@ -37,7 +37,7 @@ static void sh_handle_cmd(const char *cmd) {
 void builtin_sh_run(int argc, char** argv) {
   sh_banner(argc, argv);
   sh_prompt();
-  while (1) ;
+  //while (1) ;
 
   while (1) {
     SDL_Event ev;
