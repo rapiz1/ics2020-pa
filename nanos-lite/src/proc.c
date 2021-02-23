@@ -78,7 +78,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
       if (path[strlen(path)-1] != '/')
         strcat(path, "/");
       strcat(path, filename);
-      printf("try to find %s\n", path);
+      Log("Try to find %s\n", path);
       entry = loader(pcb, path);
       break;
     }
