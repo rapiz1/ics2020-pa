@@ -99,7 +99,7 @@ void init_proc() {
   context_kload(&pcb[0], hello_fun, (void*)1);
   char *argv[] = {"/bin/echo", "HELLO FROM NANOS-LITE", NULL};
   char *envp[] = {"HELLO=NANOS-LITE", "AUTHOR=rapiz", NULL};
-  context_uload(&pcb[1], "/bin/busybox", argv, envp);
+  context_uload(&pcb[1], "/bin/echo", argv, envp);
   switch_boot_pcb();
 
   Log("Initializing processes...");
