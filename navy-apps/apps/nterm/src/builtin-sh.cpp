@@ -30,14 +30,19 @@ static void sh_prompt() {
 
 static void sh_handle_cmd(const char *cmd) {
   char buf[1024];
+  char *argv[1024] = {};
   sscanf(cmd, "%s", buf);
-  execve(buf, NULL, environ);
+  int i = 0;
+  do {
+    argv[i++] = strtok(buf, " ");
+    assert(i<1024);
+  } while(argv[i-1]);
+  execve(buf, argv, environ);
 }
 
 void builtin_sh_run(int argc, char** argv) {
   sh_banner(argc, argv);
   sh_prompt();
-  //while (1) ;
 
   while (1) {
     SDL_Event ev;

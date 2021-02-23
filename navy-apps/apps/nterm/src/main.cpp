@@ -29,11 +29,9 @@ int main(int argc, char *argv[]) {
   screen = SDL_SetVideoMode(win_w, win_h, 32, SDL_HWSURFACE);
 
   term = new Terminal(W, H);
-  builtin_sh_run(argc, argv);
-/*
+
   if (argc < 2) { builtin_sh_run(argc, argv); }
   else { extern_app_run(argv[1]); }
-  */
 
   // should not reach here
   assert(0);
