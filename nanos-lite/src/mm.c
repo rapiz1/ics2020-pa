@@ -6,6 +6,7 @@ static void *pf = NULL;
 void* new_page(size_t nr_page) {
   void *old_pf = pf;
   pf += nr_page*PGSIZE;
+  Log("new_page at %p", old_pf);
   return old_pf;
 }
 
