@@ -72,7 +72,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   if (entry == 0) {
     #define STRLEN(x) (sizeof(x)-1)
     for (int i = 0; envp && envp[i]; i++) {
-      if (strncmp(envp[i], "PATH", STRLEN("PATH"))) continue;
+      int ret;
+      if ((ret=strncmp(envp[i], "PATH", STRLEN("PATH")))) continue;
+      printf("%s == %s : %d, %d\n", envp[i], "PATH", STRLEN("PATH"), ret);
       static char path[1024];
       strcpy(path, envp[i]+STRLEN("PATH="));
       strcat(path, filename);
