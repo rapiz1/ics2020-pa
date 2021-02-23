@@ -32,11 +32,12 @@ static void sh_handle_cmd(const char *cmd) {
   char buf[1024];
   char *argv[1024] = {};
   sscanf(cmd, "%s", buf);
-  int i = 0;
-  do {
-    argv[i++] = strtok(buf, " ");
-    assert(i<1024);
-  } while(argv[i-1]);
+  int argc = 0;
+  argv[argc++] = strtok(buf, " ");
+  while (argv[argc] = strtok(NULL, " ")) {
+    argc++;
+    assert(argc < 1024);
+  }
   execve(buf, argv, environ);
 }
 
