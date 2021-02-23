@@ -75,7 +75,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
 
 void init_proc() {
   context_kload(&pcb[0], hello_fun, (void*)1);
-  char *argv[] = {"HELLO FROM NANOS-LITE", "And here's the second argv", "even more args", NULL};
+  char *argv[] = {"HELLO FROM NANOS-LITE", NULL};
   char *envp[] = {"HELLO=NANOS-LITE", "AUTHOR=rapiz", NULL};
   context_uload(&pcb[1], "/bin/nterm", argv, envp);
   switch_boot_pcb();
