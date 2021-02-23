@@ -63,7 +63,7 @@ static void sys_execve(Context *c) {
     char *path = NULL;
     for (int i = 0; env && env[i]; i++) {
       if (strncmp(env[i], "PATH", STRLEN("PATH"))) continue;
-      path = env[i];
+      path = env[i] + STRLEN("PATH=");
       break;
     }
     if (!path) goto not_found;
