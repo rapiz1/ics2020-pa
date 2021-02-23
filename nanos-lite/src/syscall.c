@@ -57,7 +57,6 @@ static void sys_execve(Context *c) {
 
 #define STRLEN(x) (sizeof(x)-1)
   int fd = fs_open(filename, 0, 0);
-  Log("fd %d", fd);
   if (fd >= 0) {
     fs_close(fd);
   } else {
@@ -84,6 +83,7 @@ static void sys_execve(Context *c) {
 
       strcat(concat_filename, filename);
 
+      Log("Try filename %s", concat_filename);
       fd = fs_open(concat_filename, 0, 0);
       if (fd >= 0) {
         fs_close(fd);
