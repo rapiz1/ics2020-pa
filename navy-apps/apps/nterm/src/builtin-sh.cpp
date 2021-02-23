@@ -30,8 +30,8 @@ static void sh_prompt() {
 
 static void sh_handle_cmd(const char *cmd) {
   char buf[1024];
-  char *argv[1024] = {};
-  sscanf(cmd, "%s", buf);
+  strncpy(buf, cmd, sizeof(buf));
+  char *argv[sizeof(buf)] = {};
   int argc = 0;
   char *token = strtok(buf, " ");
   while (token) {
