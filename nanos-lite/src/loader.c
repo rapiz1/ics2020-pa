@@ -19,7 +19,6 @@ uintptr_t loader(PCB *pcb, const char *filename) {
   if (fd < 0) return 0;
 
   fs_read(fd, &eh, sizeof(eh));
-  Log("elf entry %d", eh.e_entry);
 
   assert(eh.e_machine == EXPECT_TYPE);
 
