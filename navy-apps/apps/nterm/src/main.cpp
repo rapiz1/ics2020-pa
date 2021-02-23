@@ -13,7 +13,7 @@ void extern_app_run(const char *app_path);
 extern char **environ;
 
 int main(int argc, char *argv[]) {
-  setenv("PATH", "/bin", 0);
+  setenv("PATH", "/bin:/usr/bin", 0);
   SDL_Init(0);
   font = new BDF_Font(font_fname);
 
