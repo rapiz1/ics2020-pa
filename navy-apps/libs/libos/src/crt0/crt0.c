@@ -6,7 +6,7 @@
 int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
 void call_main(uintptr_t *args) {
-  printf("\n======CRT0========\n");
+  puts("======CRT0========");
   int argc = (int)args;
   char **argv = (char**)&args + 1;
   environ = (char**)&args + 1 + argc + 1;
@@ -14,8 +14,8 @@ void call_main(uintptr_t *args) {
     printf("argv[%d]=%s\n", i, argv[i]);
   for (int i = 0; environ[i]; i++)
     printf("env %s\n", environ[i]);
-  printf("\n=====CRT0 END=====\n");
-  printf("\n======START=======\n");
+  puts("=====CRT0 END=====");
+  puts("======START=======");
   exit(main(argc, argv, environ));
   assert(0);
 }
