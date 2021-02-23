@@ -54,20 +54,10 @@ static void sys_brk(Context *c) {
 static void sys_execve(Context *c) {
   c->GPRx = 0;
   char *pathname = (char*)c->GPR2;
-  //char **args = (char**)c->GPR3;
+  char **argv = (char**)c->GPR3;
   char **env = (char**)c->GPR4;
-  if (env != NULL)
-    for (int i = 0; env[i] != NULL; i++) {
-      if (!strncmp(env[i], "PATH", 4)) {
-        char buf[1024] = {};
-        strcat(buf, env[i] + 5);
-        strcat(buf, "/");
-        strcat(buf, pathname);
-        printf("try to load %s\n", buf);
-        naive_uload(NULL, buf);
-      }
-    }
-  naive_uload(NULL, pathname);
+  extern void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
+  context_uload(current, pathname, argv, env);
 }
 
 static void sys_gettimeofday(Context *c) {

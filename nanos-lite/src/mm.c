@@ -1,9 +1,15 @@
 #include <memory.h>
+#include <common.h>
 
-static void *pf = NULL;
+extern char _heap_start;
+static void *pf = &_heap_start;
 
 void* new_page(size_t nr_page) {
-  return NULL;
+  void *old_pf = pf;
+  pf += nr_page*PGSIZE;
+  if (pf >= heap.end)
+    assert(0);
+  return old_pf;
 }
 
 static inline void* pg_alloc(int n) {
