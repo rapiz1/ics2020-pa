@@ -1,4 +1,5 @@
 #include <proc.h>
+#include <common.h>
 
 #define MAX_NR_PROC 4
 
@@ -27,7 +28,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pcb->cp = cp;
 
   //void *st = heap.end, *strp = heap.end;
-  void *st = new_page(8), *strp = st;
+  void *st = new_page(8) + PGSIZE*8, *strp = st;
 
   int envc = 0;
   for(int i = 0; envp && envp[i]; i++) {
