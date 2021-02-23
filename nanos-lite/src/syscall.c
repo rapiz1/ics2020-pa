@@ -56,6 +56,8 @@ static void sys_execve(Context *c) {
   char *pathname = (char*)c->GPR2;
   char **argv = (char**)c->GPR3;
   char **env = (char**)c->GPR4;
+  if (argv != NULL)
+    Log("execve argv %s", argv);
   extern void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
   context_uload(current, pathname, argv, env);
   extern void switch_boot_pcb();
