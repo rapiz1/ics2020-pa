@@ -69,6 +69,18 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   uintptr_t entry = loader(pcb, filename);
 
+  if (entry == 0) {
+    #define STRLEN(x) (sizeof(x)-1)
+    for (int i = 0; envp && envp[i]; i++) {
+      if (strncmp(envp[i], "PATH", STRLEN("PATH"))) continue;
+      static char path[1024];
+      strcpy(path, envp[i]+STRLEN("PATH="));
+      strcat(path, filename);
+      entry = loader(pcb, path);
+      break;
+    }
+  }
+
   Context *cp = ucontext(NULL, RANGE(pcb, pcb+1), (void(*)())entry);
   pcb->cp = cp;
 

@@ -16,6 +16,8 @@ uintptr_t loader(PCB *pcb, const char *filename) {
 
   Elf_Ehdr eh;
   int fd = fs_open(filename, 0, 0);
+  if (fd < 0) return 0;
+
   fs_read(fd, &eh, sizeof(eh));
 
   assert(eh.e_machine == EXPECT_TYPE);

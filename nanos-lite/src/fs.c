@@ -1,5 +1,6 @@
 #include <fs.h>
 #include <common.h>
+#include <errno.h>
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
@@ -62,7 +63,7 @@ int fs_open(const char *pathname, int flags, int mode) {
     }
   }
   Log("can't find %s", pathname);
-  assert(0);
+  return -ENOENT;
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
