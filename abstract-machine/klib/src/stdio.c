@@ -36,7 +36,7 @@ int _print_n_digit_base(char **out, uint64_t x, size_t n, size_t base) {
   for (int i = 0; i < buf_len; i++) {
     int r = x%base;
     char c = r + '0';
-    if (r >= 10) c = r + 'a';
+    if (r >= 10) c = r-10 + 'a';
     buf[digit_len++] = c;
     x /= base;
     if (x == 0) {
