@@ -81,6 +81,7 @@ Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   cp->eip = (uint32_t)entry;
   cp->esp = (uint32_t)&cp->irq;
   cp->cs = 8;
+  cp->cr3 = 0;
   return cp;
 }
 
