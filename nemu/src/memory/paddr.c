@@ -109,13 +109,15 @@ def_vaddr_template(2)
 def_vaddr_template(4)
 
 void vaddr_write_cross_page(vaddr_t addr, word_t data, int len) {
-  assert(len == 2 || len == 4);
   if (len == 2) {
     vaddr_write1(addr, data);
     vaddr_write1(addr+1, data>>8);
   } else if (len == 4) {
     vaddr_write2(addr, data);
     vaddr_write2(addr+2, data>>16);
+  } else {
+    printf("unexpected len %d\n", len);
+    assert(0);
   }
 }
 
