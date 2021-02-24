@@ -66,6 +66,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   protect(&pcb->as);
   map(&pcb->as, pcb->as.area.end - 8*PGSIZE, st_pg, 0);
+  void lookup(AddrSpace *as, void *va);
+  lookup(&pcb->as, pcb->as.area.end - 8*PGSIZE);
 
   extern uintptr_t loader(PCB *pcb, const char *filename);
 
