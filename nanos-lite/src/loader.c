@@ -36,7 +36,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
       memset(pg, 0, ph.p_memsz);
 
       fs_lseek(fd, ph.p_offset, SEEK_SET);
-      fs_read(fd, pg, ph.p_filesz);
+      fs_read(fd, pg + GET_OFFSET(ph.p_vaddr), ph.p_filesz);
 
       for (int i = 0; i < pg_n; i++)
         map(&pcb->as, (void*)ph.p_vaddr + i*PGSIZE, pg + i*PGSIZE, 0);
