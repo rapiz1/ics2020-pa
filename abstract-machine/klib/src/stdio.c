@@ -28,6 +28,32 @@ int _print_n_str(char **out, const char *s, size_t n) {
   return c;
 }
 
+int _print_n_digit_base(char **out, uint64_t x, size_t n, size_t base) {
+  if (n == 0) return 0;
+  static char buf[32];
+  int buf_len = sizeof(buf);
+  int digit_len = 0;
+  for (int i = 0; i < buf_len; i++) {
+    int r = x%base;
+    char c = r + '0';
+    if (r >= 10) c = r + 'a';
+    buf[digit_len++] = c;
+    x /= base;
+    if (x == 0) {
+      buf[i+1] = '\0';
+      break;
+    }
+  }
+
+  for (int i = digit_len - 1; i >= 0; i--) {
+    _print_ch(out, buf[i]);
+    n--;
+    if (n == 0) goto out;
+  }
+  out:
+  return digit_len;
+}
+
 int _print_n_digit(char **out, long long x, size_t n) {
   if (n == 0) return 0;
   static char buf[sizeof(int)*8];
@@ -109,9 +135,15 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
       if (type == 's') {
         char *s = va_arg(ap, char*);
         n -= _print_n_str(&out, s, n);
-      } else if (type == 'd' || type == 'p') {
+      } else if (type == 'd') {
         int x = va_arg(ap, int);
         n -= _print_n_digit(&out, x, n);
+      } else if (type == 'u') {
+        uint32_t x = va_arg(ap, uint32_t);
+        n -= _print_n_digit_base(&out, x, n, 10);
+      } else if (type == 'p') {
+        uint32_t x = va_arg(ap, uint32_t);
+        n -= _print_n_digit_base(&out, x, n, 16);
       }
       break;
     default:

@@ -26,7 +26,7 @@ void free_page(void *p) {
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk) {
   extern PCB *current;
-  printf("brk called with %d\n", brk);
+  printf("brk called with %u\n", brk);
   if (current->max_brk == 0) {
     current->max_brk = brk;
     if (ROUNDUP(brk, PGSIZE) == brk) {
