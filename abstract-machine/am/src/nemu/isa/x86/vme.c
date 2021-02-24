@@ -31,6 +31,7 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
 
   void lookup(AddrSpace *as, void *va);
   lookup(&kas, (void*)0x00101452);
+  lookup(&kas, (void*)3001296);
   printf("table created\n");
   set_cr3(kas.ptr);
   set_cr0(get_cr0() | CR0_PG);
