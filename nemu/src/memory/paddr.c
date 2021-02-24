@@ -122,5 +122,20 @@ void vaddr_write_cross_page(vaddr_t addr, word_t data, int len) {
 }
 
 word_t vaddr_read_cross_page(vaddr_t addr, int len, int type) {
-  TODO();
+  union {
+    uint8_t data8[4];
+    uint16_t data16[2];
+    word_t val;
+  } ret;
+  if (len == 2) {
+    ret.data8[0] = vaddr_read1(addr);
+    ret.data8[1] = vaddr_read1(addr+1);
+  } else if (len == 4) {
+    ret.data16[0] = vaddr_read2(addr);
+    ret.data16[1] = vaddr_read2(addr+2);
+  } else {
+    printf("unexpected len %d\n", len);
+    assert(0);
+  }
+  return ret.val;
 }
