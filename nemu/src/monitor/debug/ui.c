@@ -171,10 +171,12 @@ static int cmd_help(char *args) {
 }
 
 void ui_mainloop() {
+  /*
   if (is_batch_mode()) {
     cmd_c(NULL);
     return;
   }
+  */
 
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
