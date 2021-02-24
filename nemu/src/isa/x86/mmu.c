@@ -15,7 +15,12 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   PTE pte;
   pte.val = paddr_read(page_table, sizeof(PTE));
   assert(pte.present);
-  if (vaddr >= 0x100000 && vaddr <= 0x200000)
-    assert(pte.page_frame_address == BITS(vaddr, 31, 12));
+  if (vaddr >= 0x100000 && vaddr <= 0x200000) {
+    int ret = pte.page_frame_address == BITS(vaddr, 31, 12);
+    if (ret == false) {
+      printf("%d -> %d\n", vaddr, pte.page_frame_address);
+      assert(0);
+    }
+  }
   return pte.page_frame_address << 12;
 }
