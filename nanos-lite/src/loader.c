@@ -31,7 +31,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
     else if (ph.p_type == PT_LOAD) {
       void* new_page(size_t nr_page);
 
-      int pg_n = ROUNDUP(ph.p_memsz, PGSIZE);
+      int pg_n = ROUNDUP(ph.p_memsz, PGSIZE)/PGSIZE;
       void *pg = new_page(pg_n);
       memset(pg, 0, ph.p_memsz);
 
