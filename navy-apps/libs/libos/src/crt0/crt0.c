@@ -11,7 +11,6 @@ void call_main(uintptr_t *args) {
   char **argv = (char**)&args + 1;
   environ = (char**)&args + 1 + argc + 1;
 
-/*
   sbrk(0);
   puts("======CRT0========");
   for (int i = 0; i < argc; i++)
@@ -20,7 +19,6 @@ void call_main(uintptr_t *args) {
     printf("env %s\n", environ[i]);
   puts("=====CRT0 END=====");
   puts("======START=======");
-  */
   exit(main(argc, argv, environ));
   assert(0);
 }
