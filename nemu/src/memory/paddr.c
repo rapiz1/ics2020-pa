@@ -59,11 +59,14 @@ inline void paddr_write(paddr_t addr, word_t data, int len) {
   else map_write(addr, data, len, fetch_mmio_map(addr));
 }
 
+word_t vaddr_read_cross_page(vaddr_t addr, int len, int type) {
+  TODO();
+}
+
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   paddr_t pg_base = isa_mmu_translate(addr, type, len);
   if (pg_base == MEM_RET_CROSS_PAGE) {
-    assert(0);
-    //return vaddr_read_cross_page(addr, type, len);
+    return vaddr_read_cross_page(addr, len, type);
   } else {
     paddr_t paddr = pg_base | GET_OFFSET(addr);
     return paddr_read(paddr, len);
@@ -71,14 +74,17 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   return 0;
 }
 
+void vaddr_write_cross_page(vaddr_t addr, word_t data, int len) {
+  TODO();
+}
+
 void vaddr_mmu_write(vaddr_t addr, word_t data, int len) {
   paddr_t pg_base = isa_mmu_translate(addr, MEM_TYPE_WRITE, len);
   if (pg_base == MEM_RET_CROSS_PAGE) {
-    assert(0);
-    //return vaddr_write_cross_page(addr, data, len);
+    vaddr_write_cross_page(addr, data, len);
   } else {
     paddr_t paddr = pg_base | GET_OFFSET(addr);
-    return paddr_write(paddr, data, len);
+    paddr_write(paddr, data, len);
   }
 }
 
