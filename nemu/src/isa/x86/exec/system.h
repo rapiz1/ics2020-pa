@@ -46,7 +46,6 @@ static inline def_EHelper(int) {
   //TODO();
   raise_intr(s, s->dest.imm, s->seq_pc);
   print_asm("int %s", s->dest.str);
-  isa_reg_display();
 
 #ifndef __DIFF_REF_NEMU__
   difftest_skip_dut(1, 2);
