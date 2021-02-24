@@ -19,12 +19,22 @@ static inline def_EHelper(lidt) {
 }
 
 static inline def_EHelper(mov_r2cr) {
-  TODO();
+  //TODO();
+  if (id_dest->reg == 0)
+    cpu.cr0 = *id_src1->preg;
+  else if (id_dest->reg == 3)
+    cpu.cr3 = *id_src1->preg;
+  else TODO();
   print_asm("movl %%%s,%%cr%d", reg_name(id_src1->reg, 4), id_dest->reg);
 }
 
 static inline def_EHelper(mov_cr2r) {
-  TODO();
+  //TODO();
+  if (id_src1->reg == 0)
+    operand_write(s, id_dest, &cpu.cr0);
+  else if (id_src1->reg == 3)
+    operand_write(s, id_dest, &cpu.cr3);
+  else TODO();
   print_asm("movl %%cr%d,%%%s", id_src1->reg, reg_name(id_dest->reg, 4));
 
 #ifndef __DIFF_REF_NEMU__
