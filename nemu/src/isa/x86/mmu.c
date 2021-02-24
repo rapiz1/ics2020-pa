@@ -13,7 +13,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   PTE pte;
   pte.val = paddr_read(pt_addr + sizeof(PTE)*GET_PAGE(vaddr), sizeof(PTE));
   assert(pte.present);
-  if (vaddr >= 0x100000 && vaddr <= 0x200000) {
+  if (vaddr <= 0x8000000) {
     int ret = pte.page_frame_address == BITS(vaddr, 31, 12);
     if (ret == false) {
       Log("%x -> %x\n", vaddr, pte.page_frame_address);
