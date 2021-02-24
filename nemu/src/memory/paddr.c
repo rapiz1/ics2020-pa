@@ -59,10 +59,7 @@ inline void paddr_write(paddr_t addr, word_t data, int len) {
   else map_write(addr, data, len, fetch_mmio_map(addr));
 }
 
-word_t vaddr_read_cross_page(vaddr_t addr, int len, int type) {
-  TODO();
-}
-
+word_t vaddr_read_cross_page(vaddr_t addr, int len, int type);
 word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   paddr_t pg_base = isa_mmu_translate(addr, type, len);
   if (pg_base == MEM_RET_CROSS_PAGE) {
@@ -74,10 +71,7 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
   return 0;
 }
 
-void vaddr_write_cross_page(vaddr_t addr, word_t data, int len) {
-  TODO();
-}
-
+void vaddr_write_cross_page(vaddr_t addr, word_t data, int len);
 void vaddr_mmu_write(vaddr_t addr, word_t data, int len) {
   paddr_t pg_base = isa_mmu_translate(addr, MEM_TYPE_WRITE, len);
   if (pg_base == MEM_RET_CROSS_PAGE) {
@@ -113,3 +107,18 @@ void concat(vaddr_write, bytes) (vaddr_t addr, word_t data) { \
 def_vaddr_template(1)
 def_vaddr_template(2)
 def_vaddr_template(4)
+
+void vaddr_write_cross_page(vaddr_t addr, word_t data, int len) {
+  assert(len == 2 || len == 4);
+  if (len == 2) {
+    vaddr_write1(addr, data);
+    vaddr_write1(addr+1, data>>8);
+  } else if (len == 4) {
+    vaddr_write2(addr, data);
+    vaddr_write2(addr+2, data>>16);
+  }
+}
+
+word_t vaddr_read_cross_page(vaddr_t addr, int len, int type) {
+  TODO();
+}
