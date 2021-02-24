@@ -8,15 +8,11 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   paddr_t pde_addr = updir + sizeof(PTE)*GET_DIR(vaddr);
   PTE pde;
   pde.val = paddr_read(pde_addr, sizeof(PTE));
-  if (!pde.present) {
-    isa_reg_display();
-    Log("translating 0x%08x", vaddr);
-  }
-  assert(pde.present);
+  if (!pde.present) goto failed;
   paddr_t pt_addr = pde.page_frame_address << 12;
   PTE pte;
   pte.val = paddr_read(pt_addr + sizeof(PTE)*GET_PAGE(vaddr), sizeof(PTE));
-  assert(pte.present);
+  if (!pte.present) goto failed;
   if (vaddr <= 0x8000000) {
     int ret = pte.page_frame_address == BITS(vaddr, 31, 12);
     if (ret == false) {
@@ -25,4 +21,8 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
     }
   }
   return pte.page_frame_address << 12;
+  failed:
+  isa_reg_display();
+  Log("translating 0x%08x", vaddr);
+  assert(0);
 }
