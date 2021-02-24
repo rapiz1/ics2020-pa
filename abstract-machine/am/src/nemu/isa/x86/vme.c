@@ -76,6 +76,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 void lookup(AddrSpace *as, void *va) {
+  // This is only for debugging
   PTE *updir = (PTE*)as->ptr;
   PTE *pde = &updir[GET_DIR(va)];
   assert(pde->present);
