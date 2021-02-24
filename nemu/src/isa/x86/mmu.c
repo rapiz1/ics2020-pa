@@ -8,6 +8,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   paddr_t pde_addr = updir + sizeof(PTE)*GET_DIR(vaddr);
   PTE pde;
   pde.val = paddr_read(pde_addr, sizeof(PTE));
+  if (!pde.present) Log("translating %x", vaddr);
   assert(pde.present);
   paddr_t pt_addr = pde.page_frame_address << 12;
   PTE pte;
