@@ -61,18 +61,17 @@ void __am_switch(Context *c) {
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
   PTE *updir = (PTE*)as->ptr;
-  int dir_index = GET_DIR(va);
-  PTE *dir = &updir[dir_index];
-  if (dir->present == 0) {
-    dir->present = 1;
-    dir->page_frame_address = ((uintptr_t)pgalloc_usr(PGSIZE) >> 12);
+  PTE *pde = &updir[GET_DIR(va)];
+  if (pde->present == 0) {
+    pde->present = 1;
+    pde->page_frame_address = ((uintptr_t)pgalloc_usr(PGSIZE) >> 12);
   }
 
-  PTE *page_table = (PTE*)(dir->page_frame_address<<12);
-  int pg_index = GET_PAGE(va);
-  PTE *pg = &page_table[pg_index];
-  pg->present = 1;
-  pg->page_frame_address = (uintptr_t)pa >> 12;
+  PTE *pt = (PTE*)(pde->page_frame_address<<12);
+  PTE *pte = &pt[GET_PAGE(va)];
+  assert(pte->present == 0);
+  pte->present = 1;
+  pte->page_frame_address = (uintptr_t)pa >> 12;
 }
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
