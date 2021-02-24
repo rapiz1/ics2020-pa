@@ -4,7 +4,6 @@
 paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   if (GET_DIR(vaddr) != GET_DIR(vaddr+len)) return MEM_RET_CROSS_PAGE;
   if (GET_PAGE(vaddr) != GET_PAGE(vaddr+len)) return MEM_RET_CROSS_PAGE;
-  Log("translating 0x%08x, dir %d, page %d", vaddr, (int)GET_DIR(vaddr), (int)GET_PAGE(vaddr));
   paddr_t updir = cpu.cr3;
   paddr_t pde_addr = updir + sizeof(PTE)*GET_DIR(vaddr);
   PTE pde;
