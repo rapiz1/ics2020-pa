@@ -42,7 +42,8 @@ static void sys_lseek(Context *c) {
 }
 
 static void sys_brk(Context *c) {
-  c->GPRx = 0;
+  extern int mm_brk(uintptr_t brk);
+  c->GPRx = mm_brk(c->GPR2);
 }
 
 static void sys_execve(Context *c) {
