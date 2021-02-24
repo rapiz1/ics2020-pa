@@ -92,5 +92,6 @@ Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
   cp->eip = (uint32_t)entry;
   cp->esp = (uint32_t)&cp->irq;
   cp->cs = 8;
+  cp->cr3 = as->ptr;
   return cp;
 }

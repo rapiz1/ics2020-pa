@@ -24,7 +24,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   // Otherwise the string may be overwritten.
 
   //void *st = heap.end, *strp = heap.end;
-  void *st = new_page(8) + PGSIZE*8, *strp = st;
+  void *st_pg = new_page(8);
+  void *st = st_pg + PGSIZE*8, *strp = st;
 
   int envc = 0;
   for(int i = 0; envp && envp[i]; i++) {
@@ -63,13 +64,16 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   st -= sizeof(uint32_t);
   *(uint32_t*)st = argc;
 
+  protect(&pcb->as);
+  map(&pcb->as, pcb->as.area.end - 8*PGSIZE, st_pg, 0);
+
   extern uintptr_t loader(PCB *pcb, const char *filename);
 
   uintptr_t entry = loader(pcb, filename);
 
   assert(entry);
 
-  Context *cp = ucontext(NULL, RANGE(pcb, pcb+1), (void(*)())entry);
+  Context *cp = ucontext(&pcb->as, RANGE(pcb, pcb+1), (void(*)())entry);
   pcb->cp = cp;
 
   cp->GPRx = (uint32_t)st;
@@ -81,10 +85,11 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
 }
 
 void init_proc() {
-  context_kload(&pcb[0], hello_fun, (void*)1);
+  //context_kload(&pcb[0], hello_fun, (void*)1);
   char *argv[] = {"/bin/menu", "HELLO FROM NANOS-LITE", NULL};
   char *envp[] = {"HELLO=NANOS-LITE", "AUTHOR=rapiz", NULL};
-  context_uload(&pcb[1], "/bin/menu", argv, envp);
+  //context_uload(&pcb[1], "/bin/menu", argv, envp);
+  context_uload(&pcb[0], "/bin/dummy", argv, envp);
   switch_boot_pcb();
 
   Log("Initializing processes...");
@@ -102,8 +107,8 @@ Context *schedule(Context *prev) {
   current->cp = prev;
 
   // always select pcb[0] as the new process
-  //current = &pcb[1];
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  current = &pcb[0];
+  //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
   // then return the new context
   return current->cp;

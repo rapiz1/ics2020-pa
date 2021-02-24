@@ -29,10 +29,16 @@ uintptr_t loader(PCB *pcb, const char *filename) {
     fs_read(fd ,&ph, eh.e_phentsize);
     if (ph.p_type == PT_NULL) continue;
     else if (ph.p_type == PT_LOAD) {
-      memset((void*)ph.p_vaddr, 0, ph.p_memsz);
+      void* new_page(size_t nr_page);
+
+      int pg_n = ROUNDUP(ph.p_memsz, PGSIZE);
+      void *pg = new_page(pg_n);
+      memset(pg, 0, ph.p_memsz);
 
       fs_lseek(fd, ph.p_offset, SEEK_SET);
-      fs_read(fd, (void*)ph.p_vaddr, ph.p_filesz);
+      fs_read(fd, pg, ph.p_filesz);
+
+      map(&pcb->as, (void*)ph.p_vaddr, pg, 0);
     }
   }
 

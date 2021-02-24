@@ -28,6 +28,8 @@ inline static void display_context(Context *c) {
 
 Context* __am_irq_handle(Context *c) {
   //display_context(c);
+  extern void __am_get_cur_as(Context *c);
+  __am_get_cur_as(c);
   if (user_handler) {
     Event ev = {0};
     switch (c->irq) {
@@ -39,6 +41,9 @@ Context* __am_irq_handle(Context *c) {
     c = user_handler(ev, c);
     assert(c != NULL);
   }
+
+  extern void __am_switch(Context *c);
+  __am_switch(c);
 
   return c;
 }

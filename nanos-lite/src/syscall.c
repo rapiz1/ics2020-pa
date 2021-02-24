@@ -104,6 +104,7 @@ static void sys_execve(Context *c) {
 }
 
 static void sys_exit(Context *c) {
+  halt(1);
   c->GPRx = 0;
   const char *filename = "/bin/nterm";
   const char *argv[] = {"/bin/nterm", NULL};
