@@ -83,7 +83,7 @@ void lookup(AddrSpace *as, void *va) {
   PTE *pt = (PTE*)(pde->page_frame_address<<12);
   PTE *pte = &pt[GET_PAGE(va)];
   assert(pte->present);
-  printf("lookup %d->%d\n", va, pte->page_frame_address);
+  printf("lookup %d->%d\n", va, pte->page_frame_address<<12);
 }
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
