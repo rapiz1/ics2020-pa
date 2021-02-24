@@ -65,7 +65,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   *(uint32_t*)st = argc;
 
   protect(&pcb->as);
-  map(&pcb->as, pcb->as.area.end - 8*PGSIZE, st_pg, 0);
+  for (int i = 0; i < 8; i++)
+    map(&pcb->as, pcb->as.area.end - 8*PGSIZE + i*PGSIZE, st_pg + i*PGSIZE, 0);
 
   extern uintptr_t loader(PCB *pcb, const char *filename);
 
@@ -75,7 +76,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   Context *cp = ucontext(&pcb->as, RANGE(pcb, pcb+1), (void(*)())entry);
   pcb->cp = cp;
-
+  /* paddr  vaddr
+   * st     st_vaddr
+   * st_pg  as.area.end-8*PGSIZE
+   */
   cp->GPRx = (uint32_t)((st - st_pg) + pcb->as.area.end - 8*PGSIZE);
   void lookup(AddrSpace *as, void *va);
   lookup(&pcb->as, (void*)cp->GPRx);
