@@ -87,7 +87,23 @@ typedef struct {
 } x86_ISADecodeInfo;
 
 #define suffix_char(width) ((width) == 4 ? 'l' : ((width) == 1 ? 'b' : ((width) == 2 ? 'w' : '?')))
-#define isa_vaddr_check(vaddr, type, len) (MEM_RET_OK)
+#define isa_vaddr_check(vaddr, type, len) (BITS(cpu.cr0, 31, 31))
 #define x86_has_mem_exception() (false)
+
+#define GET_DIR(x) BITS((uintptr_t)x, 31, 22)
+#define GET_PAGE(x) BITS((uintptr_t)x, 21, 12)
+#define GET_OFFSET(x) BITS((uintptr_t)x, 11, 0)
+
+typedef union {struct {
+  uint32_t present:1;
+  uint32_t read_write:1;
+  uint32_t user_supervisor:1;
+  uint32_t _reserve1:2;
+  uint32_t accessed:1;
+  uint32_t dirty:1;
+  uint32_t _reserve2:2;
+  uint32_t avail:2;
+  uint32_t page_frame_address:20;
+}; uint32_t val; }PTE;
 
 #endif
