@@ -28,6 +28,7 @@ int mm_brk(uintptr_t brk) {
   extern PCB *current;
   printf("brk called with %u\n", brk);
   if (current->max_brk == 0) {
+    // in crt0.c, the program always call sbrk(0)
     current->max_brk = brk;
     if (ROUNDUP(brk, PGSIZE) == brk) {
       void *pg = new_page(1);
