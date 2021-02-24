@@ -19,6 +19,7 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
 
   kas.ptr = pgalloc_f(PGSIZE);
 
+  printf("start creating page tables\n");
   int i;
   for (i = 0; i < LENGTH(segments); i ++) {
     void *va = segments[i].start;
@@ -27,7 +28,7 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
     }
   }
 
-  printf("table created");
+  printf("table created\n");
   set_cr3(kas.ptr);
   set_cr0(get_cr0() | CR0_PG);
   vme_enable = 1;
