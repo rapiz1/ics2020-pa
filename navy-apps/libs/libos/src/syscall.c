@@ -66,12 +66,16 @@ int _write(int fd, void *buf, size_t count) {
 
 void *_sbrk(intptr_t increment) {
   extern int end;
+  _syscall_(SYS_brk, (uintptr_t)&end, 0, 0);
+  return 0;
+  /*
   static intptr_t prog_break = (intptr_t)&end;
   intptr_t old_break = prog_break;
   prog_break += increment;
   int ret = _syscall_(SYS_brk, prog_break, 0, 0);
   if (ret < 0) return (void*)-1;
   else return (void*)old_break;
+  */
 }
 
 int _read(int fd, void *buf, size_t count) {
