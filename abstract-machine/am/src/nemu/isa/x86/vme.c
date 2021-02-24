@@ -29,6 +29,8 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
     }
   }
 
+  void lookup(AddrSpace *as, void *va);
+  lookup(&kas, (void*)0x00101452);
   printf("table created\n");
   set_cr3(kas.ptr);
   set_cr0(get_cr0() | CR0_PG);
@@ -69,9 +71,19 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 
   PTE *pt = (PTE*)(pde->page_frame_address<<12);
   PTE *pte = &pt[GET_PAGE(va)];
-  assert(pte->present == 0);
   pte->present = 1;
   pte->page_frame_address = (uintptr_t)pa >> 12;
+}
+
+void lookup(AddrSpace *as, void *va) {
+  PTE *updir = (PTE*)as->ptr;
+  PTE *pde = &updir[GET_DIR(va)];
+  assert(pde->present);
+
+  PTE *pt = (PTE*)(pde->page_frame_address<<12);
+  PTE *pte = &pt[GET_PAGE(va)];
+  assert(pte->present);
+  printf("lookup %d->%d\n", va, pte->page_frame_address);
 }
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry) {
