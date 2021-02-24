@@ -65,6 +65,7 @@ void __am_switch(Context *c) {
 }
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
+  assert(GET_OFFSET(va) == GET_OFFSET(pa));
   PTE *updir = (PTE*)as->ptr;
   PTE *pde = &updir[GET_DIR(va)];
   if (pde->present == 0) {
