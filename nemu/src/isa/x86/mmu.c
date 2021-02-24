@@ -4,10 +4,10 @@
 paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   if (GET_DIR(vaddr) != GET_DIR(vaddr+len)) return MEM_RET_CROSS_PAGE;
   if (GET_PAGE(vaddr) != GET_PAGE(vaddr+len)) return MEM_RET_CROSS_PAGE;
+  Log("translating %x, dir %d, page %d", vaddr, (int)GET_DIR(vaddr), (int)GET_PAGE(vaddr));
   paddr_t updir = cpu.cr3;
   int dir_index = GET_DIR(vaddr);
   paddr_t dir = updir + sizeof(PTE)*dir_index;
-  assert(sizeof(PTE) == 4);
   PTE pde;
   pde.val = paddr_read(dir, sizeof(PTE));
   assert(pde.present);
@@ -18,7 +18,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len) {
   if (vaddr >= 0x100000 && vaddr <= 0x200000) {
     int ret = pte.page_frame_address == BITS(vaddr, 31, 12);
     if (ret == false) {
-      printf("%d -> %d\n", vaddr, pte.page_frame_address);
+      Log("%x -> %x\n", vaddr, pte.page_frame_address);
       assert(0);
     }
   }
