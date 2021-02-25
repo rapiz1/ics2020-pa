@@ -113,13 +113,25 @@ void init_proc() {
 }
 
 Context *schedule(Context *prev) {
+  static int timeslice = 0;
+  timeslice++;
   //Log("schedule called");
   // save the context pointer
   current->cp = prev;
 
   // always select pcb[0] as the new process
   //current = &pcb[0];
-  current = (current == &pcb[1] ? &pcb[0] : &pcb[1]);
+  //current = (current == &pcb[1] ? &pcb[0] : &pcb[1]);
+  if (current == &pcb[1]) {
+    if (timeslice >= 10) {
+      timeslice = 0;
+      current = &pcb[0];
+    }
+  } else {
+    timeslice = 0;
+    current = &pcb[1];
+  }
+
   printf("running %d\n", current - pcb);
 
   // then return the new context
