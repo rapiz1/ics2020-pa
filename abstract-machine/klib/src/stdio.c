@@ -30,7 +30,7 @@ int _print_n_str(char **out, const char *s, size_t n) {
 
 int _print_n_digit_base(char **out, uint64_t x, size_t n, size_t base) {
   if (n == 0) return 0;
-  static char buf[32];
+  char buf[32];
   int buf_len = sizeof(buf);
   int digit_len = 0;
   for (int i = 0; i < buf_len; i++) {
@@ -56,7 +56,7 @@ int _print_n_digit_base(char **out, uint64_t x, size_t n, size_t base) {
 
 int _print_n_digit(char **out, long long x, size_t n) {
   if (n == 0) return 0;
-  static char buf[sizeof(int)*8];
+  char buf[sizeof(int)*8];
   int buf_len = sizeof(int)*8;
   int digit_len = 0, neg = 0; 
 
