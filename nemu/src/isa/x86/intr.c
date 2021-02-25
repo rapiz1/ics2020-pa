@@ -1,5 +1,7 @@
 #include <cpu/exec.h>
 #include "local-include/rtl.h"
+#define IRQ_TIMER 32
+#define FL_IF 0x2
 
 void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
@@ -36,11 +38,18 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   rtl_push(s, &cpu.cs);
   rtl_push(s, &ret_addr);
 
+  cpu.eflags &= ~FL_IF;
+
   s->is_jmp = true;
   s->jmp_pc = jmp_pc;
   //Log("int jmp pc %x",jmp_pc);
 }
 
 void query_intr(DecodeExecState *s) {
-  TODO();
+  //TODO();
+  if (cpu.INTR && (cpu.eflags&FL_IF)) {
+    cpu.INTR = false;
+    raise_intr(s, IRQ_TIMER, s->seq_pc);
+    update_pc(s);
+  }
 }
