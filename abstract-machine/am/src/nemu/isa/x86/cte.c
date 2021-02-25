@@ -15,15 +15,15 @@ void __am_vecnull();
 
 
 inline static void display_context(Context *c) {
-  printf("irq context at %d:\n", c);
+  printf("irq context at 0x%x:\n", c);
   printf("\tcr3: 0x%x at 0x%x\n", c->cr3, &(c->cr3));
-  printf("\tedi: %x\t esi:%x \t at %x\n", c->edi, c->esi, &(c->edi));
-  printf("\tebp: %x\t esp:%x\n", c->ebp, c->esp);
-  printf("\tebx: %x\t edx:%x\n", c->ebx, c->edx);
-  printf("\tecx: %x\t eax:%x\n", c->ecx, c->eax);
-  printf("\tirq: %x\n", c->irq);
-  printf("\teip: %x\t cs: %x\n", c->irq, c->cs);
-  printf("\teflags: %d\n", c->eflags);
+  printf("\tedi: 0x%x\t esi:0x%x \t at 0x%x\n", c->edi, c->esi, &(c->edi));
+  printf("\tebp: 0x%x\t esp:0x%x\n", c->ebp, c->esp);
+  printf("\tebx: 0x%x\t edx:0x%x\n", c->ebx, c->edx);
+  printf("\tecx: 0x%x\t eax:0x%x\n", c->ecx, c->eax);
+  printf("\tirq: 0x%x\n", c->irq);
+  printf("\teip: 0x%x\t cs: 0x%x\n", c->irq, c->cs);
+  printf("\teflags: 0x%x\n", c->eflags);
 }
 
 Context* __am_irq_handle(Context *c) {
