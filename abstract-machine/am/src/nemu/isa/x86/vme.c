@@ -60,6 +60,7 @@ void unprotect(AddrSpace *as) {
 
 void __am_get_cur_as(Context *c) {
   c->cr3 = (vme_enable ? (void *)get_cr3() : NULL);
+  printf("cr3 saved 0x%x\n", c->cr3);
 }
 
 void __am_switch(Context *c) {
