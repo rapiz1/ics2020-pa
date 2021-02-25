@@ -80,7 +80,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
   set_gdt(gdt, sizeof(gdt[0]) * NR_SEG);
 
   // initialize TSS
-  printf("tss at 0x%x", &tss);
+  printf("tss at 0x%x\n", &tss);
   tss.ss0 = KSEL(2);
   set_tr(KSEL(5));
 
