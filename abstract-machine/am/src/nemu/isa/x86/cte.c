@@ -42,7 +42,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
 
-  printf("handler return context 0x%x", c);
+  printf("handler return context 0x%x\n", c);
   extern void __am_switch(Context *c);
   __am_switch(c);
 
