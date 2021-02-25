@@ -68,7 +68,7 @@ void __am_switch(Context *c) {
   if (vme_enable && c->cr3 != NULL) {
     printf("cr3 switch to 0x%x\n", c->cr3);
     set_cr3(c->cr3);
-  }
+  } else printf("cr3 in context NULL, not changed\n");
 }
 
 void map(AddrSpace *as, void *va, void *pa, int prot) {
