@@ -16,7 +16,7 @@ void __am_vecnull();
 
 inline static void display_context(Context *c) {
   printf("irq context at %d:\n", c);
-  printf("\tcr3: %d at %d\n", c->cr3, &(c->cr3));
+  printf("\tcr3: 0x%x at 0x%x\n", c->cr3, &(c->cr3));
   printf("\tedi: %d\t esi:%d \t at %d\n", c->edi, c->esi, &(c->edi));
   printf("\tebp: %d\t esp:%d\n", c->ebp, c->esp);
   printf("\tebx: %d\t edx:%d\n", c->ebx, c->edx);
@@ -27,7 +27,7 @@ inline static void display_context(Context *c) {
 }
 
 Context* __am_irq_handle(Context *c) {
-  //display_context(c);
+  display_context(c);
   extern void __am_get_cur_as(Context *c);
   __am_get_cur_as(c);
   if (user_handler) {
