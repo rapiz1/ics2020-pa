@@ -60,10 +60,10 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
     // find tss
     SegDesc tss_desc = get_descriptor(cpu.tr>>3);
     vaddr_t tss_addr = tss_desc.base_15_0 | (tss_desc.base_23_16 << 16) | (tss_desc.base_31_24 << 24);
-    Log("get tss addr at %x", tss_addr);
+    //Log("get tss addr at %x", tss_addr);
     uint32_t esp0 = vaddr_read(tss_addr + 4, 4);
     uint32_t ss0 = vaddr_read(tss_addr + 8, 4);
-    Log("esp0:0x%x ss0:0x%x", esp0, ss0);
+    //Log("esp0:0x%x ss0:0x%x", esp0, ss0);
     // load ss and esp from tss
     cpu.esp = esp0;
     cpu.ss = ss0;
