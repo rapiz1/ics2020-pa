@@ -32,8 +32,9 @@ uintptr_t loader(PCB *pcb, const char *filename) {
       void* new_page(size_t nr_page);
 
       int pg_n = ROUNDUP(ph.p_memsz, PGSIZE)/PGSIZE;
+      assert(pg_n == 1);
       void *pg = new_page(pg_n);
-      memset(pg, 0, ph.p_memsz);
+      memset(pg + GET_OFFSET(ph.p_paddr), 0, ph.p_memsz);
 
       fs_lseek(fd, ph.p_offset, SEEK_SET);
       fs_read(fd, pg + GET_OFFSET(ph.p_vaddr), ph.p_filesz);
