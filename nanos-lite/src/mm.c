@@ -8,7 +8,7 @@ void* new_page(size_t nr_page) {
   void *old_pf = pf;
   pf += nr_page*PGSIZE;
   assert(pf < heap.end);
-  Log("new_page at %p", old_pf);
+  //Log("new_page at %p", old_pf);
   return old_pf;
 }
 

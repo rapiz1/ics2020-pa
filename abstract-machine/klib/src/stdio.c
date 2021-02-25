@@ -141,7 +141,7 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
       } else if (type == 'u') {
         uint32_t x = va_arg(ap, uint32_t);
         n -= _print_n_digit_base(&out, x, n, 10);
-      } else if (type == 'p') {
+      } else if (type == 'p' || type == 'x') {
         uint32_t x = va_arg(ap, uint32_t);
         n -= _print_n_digit_base(&out, x, n, 16);
       }
