@@ -58,6 +58,13 @@ static inline def_EHelper(iret) {
   rtl_pop(s, &cpu.pc);
   rtl_pop(s, &cpu.cs);
   rtl_pop(s, &cpu.eflags);
+  if ((cpu.cs&0x3) == DPL_USER) {
+    rtlreg_t esp, ss;
+    rtl_pop(s, &esp);
+    rtl_pop(s, &ss);
+    cpu.esp = esp;
+    cpu.ss = ss;
+  }
   //Log("iret return to %x", cpu.pc);
   s->is_jmp = true;
   s->jmp_pc = cpu.pc;

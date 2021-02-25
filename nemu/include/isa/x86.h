@@ -107,4 +107,27 @@ typedef union {struct {
   uint32_t page_frame_address:20;
 }; uint32_t val; }PTE;
 
+typedef union {
+  struct {
+    uint32_t lim_15_0   : 16; // Low bits of segment limit
+    uint32_t base_15_0  : 16; // Low bits of segment base address
+    uint32_t base_23_16 :  8; // Middle bits of segment base address
+    uint32_t type       :  4; // Segment type (see STS_ constants)
+    uint32_t s          :  1; // 0 = system, 1 = application
+    uint32_t dpl        :  2; // Descriptor Privilege Level
+    uint32_t p          :  1; // Present
+    uint32_t lim_19_16  :  4; // High bits of segment limit
+    uint32_t avl        :  1; // Unused (available for software use)
+    uint32_t l          :  1; // 64-bit segment
+    uint32_t db         :  1; // 32-bit segment
+    uint32_t g          :  1; // Granularity: limit scaled by 4K when set
+    uint32_t base_31_24 :  8; // High bits of segment base address
+  };
+  uint32_t val[2];
+} SegDesc;
+
+// CPU rings
+#define DPL_KERN       0x0     // Kernel (ring 0)
+#define DPL_USER       0x3     // User (ring 3)
+
 #endif

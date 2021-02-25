@@ -3,6 +3,16 @@
 #define IRQ_TIMER 32
 #define FL_IF 0x2
 
+static inline SegDesc get_descriptor(int sel) {
+  vaddr_t seg_addr = cpu.gdtr + sizeof(SegDesc)*sel;
+  return (SegDesc){
+    .val = {
+      vaddr_read(seg_addr, 4),
+      vaddr_read(seg_addr + 4, 4)
+    }
+  };
+}
+
 void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * That is, use ``NO'' to index the IDT.
@@ -34,9 +44,36 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
   vaddr_t jmp_pc = gt.off_15_0 | (((uint32_t)gt.off_31_16) << 16);
   //Log("gt offset: %x, %x", gt.off_15_0, gt.off_31_16);
 
+  if ((cpu.cs&0x3) == DPL_USER) {
+
+    // Task State Segment (TSS)
+    /*
+    typedef struct {
+      uint32_t link;     // Unused
+      uint32_t esp0;     // Stack pointers and segment selectors
+      uint32_t ss0;      //   after an increase in privilege level
+      uint32_t padding[23];
+    } __attribute__((packed)) TSS32;
+    */
+
+    rtlreg_t old_ss = cpu.ss, old_esp = cpu.esp;
+    // find tss
+    SegDesc tss_desc = get_descriptor(cpu.tr>>3);
+    vaddr_t tss_addr = tss_desc.base_15_0 | (tss_desc.base_23_16 << 16) | (tss_desc.base_31_24 << 24);
+    uint32_t esp0 = vaddr_read(tss_addr + 4, 4);
+    uint32_t ss0 = vaddr_read(tss_addr + 8, 4);
+    // load ss and esp from tss
+    cpu.esp = esp0;
+    cpu.ss = ss0;
+    // push old ss and sp
+    rtl_push(s, &old_ss);
+    rtl_push(s, &old_esp);
+  }
   rtl_push(s, &cpu.eflags);
   rtl_push(s, &cpu.cs);
   rtl_push(s, &ret_addr);
+
+  cpu.cs &= ~0x3; // set ring0
 
   cpu.eflags &= ~FL_IF;
 
