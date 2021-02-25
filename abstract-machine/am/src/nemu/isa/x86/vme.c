@@ -75,7 +75,6 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 
   PTE *pt = (PTE*)(pde->page_frame_address<<12);
   PTE *pte = &pt[GET_PAGE(va)];
-  assert(!pte->present);
   pte->present = 1;
   pte->page_frame_address = (uintptr_t)pa >> 12;
 }
