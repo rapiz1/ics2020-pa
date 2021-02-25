@@ -52,8 +52,7 @@ void protect(AddrSpace *as) {
   as->pgsize = PGSIZE;
   // map kernel space
   memcpy(updir, kas.ptr, PGSIZE);
-  void lookup(AddrSpace *as, void *va);
-  lookup(as, (void*)3001296);
+  printf("new pd created at 0x%x\n", updir);
 }
 
 void unprotect(AddrSpace *as) {
