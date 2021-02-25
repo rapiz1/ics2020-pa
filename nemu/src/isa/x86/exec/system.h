@@ -61,7 +61,7 @@ static inline def_EHelper(iret) {
   //Log("iret return to %x", cpu.pc);
   s->is_jmp = true;
   s->jmp_pc = cpu.pc;
-  print_asm("iret custome:%x %x %x", cpu.pc, cpu.cs, cpu.eflags);
+  print_asm("iret custom:%x %x %x", cpu.pc, cpu.cs, cpu.eflags);
 
 #ifndef __DIFF_REF_NEMU__
   difftest_skip_ref();
