@@ -92,6 +92,7 @@ static void sys_execve(Context *c) {
       goto not_found;
   }
 
+  current->max_brk = 0;
   extern void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
   context_uload(current, filename, argv, env);
 
