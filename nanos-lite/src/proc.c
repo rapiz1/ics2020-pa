@@ -82,7 +82,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
    * st     st_vaddr
    * st_pg  as.area.end-8*PGSIZE
    */
-  cp->GPRx = (uint32_t)((st - st_pg) + pcb->as.area.end - 8*PGSIZE);
+  cp->esp3 = cp->GPRx = (uint32_t)((st - st_pg) + pcb->as.area.end - 8*PGSIZE);
   void lookup(AddrSpace *as, void *va);
   lookup(&pcb->as, (void*)cp->GPRx);
   printf("stack vaddr %x, paddr %x(start from %x)\n", cp->GPRx, st, st_pg);

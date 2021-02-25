@@ -78,6 +78,19 @@ static inline def_EHelper(iret) {
     rtlreg_t esp, ss;
     rtl_pop(s, &esp);
     rtl_pop(s, &ss);
+    // save cpu.esp to tss.esp0
+    vaddr_t tss_desc_addr = cpu.gdtr.base + sizeof(SegDesc)*(cpu.tr>>3);
+    SegDesc tss_desc = {.val={ vaddr_read(tss_desc_addr, 4), vaddr_read(tss_desc_addr + 4, 4)}};
+    /*
+    typedef struct {
+      uint32_t link;     // Unused
+      uint32_t esp0;     // Stack pointers and segment selectors
+      uint32_t ss0;      //   after an increase in privilege level
+      uint32_t padding[23];
+    } __attribute__((packed)) TSS32;
+    */
+    vaddr_t tss_addr = tss_desc.base_15_0 | (tss_desc.base_23_16 << 16) | (tss_desc.base_31_24 << 24);
+    vaddr_write(tss_addr + 4, cpu.esp, 4);
     cpu.esp = esp;
     cpu.ss = ss;
   }
