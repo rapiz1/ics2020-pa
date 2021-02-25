@@ -30,9 +30,26 @@ uintptr_t loader(PCB *pcb, const char *filename) {
     if (ph.p_type == PT_NULL) continue;
     else if (ph.p_type == PT_LOAD) {
       void* new_page(size_t nr_page);
+      void *lookup_map(AddrSpace *as, void *va);
+      for (int i = 0; i < ph.p_memsz;) {
+        void *vaddr = (void*)ph.p_vaddr + i;
+        void *paddr_base = lookup_map(&pcb->as, vaddr);
+        if (paddr_base == NULL) {
+          paddr_base = new_page(1);
+          memset(paddr_base, 0, PGSIZE);
+          map(&pcb->as, vaddr, paddr_base, 0);
+        }
+        fs_lseek(fd, ph.p_offset + i, SEEK_SET);
 
+        int sz = 0;
+        if ((uint32_t)vaddr == ROUNDUP(vaddr, PGSIZE)) sz = PGSIZE;
+        else sz = ROUNDUP(vaddr, PGSIZE) - (uint32_t)vaddr;
+
+        fs_read(fd, paddr_base + GET_OFFSET(vaddr), max(0, min(sz, ph.p_filesz - i)));
+        i += sz;
+      }
+/*
       int pg_n = ROUNDUP(ph.p_memsz, PGSIZE)/PGSIZE;
-      assert(pg_n == 1);
       void *pg = new_page(pg_n);
       memset(pg + GET_OFFSET(ph.p_paddr), 0, ph.p_memsz);
 
@@ -41,6 +58,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
 
       for (int i = 0; i < pg_n; i++)
         map(&pcb->as, (void*)ph.p_vaddr + i*PGSIZE, pg + i*PGSIZE, 0);
+        */
     }
   }
 

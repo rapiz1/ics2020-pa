@@ -84,18 +84,25 @@ void *lookup_map(AddrSpace *as, void *va) {
   // This is only for debugging
   PTE *updir = (PTE*)as->ptr;
   PTE *pde = &updir[GET_DIR(va)];
-  assert(pde->present);
+  if (!pde->present) return NULL;
 
   PTE *pt = (PTE*)(pde->page_frame_address<<12);
   PTE *pte = &pt[GET_PAGE(va)];
-  assert(pte->present);
+  if (!pte->present) return NULL;
   return (void*)((pte->page_frame_address)<<12);
 }
 
 void lookup(AddrSpace *as, void *va) {
   // This is only for debugging
-  void *page_base = lookup_map(as, va);
-  printf("lookup %d->%d\n", va, ((uint32_t)page_base<<12) | GET_OFFSET(va));
+  PTE *updir = (PTE*)as->ptr;
+  PTE *pde = &updir[GET_DIR(va)];
+  assert(pde->present);
+
+  PTE *pt = (PTE*)(pde->page_frame_address<<12);
+  PTE *pte = &pt[GET_PAGE(va)];
+  assert(pte->present);
+  void *page_base = (void*)((pte->page_frame_address)<<12);
+  printf("lookup %d->%d\n", va, (uint32_t)page_base | GET_OFFSET(va));
 }
 
 Context* ucontext(AddrSpace *as, Area kstack, void *entry) {

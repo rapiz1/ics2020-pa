@@ -29,6 +29,8 @@ void   srand     (unsigned int seed);
 int    rand      (void);
 void  *malloc    (size_t size);
 void   free      (void *ptr);
+int    min       (int a, int b);
+int    max       (int a, int b);
 
 // stdio.h
 int    puts(const char* str);
