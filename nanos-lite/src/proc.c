@@ -123,7 +123,7 @@ Context *schedule(Context *prev) {
   //current = &pcb[0];
   //current = (current == &pcb[1] ? &pcb[0] : &pcb[1]);
   if (current == &pcb[1]) {
-    if (timeslice >= 10) {
+    if (timeslice >= 100) {
       timeslice = 0;
       current = &pcb[0];
     }
@@ -132,7 +132,7 @@ Context *schedule(Context *prev) {
     current = &pcb[1];
   }
 
-  printf("running %d\n", current - pcb);
+  //printf("running %d\n", current - pcb);
 
   // then return the new context
   return current->cp;
