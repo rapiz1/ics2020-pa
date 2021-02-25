@@ -84,6 +84,7 @@ Context* kcontext(Area kstack, void (*entry)(void *), void *arg) {
   cp->esp = (uint32_t)&cp->irq;
   cp->cs = 8;
   cp->cr3 = 0;
+  cp->eflags = 0x2;
   return cp;
 }
 
