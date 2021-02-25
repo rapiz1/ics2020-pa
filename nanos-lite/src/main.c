@@ -14,6 +14,8 @@ int main() {
   Log("'Hello World!' from Nanos-lite");
   Log("Build time: %s, %s", __TIME__, __DATE__);
 
+  iset(false);
+
   init_mm();
 
   init_device();
@@ -30,6 +32,7 @@ int main() {
 
   Log("Finish initialization");
   nanos_inited = true;
+  iset(true);
 
 #ifdef HAS_CTE
   yield();
