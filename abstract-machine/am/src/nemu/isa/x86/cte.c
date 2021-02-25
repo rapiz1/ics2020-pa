@@ -27,7 +27,7 @@ inline static void display_context(Context *c) {
 }
 
 Context* __am_irq_handle(Context *c) {
-  display_context(c);
+  //display_context(c);
   extern void __am_get_cur_as(Context *c);
   __am_get_cur_as(c);
   if (user_handler) {
@@ -42,7 +42,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
 
-  printf("handler return context 0x%x\n", c);
+  //printf("handler return context 0x%x\n", c);
   extern void __am_switch(Context *c);
   __am_switch(c);
 
