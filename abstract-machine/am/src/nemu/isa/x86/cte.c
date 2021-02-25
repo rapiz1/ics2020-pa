@@ -17,12 +17,12 @@ void __am_vecnull();
 inline static void display_context(Context *c) {
   printf("irq context at %d:\n", c);
   printf("\tcr3: 0x%x at 0x%x\n", c->cr3, &(c->cr3));
-  printf("\tedi: %d\t esi:%d \t at %d\n", c->edi, c->esi, &(c->edi));
-  printf("\tebp: %d\t esp:%d\n", c->ebp, c->esp);
-  printf("\tebx: %d\t edx:%d\n", c->ebx, c->edx);
-  printf("\tecx: %d\t eax:%d\n", c->ecx, c->eax);
-  printf("\tirq: %d\n", c->irq);
-  printf("\teip: %d\t cs: %d\n", c->irq, c->cs);
+  printf("\tedi: %x\t esi:%x \t at %x\n", c->edi, c->esi, &(c->edi));
+  printf("\tebp: %x\t esp:%x\n", c->ebp, c->esp);
+  printf("\tebx: %x\t edx:%x\n", c->ebx, c->edx);
+  printf("\tecx: %x\t eax:%x\n", c->ecx, c->eax);
+  printf("\tirq: %x\n", c->irq);
+  printf("\teip: %x\t cs: %x\n", c->irq, c->cs);
   printf("\teflags: %d\n", c->eflags);
 }
 
