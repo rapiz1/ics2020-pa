@@ -72,6 +72,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   uintptr_t entry = loader(pcb, filename);
 
+  Log("Entry 0x%x", entry);
+
   assert(entry);
 
   Context *cp = ucontext(&pcb->as, RANGE(pcb, pcb+1), (void(*)())entry);
