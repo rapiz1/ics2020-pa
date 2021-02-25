@@ -32,6 +32,7 @@ int main() {
 
   Log("Finish initialization");
   nanos_inited = true;
+
   iset(true);
 
 #ifdef HAS_CTE

@@ -97,4 +97,6 @@ bool ienabled() {
 }
 
 void iset(bool enable) {
+  if (enable) sti();
+  else cli();
 }
