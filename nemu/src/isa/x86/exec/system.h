@@ -91,6 +91,7 @@ static inline def_EHelper(iret) {
     */
     vaddr_t tss_addr = tss_desc.base_15_0 | (tss_desc.base_23_16 << 16) | (tss_desc.base_31_24 << 24);
     vaddr_write(tss_addr + 4, cpu.esp, 4);
+    Log("write ksp %x to tss", cpu.esp);
     cpu.esp = esp;
     cpu.ss = ss;
   }
