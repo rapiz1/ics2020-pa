@@ -2,6 +2,11 @@
 #include <nemu.h>
 #include <klib.h>
 
+#define Log(format, ...) \
+  printf("\33[1;35m[%s,%d,%s] " format "\33[0m\n", \
+      __FILE__, __LINE__, __func__, ## __VA_ARGS__)
+
+
 static AddrSpace kas = {};
 static void* (*pgalloc_usr)(int) = NULL;
 static void (*pgfree_usr)(void*) = NULL;
@@ -19,11 +24,11 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
 
   kas.ptr = pgalloc_f(PGSIZE);
 
-  printf("start creating page tables\n");
+  Log("Start creating page tables");
   int i;
   for (i = 0; i < LENGTH(segments); i ++) {
     void *va = segments[i].start;
-    printf("kenerl seg [%d, %d)\n", va, segments[i].end);
+    Log("Kenerl seg [%x, %x)\n", va, segments[i].end);
     for (; va < segments[i].end; va += PGSIZE) {
       map(&kas, va, va, 0);
     }
@@ -32,7 +37,7 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
   void lookup(AddrSpace *as, void *va);
   lookup(&kas, (void*)0x00101452);
   lookup(&kas, (void*)3001296);
-  printf("table created\n");
+  Log("Table created");
   set_cr3(kas.ptr);
   set_cr0(get_cr0() | CR0_PG);
   vme_enable = 1;
