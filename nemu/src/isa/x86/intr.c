@@ -46,7 +46,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t ret_addr) {
 }
 
 void query_intr(DecodeExecState *s) {
-  if (cpu.INTR && (cpu.eflags&FL_IF) && cpu.idtr.limit != 0) {
+  if (cpu.INTR && (cpu.eflags&FL_IF)) {
     cpu.INTR = false;
     raise_intr(s, IRQ_TIMER, s->seq_pc);
     update_pc(s);
