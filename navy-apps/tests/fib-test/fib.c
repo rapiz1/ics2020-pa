@@ -9,6 +9,6 @@ int fib(int n) {
 	return fib(n-1) + fib(n-2);
 }
 int main() {
-	for (int i = 0; i < 10; i++) printf("%d:%d\n", i, fib(i));
+	for (int i = 0; i < 32; i++) printf("%d:%d\n", i, fib(i));
 	return 0;
 }
