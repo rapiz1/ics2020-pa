@@ -86,6 +86,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   void lookup(AddrSpace *as, void *va);
   lookup(&pcb->as, (void*)cp->GPRx);
   printf("stack vaddr %x, paddr %x(start from %x)\n", cp->GPRx, st, st_pg);
+  printf("kernel stack paddr ending %x\n", RANGE(pcb, pcb+1).end);
 }
 
 void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
