@@ -33,12 +33,9 @@ uintptr_t loader(PCB *pcb, const char *filename) {
       void *lookup_map(AddrSpace *as, void *va);
       for (int i = 0; i < ph.p_memsz;) {
         void *vaddr = (void*)ph.p_vaddr + i;
-        void *paddr_base = lookup_map(&pcb->as, vaddr);
-        if (paddr_base == NULL) {
-          paddr_base = new_page(1);
-          memset(paddr_base, 0, PGSIZE);
-          map(&pcb->as, vaddr, paddr_base, 0);
-        }
+        void *paddr_base = new_page(1);
+        memset(paddr_base, 0, PGSIZE);
+        map(&pcb->as, vaddr, paddr_base, 0);
         fs_lseek(fd, ph.p_offset + i, SEEK_SET);
 
         int sz = 0;
