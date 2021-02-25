@@ -7,6 +7,7 @@ void init_irq(void);
 void init_fs(void);
 void init_proc(void);
 
+bool nanos_inited;
 int main() {
   extern const char logo[];
   printf("%s", logo);
@@ -28,6 +29,7 @@ int main() {
   init_proc();
 
   Log("Finish initialization");
+  nanos_inited = true;
 
 #ifdef HAS_CTE
   yield();

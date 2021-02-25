@@ -4,11 +4,12 @@
 static Context* do_event(Event e, Context* c) {
   extern void do_syscall(Context *c);
   extern Context *schedule(Context *prev);
-
+  extern bool nanos_inited;
   switch (e.event) {
     case EVENT_SYSCALL: /*Log("Received syscall event %d", c->GPR1);*/ do_syscall(c); break;
     case EVENT_IRQ_TIMER:
     case EVENT_YIELD:
+      if (!nanos_inited) return c;
       //Log("Received yield event");
       c = schedule(c);
       break;
