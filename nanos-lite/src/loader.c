@@ -30,7 +30,6 @@ uintptr_t loader(PCB *pcb, const char *filename) {
     else if (ph.p_type == PT_LOAD) {
       printf("Loading ph#%d at 0x%x\n", i, ph.p_vaddr);
       void* new_page(size_t nr_page);
-      void *lookup_map(AddrSpace *as, void *va);
       for (int i = 0; i < ph.p_memsz;) {
         void *vaddr = (void*)ph.p_vaddr + i;
         void *paddr_base = new_page(1);
