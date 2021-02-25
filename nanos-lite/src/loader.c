@@ -28,6 +28,7 @@ uintptr_t loader(PCB *pcb, const char *filename) {
     fs_read(fd ,&ph, eh.e_phentsize);
     if (ph.p_type == PT_NULL) continue;
     else if (ph.p_type == PT_LOAD) {
+      // NOTE: Assuming only one program segement exists in one page
       printf("Loading ph#%d at 0x%x\n", i, ph.p_vaddr);
       void* new_page(size_t nr_page);
       for (int i = 0; i < ph.p_memsz;) {
