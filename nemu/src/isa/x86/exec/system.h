@@ -18,6 +18,17 @@ static inline def_EHelper(lidt) {
   print_asm_template1(lidt);
 }
 
+static inline def_EHelper(lgdt) {
+  rtlreg_t limit = 0, base = 0;
+  vaddr_t addr = *s->isa.mbase + s->isa.moff;
+  rtl_lm(s, &limit, &addr, 0, 2);
+  rtl_lm(s, &base, &addr, 2, 4);
+  cpu.gdtr.limit = limit;
+  cpu.gdtr.base = base;
+  Log("gdtr base:limit=%x:%x at mem %x", base, limit, addr);
+  print_asm_template1(lgdt);
+}
+
 static inline def_EHelper(mov_r2cr) {
   //TODO();
   if (id_dest->reg == 0)

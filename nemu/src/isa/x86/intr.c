@@ -4,7 +4,7 @@
 #define FL_IF 0x2
 
 static inline SegDesc get_descriptor(int sel) {
-  vaddr_t seg_addr = cpu.gdtr + sizeof(SegDesc)*sel;
+  vaddr_t seg_addr = cpu.gdtr.base + sizeof(SegDesc)*sel;
   return (SegDesc){
     .val = {
       vaddr_read(seg_addr, 4),
