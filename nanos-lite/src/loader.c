@@ -23,12 +23,12 @@ uintptr_t loader(PCB *pcb, const char *filename) {
   assert(eh.e_machine == EXPECT_TYPE);
 
   for (int i = 0; i < eh.e_phnum; i++) {
-    printf("Loading ph#%d\n", i);
     Elf_Phdr ph;
     fs_lseek(fd, eh.e_phoff + i*eh.e_phentsize, SEEK_SET);
     fs_read(fd ,&ph, eh.e_phentsize);
     if (ph.p_type == PT_NULL) continue;
     else if (ph.p_type == PT_LOAD) {
+      printf("Loading ph#%d at 0x%x\n", i, ph.p_vaddr);
       void* new_page(size_t nr_page);
       void *lookup_map(AddrSpace *as, void *va);
       for (int i = 0; i < ph.p_memsz;) {
