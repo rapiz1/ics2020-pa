@@ -106,3 +106,11 @@ static inline def_EHelper(out) {
   };
   print_asm_template2(out);
 }
+
+static inline def_EHelper(cli) {
+  cpu.eflags &= ~0x2;
+}
+
+static inline def_EHelper(sti) {
+  cpu.eflags |= 0x2;
+}
